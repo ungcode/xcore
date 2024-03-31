@@ -1,5 +1,10 @@
 package com.ws.core.interceptors;
 
+/**
+ * CommonInterceptor should be used to handle all global cutting edge concerns
+ * of the application.
+ */
+
 import com.ws.core.util.XcoreLogger;
 
 import jakarta.interceptor.AroundInvoke;
