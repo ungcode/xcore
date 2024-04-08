@@ -11,6 +11,7 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.transaction.Transactional;
 
+// to be removed
 @ApplicationScoped
 @Transactional
 public class PingService {
