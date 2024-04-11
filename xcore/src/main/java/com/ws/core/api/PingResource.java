@@ -33,7 +33,7 @@ public class PingResource {
 		user.setName("user1");
 		user.setPhone("1234333");
 
-		userService.persist(user, password);
+		//userService.persist(user, password);
 
 		return Response.ok().entity(pingService.doPing(address)).build();
 	}
