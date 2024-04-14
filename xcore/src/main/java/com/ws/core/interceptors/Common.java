@@ -12,7 +12,7 @@ import jakarta.interceptor.InterceptorBinding;
 @InterceptorBinding
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ METHOD, TYPE })
-public @interface Timed {
+public @interface Common {
 	
 
 

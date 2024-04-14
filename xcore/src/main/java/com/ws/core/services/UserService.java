@@ -1,9 +1,8 @@
 package com.ws.core.services;
 
 import java.util.Properties;
-
-import com.ws.core.dao.user.UserDao;
-import com.ws.core.interceptors.Timed;
+import com.ws.core.dao.UserDao;
+import com.ws.core.interceptors.Common;
 import com.ws.core.models.Tuser;
 import com.ws.core.security.PasswordManager;
 
@@ -14,7 +13,7 @@ import jakarta.transaction.Transactional;
 
 @ApplicationScoped
 @Transactional
-public class UserService
+public class UserService 
 {
 
 	@Inject
@@ -22,7 +21,7 @@ public class UserService
 	@Inject
 	PasswordManager passwordManager;
 
-	@Timed
+	@Common
 	public Tuser persist(Tuser user, String password)
 	{
 

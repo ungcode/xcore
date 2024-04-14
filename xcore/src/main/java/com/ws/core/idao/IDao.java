@@ -1,4 +1,4 @@
-package com.ws.core.dao;
+package com.ws.core.idao;
 
 import java.util.List;
 

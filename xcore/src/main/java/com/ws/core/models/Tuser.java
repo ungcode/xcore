@@ -1,15 +1,14 @@
 package com.ws.core.models;
 
-import java.io.Serializable;
-import java.util.HashSet;
-import java.util.Set;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
+import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 public class Tuser implements Serializable
@@ -26,8 +25,10 @@ public class Tuser implements Serializable
 	private String salt;
 	private String hash;
 
+
 	@OneToMany(mappedBy = "user")
 	private Set<UserAddress> userAddresses = new HashSet<UserAddress>();
+
 
 	@OneToMany(mappedBy = "user")
 	private Set<UserReview> userReview = new HashSet<>();

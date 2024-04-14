@@ -1,9 +1,7 @@
-package com.ws.core.dao.user;
+package com.ws.core.dao;
 
 import java.util.List;
-
-import com.ws.core.dao.IDao;
-
+import com.ws.core.idao.IDao;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 

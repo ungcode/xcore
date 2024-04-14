@@ -1,22 +1,30 @@
 package com.ws.core.services;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
+import com.ws.core.i18n.I18nConfig;
 import com.ws.core.response.StandardResponse;
+import java.util.Arrays;
 
-public class StandardService <T>{
 
-	
+/**
+ * This is a meddle tie service class by which all concrete services must
+ * inherit from it.
+ * 
+ *
+ * @version 1.0
+ */
+public class StandardService<T> {
+
 	private StandardResponse<?> response;
-	
-	public void setError(int errorCore, int errorLevel, String errorText) {
+
+    public void setError( final int errorCore,
+                          final int errorLevel,
+                          final String errorText )
+    {
 
 		response.setErrorCode(errorCore);
 		response.setErrorLevel(errorLevel);
 		response.setErrorText(errorText);
-		
+
 	}
 
 	public StandardResponse<?> getResponse() {
@@ -27,11 +35,16 @@ public class StandardService <T>{
 		this.response = response;
 	}
 
-	public List<T>asArray(T t){
-		return Arrays.asList(t);
+	public void setError(final int errorCode, 
+						 final int errorLevel, 
+						 final String errorText, 
+						 final StandardResponse<T> response) 
+	{
+		response.setData(Arrays.asList(new String()));
+		setResponse(response);
+		setError(errorCode, 
+				 errorLevel, 
+				 I18nConfig.getMessage(errorText));
 	}
-
-	
-	
 
 }
