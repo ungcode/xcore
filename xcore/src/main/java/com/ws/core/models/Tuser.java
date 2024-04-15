@@ -1,16 +1,21 @@
 package com.ws.core.models;
 
+import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
+
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
-import java.io.Serializable;
-import java.util.HashSet;
-import java.util.Set;
+import jakarta.persistence.Table;
+import jakarta.persistence.Transient;
 
 @Entity
+@Table(name="TUSER")
 public class Tuser implements Serializable
 {
 
@@ -18,20 +23,32 @@ public class Tuser implements Serializable
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
+	
 	private String name;
+	
 	@Column(unique = true)
 	private String email;
+	
 	private String phone;
+	
 	private String salt;
+	
 	private String hash;
+	
+	@Transient
+	private String password;
+	
+	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+	private Set<UserAddress> userAddresses = new HashSet<>();
 
-
-	@OneToMany(mappedBy = "user")
-	private Set<UserAddress> userAddresses = new HashSet<UserAddress>();
-
-
-	@OneToMany(mappedBy = "user")
-	private Set<UserReview> userReview = new HashSet<>();
+	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+	private Set<UserReview> userReviews = new HashSet<>();
+	
+	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+	private Set<Cart> carts = new HashSet<>();
+	
+	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+	private Set<UserPayment> paymentMethods = new HashSet<>();
 
 	public Tuser()
 	{
@@ -110,12 +127,80 @@ public class Tuser implements Serializable
 
 	public Set<UserReview> getUserReview()
 	{
-		return userReview;
+		return userReviews;
 	}
 
 	public void setUserReview(Set<UserReview> userReview)
 	{
-		this.userReview = userReview;
+		this.userReviews = userReview;
+	}
+
+	public Set<UserPayment> getPaymentMethods() {
+		return paymentMethods;
+	}
+
+	public void setPaymentMethods(Set<UserPayment> paymentMethods) {
+		this.paymentMethods = paymentMethods;
+	}
+
+	public Set<UserReview> getUserReviews() {
+		return userReviews;
+	}
+
+	public void setUserReviews(Set<UserReview> userReviews) {
+		this.userReviews = userReviews;
+	}
+
+	public Set<Cart> getCarts() {
+		return carts;
+	}
+
+	public void setCarts(Set<Cart> carts) {
+		this.carts = carts;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	public void merge(Tuser from, Tuser to) {
+
+		to.setName(from.getName());
+		to.setEmail(from.getEmail());
+		to.setPassword(from.getPassword());
+		to.setPhone(from.getPhone());
+
+	}
+
+	@Override
+	public String toString() {
+		StringBuilder builder = new StringBuilder();
+		builder.append("Tuser [id=");
+		builder.append(id);
+		builder.append(", name=");
+		builder.append(name);
+		builder.append(", email=");
+		builder.append(email);
+		builder.append(", phone=");
+		builder.append(phone);
+		builder.append(", salt=");
+		builder.append(salt);
+		builder.append(", hash=");
+		builder.append(hash);
+		builder.append(", userAddresses=");
+		builder.append(userAddresses);
+		builder.append(", userReviews=");
+		builder.append(userReviews);
+		builder.append(", carts=");
+		builder.append(carts);
+		builder.append(", paymentMethods=");
+		builder.append(paymentMethods);
+		builder.append("]");
+		return builder.toString();
 	}
 
 }

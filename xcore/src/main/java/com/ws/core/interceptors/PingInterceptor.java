@@ -9,7 +9,7 @@ import jakarta.interceptor.Interceptor;
 import jakarta.interceptor.InvocationContext;
 
 @Interceptor
-@Timed
+@Common
 public class PingInterceptor {
 
 	private static Long START_TIME = 0L;
