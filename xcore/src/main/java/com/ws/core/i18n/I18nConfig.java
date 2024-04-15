@@ -19,6 +19,14 @@ public class I18nConfig {
 		return bundle.getString(key);
 	}
 	
+    /**
+     * properties by supplied locale
+     * 
+     * @param key lookup message key
+     * @param locale supplied locale
+     * @return message value
+     */
+
 	public  static String getMessage(String key, Locale locale) {
 		ResourceBundle bundle = ResourceBundle.getBundle("messages", locale);
 		return bundle.getString(key);
