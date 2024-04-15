@@ -7,6 +7,8 @@ import org.apache.logging.log4j.Logger;
 public class XcoreLogger {
 	private static final String LOGGER_TYPE = "Xcore";
 	private final static Logger LOGGER = LogManager.getLogger(LOGGER_TYPE);
+    public static final String  END         = "End";
+    public static final String  START       = "Start";
 
 	public static final void info(String location, String message)
 	{

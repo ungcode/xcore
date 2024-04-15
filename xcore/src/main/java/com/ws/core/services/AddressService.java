@@ -1,72 +1,63 @@
 package com.ws.core.services;
 
-import com.ws.core.dao.UserDao;
-import com.ws.core.dto.UserDTO;
+import com.ws.core.dao.AddressDao;
+import com.ws.core.dto.AddressDTO;
 import com.ws.core.interceptors.Common;
-import com.ws.core.models.Tuser;
+import com.ws.core.models.Address;
 import com.ws.core.response.StandardResponse;
-import com.ws.core.security.PasswordManager;
 import com.ws.core.util.Error;
 import com.ws.core.util.XcoreLogger;
 import jakarta.annotation.PostConstruct;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
-import java.util.Properties;
-
 
 @ApplicationScoped
 @Transactional
-public class UserService 
-extends StandardService< Tuser >
+public class AddressService
+    extends StandardService< Address >
 {
 
-	@Inject
-	UserDao<Tuser> dao;
-	@Inject
-	PasswordManager passwordManager;
-    protected UserService        service = null;
+    @Inject
+    protected AddressDao< Address > dao;
+    protected AddressService        service = null;
 
     @PostConstruct
     public void init()
     {
-        service = new UserService();
+        service = new AddressService();
         service.setResponse( getResponse() );
     }
     
     /**
-     * store user data in database
+     * store address data in database
      * 
-     * @param user to be saved
+     * @param address to be saved
      * @return service class operation result
      * @see StandardResponse
      */
 	@Common
-	public UserService persist(Tuser user) 
+	public AddressService persist(Address address) 
 	{
-        final String TAG = "UserService.persist";
+        final String TAG = "AddressService.persist";
 
         try
         {
             XcoreLogger.info( TAG,
                               XcoreLogger.START );
 
-
-			Properties properties = passwordManager.getProperties(user.getPassword());
-			user.setHash(properties.getProperty(PasswordManager.HASHED));
-			user.setSalt(properties.getProperty(PasswordManager.SALT));
-			dao.persist(user);
-			service.setResponse( new StandardResponse< UserDTO >( new UserDTO().mapper( user ) ) );
+			dao.persist(address);
+            service.setResponse( new StandardResponse< AddressDTO >( new AddressDTO().mapper( address ) ) );
 
             XcoreLogger.info( TAG,
                               XcoreLogger.END );
 
 		} catch (Exception e) {
 
-            setError( Error.USER_SERVICE_PERSIST_CODE,
-                      Error.USER_SERVICE_PERSIST_LEVEL,
-                      Error.USER_SERVICE_PERSIST_TEXT,
-					 new StandardResponse<Tuser>());
+            setError( Error.ADDRESS_SERVICE_PERSIST_CODE,
+                      Error.ADDRESS_SERVICE_PERSIST_LEVEL,
+                      Error.ADDRESS_SERVICE_PERSIST_TEXT,
+					 new StandardResponse<Address>());
 
             service.setResponse( getResponse() );
 
@@ -76,30 +67,32 @@ extends StandardService< Tuser >
 
         return service;
 	}
-	/**
-     * updates user with new supplied informations
+
+    /**
+     * updates address with new supplied informations
      * 
-     * @param __new object containing new user information
+     * @param __new object containing new address information
      * @return service class operation result
      * @see StandardResponse
      */
 
-    public UserService update( Tuser __new )
+    public AddressService update( Address __new )
     {
 
-        final String TAG = "UserService.update";
+        final String TAG = "AddressService.update";
         try
         {
             XcoreLogger.info( TAG,
                               XcoreLogger.START );
 
-            Tuser user = dao.fetch( __new.getId());
-            user.merge( __new,
-                             user );
+            Address address = dao.fetch( __new.getId() );
 
-            dao.update( user );
+            address.merge( __new,
+                             address );
 
-            service.setResponse( new StandardResponse< UserDTO >( new UserDTO().mapper( user ) ) );
+            dao.update( address );
+
+            service.setResponse( new StandardResponse< AddressDTO >( new AddressDTO().mapper( address ) ) );
 
             XcoreLogger.info( TAG,
                               XcoreLogger.END );
@@ -108,11 +101,12 @@ extends StandardService< Tuser >
         catch( Exception e )
         {
 
-            setError( Error.USER_SERVICE_UPDATE_CODE,
-                      Error.USER_SERVICE_UPDATE_LEVEL,
-                      Error.USER_SERVICE_UPDATE_TEXT,
-                      new StandardResponse< Tuser >() );
+            setError( Error.ADDRESS_SERVICE_UPDATE_CODE,
+                      Error.ADDRESS_SERVICE_UPDATE_LEVEL,
+                      Error.ADDRESS_SERVICE_UPDATE_TEXT,
+                      new StandardResponse< Address >() );
             service.setResponse( getResponse() );
+
             XcoreLogger.error( TAG,
                               e.getMessage() );
         }
@@ -129,20 +123,20 @@ extends StandardService< Tuser >
      * @see StandardResponse
      */
 
-    public UserService delete( Long id )
+    public AddressService delete( Long id )
     {
 
-        final String TAG = "UserService.delete";
+        final String TAG = "AddressService.delete";
         try
         {
             XcoreLogger.info( TAG,
                               XcoreLogger.START );
 
-            Tuser user = dao.fetch( id );
+            Address address = dao.fetch( id );
 
-            dao.delete( user );
+            dao.delete( address );
 
-            service.setResponse( new StandardResponse< UserDTO >( new UserDTO().mapper( user ) ) );
+            service.setResponse( new StandardResponse< AddressDTO >( new AddressDTO().mapper( address ) ) );
 
             XcoreLogger.info( TAG,
                               XcoreLogger.END );
@@ -151,10 +145,10 @@ extends StandardService< Tuser >
         catch( Exception e )
         {
 
-            setError( Error.USER_SERVICE_DELETE_CODE,
-                      Error.USER_SERVICE_DELETE_LEVEL,
-                      Error.USER_SERVICE_DELETE_TEXT,
-                      new StandardResponse< Tuser >() );
+            setError( Error.ADDRESS_SERVICE_DELETE_CODE,
+                      Error.ADDRESS_SERVICE_DELETE_LEVEL,
+                      Error.ADDRESS_SERVICE_DELETE_TEXT,
+                      new StandardResponse< Address >() );
             service.setResponse( getResponse() );
 
             XcoreLogger.error( TAG,
@@ -172,16 +166,16 @@ extends StandardService< Tuser >
      * @see StandardResponse
      */
 
-    public UserService fetchAll()
+    public AddressService fetchAll()
     {
 
-        final String TAG = "UserService.fetchAll";
+        final String TAG = "AddressService.fetchAll";
         try
         {
             XcoreLogger.info( TAG,
                               XcoreLogger.START );
 
-            service.setResponse( new StandardResponse< UserDTO >( new UserDTO().mapper( dao.fetchAll() ) ) );
+            service.setResponse( new StandardResponse< AddressDTO >( new AddressDTO().mapper( dao.fetchAll() ) ) );
 
             XcoreLogger.info( TAG,
                               XcoreLogger.END );
@@ -189,10 +183,10 @@ extends StandardService< Tuser >
         }
         catch( Exception e )
         {
-            setError( Error.USER_SERVICE_FETCH_ALL_CODE,
-                      Error.USER_SERVICE_FETCH_ALL_LEVEL,
-                      Error.USER_SERVICE_FETCH_ALL_TEXT,
-                      new StandardResponse< Tuser >() );
+            setError( Error.ADDRESS_SERVICE_FETCH_ALL_CODE,
+                      Error.ADDRESS_SERVICE_FETCH_ALL_LEVEL,
+                      Error.ADDRESS_SERVICE_FETCH_ALL_TEXT,
+                      new StandardResponse< Address >() );
             service.setResponse( getResponse() );
             XcoreLogger.error( TAG,
                               e.getMessage() );
@@ -208,16 +202,16 @@ extends StandardService< Tuser >
      * @see StandardResponse
      */
 
-    public UserService fetch( long id )
+    public AddressService fetch( long id )
     {
 
-        final String TAG = "UserService.fetch";
+        final String TAG = "AddressService.fetch";
         try
         {
             XcoreLogger.info( TAG,
                               XcoreLogger.START );
 
-            service.setResponse( new StandardResponse< UserDTO >( new UserDTO().mapper( dao.fetch( id ) ) ) );
+            service.setResponse( new StandardResponse< AddressDTO >( new AddressDTO().mapper( dao.fetch( id ) ) ) );
 
             XcoreLogger.info( TAG,
                               XcoreLogger.END );
@@ -225,10 +219,10 @@ extends StandardService< Tuser >
         }
         catch( Exception e )
         {
-            setError( Error.USER_SERVICE_FETCH_CODE,
-                      Error.USER_SERVICE_FETCH_LEVEL,
-                      Error.USER_SERVICE_FETCH_TEXT,
-                      new StandardResponse< Tuser >() );
+            setError( Error.ADDRESS_SERVICE_FETCH_CODE,
+                      Error.ADDRESS_SERVICE_FETCH_LEVEL,
+                      Error.ADDRESS_SERVICE_FETCH_TEXT,
+                      new StandardResponse< Address >() );
             service.setResponse( getResponse() );
 
             XcoreLogger.error( TAG,
@@ -237,4 +231,5 @@ extends StandardService< Tuser >
         }
         return service;
     }
+
 }

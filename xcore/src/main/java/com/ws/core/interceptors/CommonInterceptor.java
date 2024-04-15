@@ -6,30 +6,36 @@ package com.ws.core.interceptors;
  */
 
 import com.ws.core.util.XcoreLogger;
-
 import jakarta.interceptor.AroundInvoke;
 import jakarta.interceptor.Interceptor;
 import jakarta.interceptor.InvocationContext;
 
 @Interceptor
-@Timed
+@Common
 public class CommonInterceptor
 {
 	private static Long START_TIME = 0L;
 	private static Long END_TIME = 0L;
 
 	@AroundInvoke
-	public Object timeInvocation(InvocationContext ctx) throws Exception
+	public Object commonTaks(InvocationContext ctx) throws Exception
 	{
-		final String TAG = "CommonInterceptor.timeInvocation";
+        final String TAG = "CommonInterceptor.commonTaks";
 
-		START_TIME = System.currentTimeMillis();
-		Object result = ctx.proceed();
-		END_TIME = System.currentTimeMillis() - START_TIME;
+		Object result = duration( ctx );
 		XcoreLogger.info(TAG, " Duration: " + END_TIME.toString());
 
 		return result;
 
 
 }
+
+    private Object duration( InvocationContext ctx )
+        throws Exception
+    {
+        START_TIME = System.currentTimeMillis();
+		Object result = ctx.proceed();
+		END_TIME = System.currentTimeMillis() - START_TIME;
+        return result;
+    }
 }

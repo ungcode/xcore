@@ -2,7 +2,7 @@ package com.ws.core.services;
 
 import java.net.InetAddress;
 
-import com.ws.core.interceptors.Timed;
+import com.ws.core.interceptors.Common;
 import com.ws.core.models.Ping;
 
 import jakarta.enterprise.context.ApplicationScoped;
@@ -11,7 +11,6 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.transaction.Transactional;
 
-// to be removed
 @ApplicationScoped
 @Transactional
 public class PingService {
@@ -31,7 +30,7 @@ public class PingService {
 
 	}
 
-	@Timed
+	@Common
 	public Ping  doPing(String to) {
 		InetAddress inet;
 
