@@ -11,14 +11,12 @@ public class CartDTO
 
 	private Long id;
 
-    private UserDTO           userDTO;
+    private TuserDTO           userDTO;
 	
-	
-    protected List< CartDTO > dtos;
 	
 	public CartDTO() {
 		
-        dtos = new ArrayList< CartDTO >();
+
 	}
 	
 
@@ -32,49 +30,39 @@ public class CartDTO
 	}
 
 
-    public UserDTO getUserDTO()
+    public TuserDTO getUserDTO()
     {
         return userDTO;
     }
 
-    public void setUserDTO( UserDTO userDTO )
+    public void setUserDTO( TuserDTO userDTO )
     {
         this.userDTO = userDTO;
     }
 
-    public List< CartDTO > getDtos()
+    public List< CartDTO > mapper( List< Cart > carts )
     {
+
+        List< CartDTO > dtos = new ArrayList< CartDTO >();
+        carts.forEach( cart -> {
+
+            CartDTO dto = new CartDTO();
+            dto.setId( cart.getId() );
+            dto.setUserDTO( new TuserDTO().mapper( cart.getUser() ) );
+            dtos.add( dto );
+        } );
+
         return dtos;
-    }
 
-    public void setDtos( List< CartDTO > dtos )
-    {
-        this.dtos = dtos;
     }
-
 
     public CartDTO mapper( Cart cart )
     {
 
         CartDTO dto = new CartDTO();
         dto.setId( cart.getId() );
-        dto.setUserDTO( new UserDTO().mapper( cart.getUser() ) );
+        dto.setUserDTO( new TuserDTO().mapper( cart.getUser() ) );
         return dto;
-
-    }
-
-    public List< CartDTO > mapper( List< Cart > carts )
-    {
-
-        carts.forEach( cart -> {
-
-            CartDTO dto = new CartDTO();
-            dto.setId( cart.getId() );
-            dto.setUserDTO( new UserDTO().mapper( cart.getUser() ) );
-            dtos.add( dto );
-        } );
-
-        return dtos;
 
     }
 

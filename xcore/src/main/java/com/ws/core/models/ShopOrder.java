@@ -1,10 +1,5 @@
 package com.ws.core.models;
 
-import java.io.Serializable;
-import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
-
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -17,6 +12,10 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
+import java.io.Serializable;
+import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name="SHOP_ORDER")
@@ -34,7 +33,7 @@ public class ShopOrder implements Serializable {
 	@Column(name="order_status")
 	private String orderStatus;
 	
-	private boolean total;
+    private double            total;
 
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "user_payment_id")
@@ -103,15 +102,18 @@ public class ShopOrder implements Serializable {
 		this.cartItem = cartItem;
 	}
 
-	public boolean isTotal() {
-		return total;
-	}
+    public double getTotal()
+    {
+        return total;
+    }
 
-	public void setTotal(boolean total) {
-		this.total = total;
-	}
+    public void setTotal( double total )
+    {
+        this.total = total;
+    }
 
-	public Set<UserReview> getUserReviews() {
+    public Set< UserReview > getUserReviews()
+    {
 		return userReviews;
 	}
 

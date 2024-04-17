@@ -22,12 +22,9 @@ public class AddressDTO
     private String  postalCode;
     private CountryDTO country;
 
-    protected List< AddressDTO > dtos;
-
 
     public AddressDTO()
     {
-        dtos = new ArrayList< AddressDTO >();
     }
 
     public Long getId()
@@ -122,7 +119,22 @@ public class AddressDTO
 
     public AddressDTO mapper( Address address )
     {
+        return create( address );
+    }
 
+    public List< AddressDTO > mapper( List< Address > addresses )
+    {
+        List< AddressDTO > dtos = new ArrayList< AddressDTO >();
+
+        addresses.forEach( address -> {
+            dtos.add( create( address ) );
+        } );
+
+        return dtos;
+
+    }
+    private AddressDTO create( Address address )
+    {
         AddressDTO dto = new AddressDTO();
         dto.setId( address.getId() );
         dto.setAddressLine1( address.getAddressLine1() );
@@ -136,29 +148,6 @@ public class AddressDTO
                                         address.getCountry()
                                                .getCountryName() ) );
         return dto;
-    }
-
-    public List< AddressDTO > mapper( List< Address > addresses )
-    {
-
-        addresses.forEach( address -> {
-            AddressDTO dto = new AddressDTO();
-            dto.setId( address.getId() );
-            dto.setAddressLine1( address.getAddressLine1() );
-            dto.setAddressLine2( address.getAddressLine2() );
-            dto.setCity( address.getCity() );
-            dto.setPostalCode( address.getPostalCode() );
-            dto.setRegion( address.getRegion() );
-            dto.setStreetNumber( address.getStreetNumber() );
-            dto.setUnitNumber( address.getUnitNumber() );
-            dto.setCountry( new CountryDTO( address.getCountry().getId(),
-                                            address.getCountry()
-                                                   .getCountryName() ) );
-            dtos.add( dto );
-        } );
-
-        return dtos;
-
     }
 
 }

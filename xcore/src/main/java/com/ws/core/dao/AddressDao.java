@@ -46,19 +46,10 @@ public class AddressDao< T >
     @Override
 	public List<Address> fetchAll()
 	{
-        return getEntityManager().createQuery( "select a from Address a ",
+        return getEntityManager().createQuery( "SELECT a FROM Address a ",
                                                Address.class )
                                  .getResultList();
 	}
 
-    public Address findById( Long id )
-    {
-
-        // Session session = HibernateUtility.unwrap( getEntityManager() );
-        org.hibernate.query.Query< Address > query = getSession().createQuery( "from Address a where a.id =:id",
-                                                                          Address.class );
-
-        return query.getSingleResult();
-    }
 	
 }

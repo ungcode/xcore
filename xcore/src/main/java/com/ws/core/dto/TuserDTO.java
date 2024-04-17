@@ -4,7 +4,7 @@ import com.ws.core.models.Tuser;
 import java.util.ArrayList;
 import java.util.List;
 
-public class UserDTO
+public class TuserDTO
 {
 
 	private Long id;
@@ -15,10 +15,8 @@ public class UserDTO
 	
 	private String phone;
 
-    protected List< UserDTO > dtos;
+	public TuserDTO() {
 
-	public UserDTO() {
-        dtos = new ArrayList< UserDTO >();
 	}
 	public Long getId() {
 		return id;
@@ -52,32 +50,32 @@ public class UserDTO
 		this.phone = phone;
 	}
 
-    public UserDTO mapper( Tuser user )
+    public TuserDTO mapper( Tuser user )
     {
 
-    	UserDTO dto = new UserDTO();
+        return create( user );
+    }
+    public List< TuserDTO > mapper( List< Tuser > users)
+    {
+
+        List< TuserDTO > dtos = new ArrayList< TuserDTO >();
+    	users.forEach( user -> {
+
+            dtos.add( create( user ) );
+        } );
+
+        return dtos;
+
+    }
+
+    private TuserDTO create( Tuser user )
+    {
+        TuserDTO dto = new TuserDTO();
         dto.setId( user.getId() );
         dto.setName( user.getName() );
         dto.setEmail( user.getEmail() );
         dto.setPhone( user.getPhone() );
         return dto;
-    }
-
-    public List< UserDTO > mapper( List< Tuser > users)
-    {
-
-    	users.forEach( user -> {
-
-        	UserDTO dto = new UserDTO();
-            dto.setId( user.getId() );
-            dto.setName( user.getName() );
-            dto.setEmail( user.getEmail() );
-            dto.setPhone( user.getPhone() );
-            dtos.add( dto );
-        } );
-
-        return dtos;
-
     }
 
 
