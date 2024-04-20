@@ -50,8 +50,11 @@ public class CategoryDTO {
 
     public CategoryDTO mapper( Category category )
     {
-
-        return create( category );
+        if( category != null )
+        {
+            return create( category );
+        }
+        return create( new Category() );
 
     }
 
@@ -72,6 +75,10 @@ public class CategoryDTO {
     private CategoryDTO create( Category category )
     {
         CategoryDTO dto = new CategoryDTO();
+        if( category == null )
+        {
+            return dto;
+        }
         dto.setId( category.getId() );
         dto.setName( category.getName() );
         dto.setParentCategory( create( category.getParentCategory() ) );

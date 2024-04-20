@@ -1,7 +1,7 @@
 package com.ws.core.api;
 
-import com.ws.core.models.Address;
-import com.ws.core.services.AddressService;
+import com.ws.core.models.Category;
+import com.ws.core.services.CategoryService;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.DELETE;
 import jakarta.ws.rs.GET;
@@ -14,29 +14,31 @@ import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 
 
-@Path( "address" )
-public class AddressResource {
+@Path( "category" )
+public class CategoryResource {
 
 	
     @Inject
-    AddressService addressService;
+    CategoryService categoryService;
 
 
     @POST
     @Produces( MediaType.APPLICATION_JSON )
-    public Response persist( Address address )
+    public Response persist( Category category )
     {
 
-        return Response.ok( addressService.persist( address ) ).build();
+        return Response.ok().entity( categoryService.persist( category ) )
+                       .build();
 
     }
 
     @PUT
     @Produces( MediaType.APPLICATION_JSON )
-    public Response update( Address address )
+    public Response update( Category category )
     {
 
-        return Response.ok( addressService.update( address ) ).build();
+        return Response.ok().entity( categoryService.update( category ) )
+                       .build();
 
     }
 
@@ -46,7 +48,7 @@ public class AddressResource {
     public Response update( @PathParam( "id" ) Long id )
     {
 
-        return Response.ok( addressService.delete( id ) ).build();
+        return Response.ok().entity( categoryService.delete( id ) ).build();
 
     }
 
@@ -55,7 +57,8 @@ public class AddressResource {
     public Response fetchAll()
     {
 
-        return Response.ok().entity( addressService.fetchAll() ).build();
+
+        return Response.ok().entity( categoryService.fetchAll() ).build();
 
     }
 
@@ -65,7 +68,7 @@ public class AddressResource {
     public Response fetch( @PathParam( "id" ) Long id )
     {
 
-        return Response.ok().entity( addressService.fetch( id ) ).build();
+        return Response.ok().entity( categoryService.fetch( id ) ).build();
 
     }
 	
