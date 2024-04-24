@@ -70,5 +70,27 @@ public class Error {
     public static final int    CATEGORY_SERVICE_FETCH_LEVEL     = 1;
     public static final String CATEGORY_SERVICE_FETCH_TEXT      = "CategoryService.fetch.error_text";
 
+    // PRODUCT ERROR PROPERTIES
+
+    public static final int    PRODUCT_SERVICE_PERSIST_CODE     = 422;
+    public static final int    PRODUCT_SERVICE_PERSIST_LEVEL    = 1;
+    public static final String PRODUCT_SERVICE_PERSIST_TEXT     = "ProductService.persist.error_text";
+
+    public static final int    PRODUCT_SERVICE_UPDATE_CODE      = 422;
+    public static final int    PRODUCT_SERVICE_UPDATE_LEVEL     = 1;
+    public static final String PRODUCT_SERVICE_UPDATE_TEXT      = "ProductService.update.error_text";
+
+    public static final int    PRODUCT_SERVICE_DELETE_CODE      = 422;
+    public static final int    PRODUCT_SERVICE_DELETE_LEVEL     = 1;
+    public static final String PRODUCT_SERVICE_DELETE_TEXT      = "ProductService.delete.error_text";
+
+    public static final int    PRODUCT_SERVICE_FETCH_ALL_CODE   = 204;
+    public static final int    PRODUCT_SERVICE_FETCH_ALL_LEVEL  = 1;
+    public static final String PRODUCT_SERVICE_FETCH_ALL_TEXT   = "ProductService.fetchAll.error_text";
+
+    public static final int    PRODUCT_SERVICE_FETCH_CODE       = 204;
+    public static final int    PRODUCT_SERVICE_FETCH_LEVEL      = 1;
+    public static final String PRODUCT_SERVICE_FETCH_TEXT       = "ProductService.fetch.error_text";
+
     
 }
