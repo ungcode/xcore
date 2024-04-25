@@ -1,10 +1,8 @@
 package com.ws.core.services;
 
-import com.ws.core.dao.CategoryDao;
 import com.ws.core.dao.ProductDao;
 import com.ws.core.dto.ProductDTO;
 import com.ws.core.interceptors.Common;
-import com.ws.core.models.Category;
 import com.ws.core.models.Product;
 import com.ws.core.response.StandardResponse;
 import com.ws.core.util.Error;
@@ -22,8 +20,6 @@ public class ProductService
 
     @Inject
     protected ProductDao< Product > dao;
-    @Inject
-    protected CategoryDao< Category > categoryDao;
     protected ProductService        service = null;
 
     @PostConstruct
@@ -50,9 +46,6 @@ public class ProductService
             XcoreLogger.info( TAG,
                               XcoreLogger.START );
 
-            Category category = categoryDao.fetch( product.getCategory()
-                                                          .getId() );
-            product.setCategory( category );
             dao.persist( product );
             service.setResponse( new StandardResponse< ProductDTO >( new ProductDTO().mapper( product ) ) );
 
@@ -70,7 +63,6 @@ public class ProductService
 
             XcoreLogger.error( TAG,
                               e.getMessage() );
-            e.printStackTrace();
 		}
 
         return service;
@@ -235,7 +227,7 @@ public class ProductService
 
             XcoreLogger.error( TAG,
                               e.getMessage() );
-            System.out.println( e.getLocalizedMessage() );
+
 
         }
         return service;

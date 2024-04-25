@@ -230,6 +230,8 @@ public class CategoryService
             XcoreLogger.error( TAG,
                               e.getMessage() );
 
+
+
         }
         return service;
     }

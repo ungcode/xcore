@@ -20,7 +20,7 @@ public class StandardResponse< T >
     private int               errorCode;
 	private int errorLevel;
 	private String errorText;
-	private List<?> Data ;
+    private List< ? >         Data;
 	
 
     public StandardResponse()

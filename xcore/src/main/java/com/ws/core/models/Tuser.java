@@ -1,9 +1,5 @@
 package com.ws.core.models;
 
-import java.io.Serializable;
-import java.util.HashSet;
-import java.util.Set;
-
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -13,6 +9,9 @@ import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.persistence.Transient;
+import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name="TUSER")
@@ -167,7 +166,10 @@ public class Tuser implements Serializable
 		this.password = password;
 	}
 
-	public void merge(Tuser from, Tuser to) {
+
+    public void merge( Tuser from,
+                       Tuser to )
+    {
 
 		to.setName(from.getName());
 		to.setEmail(from.getEmail());
@@ -176,31 +178,5 @@ public class Tuser implements Serializable
 
 	}
 
-	@Override
-	public String toString() {
-		StringBuilder builder = new StringBuilder();
-		builder.append("Tuser [id=");
-		builder.append(id);
-		builder.append(", name=");
-		builder.append(name);
-		builder.append(", email=");
-		builder.append(email);
-		builder.append(", phone=");
-		builder.append(phone);
-		builder.append(", salt=");
-		builder.append(salt);
-		builder.append(", hash=");
-		builder.append(hash);
-		builder.append(", userAddresses=");
-		builder.append(userAddresses);
-		builder.append(", userReviews=");
-		builder.append(userReviews);
-		builder.append(", carts=");
-		builder.append(carts);
-		builder.append(", paymentMethods=");
-		builder.append(paymentMethods);
-		builder.append("]");
-		return builder.toString();
-	}
 
 }

@@ -1,7 +1,5 @@
 package com.ws.core.models;
 
-import java.io.Serializable;
-
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -10,13 +8,14 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import java.io.Serializable;
 
 @Entity
 @Table(name="USER_REVIEW")
 public class UserReview implements Serializable
 {
 
-	private static final long serialVersionUID = 1L;	
+    private static final long serialVersionUID = 1L;
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
@@ -84,6 +83,8 @@ public class UserReview implements Serializable
 	public void setShopOrder(ShopOrder shopOrder) {
 		this.shopOrder = shopOrder;
 	}
+
+
 	
 	
 

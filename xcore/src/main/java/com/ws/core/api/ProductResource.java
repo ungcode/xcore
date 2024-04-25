@@ -43,10 +43,10 @@ public class ProductResource {
     @DELETE
     @Path( "/{id}" )
     @Produces( MediaType.APPLICATION_JSON )
-    public Response update( @PathParam( "id" ) Long id )
+    public Response delete( @PathParam( "id" ) Long id )
     {
 
-        return Response.ok( productService.delete( id ) ).build();
+        return Response.ok().entity( productService.delete( id ) ).build();
 
     }
 

@@ -43,7 +43,7 @@ public class AddressResource {
     @DELETE
     @Path( "/{id}" )
     @Produces( MediaType.APPLICATION_JSON )
-    public Response update( @PathParam( "id" ) Long id )
+    public Response delete( @PathParam( "id" ) Long id )
     {
 
         return Response.ok( addressService.delete( id ) ).build();
