@@ -158,4 +158,26 @@ public class Error {
     public static final int    ITEM_SERVICE_FETCH_LEVEL         = 1;
     public static final String ITEM_SERVICE_FETCH_TEXT          = "ItemService.fetch.error_text";
 
+    // COUNTRY ERROR PROPERTIES
+
+    public static final int    COUNTRY_SERVICE_PERSIST_CODE     = 422;
+    public static final int    COUNTRY_SERVICE_PERSIST_LEVEL    = 1;
+    public static final String COUNTRY_SERVICE_PERSIST_TEXT     = "CountryService.persist.error_text";
+
+    public static final int    COUNTRY_SERVICE_UPDATE_CODE      = 422;
+    public static final int    COUNTRY_SERVICE_UPDATE_LEVEL     = 1;
+    public static final String COUNTRY_SERVICE_UPDATE_TEXT      = "CountryService.update.error_text";
+
+    public static final int    COUNTRY_SERVICE_DELETE_CODE      = 422;
+    public static final int    COUNTRY_SERVICE_DELETE_LEVEL     = 1;
+    public static final String COUNTRY_SERVICE_DELETE_TEXT      = "CountryService.delete.error_text";
+
+    public static final int    COUNTRY_SERVICE_FETCH_ALL_CODE   = 204;
+    public static final int    COUNTRY_SERVICE_FETCH_ALL_LEVEL  = 1;
+    public static final String COUNTRY_SERVICE_FETCH_ALL_TEXT   = "CountryService.fetchAll.error_text";
+
+    public static final int    COUNTRY_SERVICE_FETCH_CODE       = 204;
+    public static final int    COUNTRY_SERVICE_FETCH_LEVEL      = 1;
+    public static final String COUNTRY_SERVICE_FETCH_TEXT       = "CountryService.fetch.error_text";
+
 }

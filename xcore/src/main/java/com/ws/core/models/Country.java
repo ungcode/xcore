@@ -1,14 +1,15 @@
 package com.ws.core.models;
 
-import java.io.Serializable;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.OneToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name="COUNTRY")
@@ -22,8 +23,8 @@ public class Country implements Serializable
 	@Column(name = "country_name")
 	private String countryName;
 	
-	@OneToOne(mappedBy = "country")
-	private Address address;
+    @OneToMany( mappedBy = "country" )
+    private Set< Address >    addresses        = new HashSet< Address >();
 
 	public Country()
 	{
@@ -49,14 +50,23 @@ public class Country implements Serializable
 		this.countryName = countryName;
 	}
 
-	public Address getAddress()
-	{
-		return address;
-	}
 
-	public void setAddress(Address address)
-	{
-		this.address = address;
-	}
+    public Set< Address > getAddresses()
+    {
+        return addresses;
+    }
+
+    public void setAddresses( Set< Address > addresses )
+    {
+        this.addresses = addresses;
+    }
+
+    public void merge( Country from,
+                       Country to )
+    {
+        to.setId( from.getId() );
+        to.setCountryName( from.getCountryName() );
+        to.setAddresses( from.getAddresses() );
+    }
 
 }

@@ -47,12 +47,10 @@ public class CountryDTO
         this.countryName = countryName;
     }
 
-    private CountryDTO create( Country country )
+    public CountryDTO mapper( Country country )
     {
-        CountryDTO dto = new CountryDTO();
-        dto.setId( country.getId() );
-        dto.setCountryName( country.getCountryName() );
-        return dto;
+        return create( country );
+
     }
 
     public List< CountryDTO > mapper( List< Country > countries )
@@ -63,6 +61,14 @@ public class CountryDTO
         } );
         return dtos;
 
+    }
+
+    private CountryDTO create( Country country )
+    {
+        CountryDTO dto = new CountryDTO();
+        dto.setId( country.getId() );
+        dto.setCountryName( country.getCountryName() );
+        return dto;
     }
 
 }
