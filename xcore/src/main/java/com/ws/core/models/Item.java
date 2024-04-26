@@ -1,9 +1,5 @@
 package com.ws.core.models;
 
-import java.io.Serializable;
-import java.util.HashSet;
-import java.util.Set;
-
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -14,6 +10,9 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name="ITEM")
@@ -99,7 +98,18 @@ public class Item implements Serializable {
 	public void setProductItem(Set<ProductItem> productItem) {
 		this.productItems = productItem;
 	}
-	
-	
+
+    public void merge( Item from,
+                       Item to )
+    {
+        to.setId( from.getId() );
+        to.setItemName( from.getItemName() );
+        to.setItemValue( from.getItemValue() );
+        to.setMaterialKey( from.getMaterialKey() );
+        to.setMaterialValue( from.getMaterialValue() );
+        to.setProduct( from.getProduct() );
+        to.setProductItem( from.getProductItem() );
+
+    }
 
 }

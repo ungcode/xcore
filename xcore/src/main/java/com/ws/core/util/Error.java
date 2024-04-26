@@ -136,4 +136,26 @@ public class Error {
     public static final int    SIZE_SERVICE_FETCH_LEVEL         = 1;
     public static final String SIZE_SERVICE_FETCH_TEXT          = "SizeService.fetch.error_text";
 
+    // ITEM ERROR PROPERTIES
+
+    public static final int    ITEM_SERVICE_PERSIST_CODE        = 422;
+    public static final int    ITEM_SERVICE_PERSIST_LEVEL       = 1;
+    public static final String ITEM_SERVICE_PERSIST_TEXT        = "ItemService.persist.error_text";
+
+    public static final int    ITEM_SERVICE_UPDATE_CODE         = 422;
+    public static final int    ITEM_SERVICE_UPDATE_LEVEL        = 1;
+    public static final String ITEM_SERVICE_UPDATE_TEXT         = "ItemService.update.error_text";
+
+    public static final int    ITEM_SERVICE_DELETE_CODE         = 422;
+    public static final int    ITEM_SERVICE_DELETE_LEVEL        = 1;
+    public static final String ITEM_SERVICE_DELETE_TEXT         = "ItemService.delete.error_text";
+
+    public static final int    ITEM_SERVICE_FETCH_ALL_CODE      = 204;
+    public static final int    ITEM_SERVICE_FETCH_ALL_LEVEL     = 1;
+    public static final String ITEM_SERVICE_FETCH_ALL_TEXT      = "ItemService.fetchAll.error_text";
+
+    public static final int    ITEM_SERVICE_FETCH_CODE          = 204;
+    public static final int    ITEM_SERVICE_FETCH_LEVEL         = 1;
+    public static final String ITEM_SERVICE_FETCH_TEXT          = "ItemService.fetch.error_text";
+
 }
