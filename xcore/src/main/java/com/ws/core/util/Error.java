@@ -180,4 +180,26 @@ public class Error {
     public static final int    COUNTRY_SERVICE_FETCH_LEVEL      = 1;
     public static final String COUNTRY_SERVICE_FETCH_TEXT       = "CountryService.fetch.error_text";
 
+    // PRODUCT_ITEM ERROR PROPERTIES
+
+    public static final int    PRODUCT_ITEM_SERVICE_PERSIST_CODE    = 422;
+    public static final int    PRODUCT_ITEM_SERVICE_PERSIST_LEVEL   = 1;
+    public static final String PRODUCT_ITEM_SERVICE_PERSIST_TEXT    = "ProductItemService.persist.error_text";
+
+    public static final int    PRODUCT_ITEM_SERVICE_UPDATE_CODE     = 422;
+    public static final int    PRODUCT_ITEM_SERVICE_UPDATE_LEVEL    = 1;
+    public static final String PRODUCT_ITEM_SERVICE_UPDATE_TEXT     = "ProductItemService.update.error_text";
+
+    public static final int    PRODUCT_ITEM_SERVICE_DELETE_CODE     = 422;
+    public static final int    PRODUCT_ITEM_SERVICE_DELETE_LEVEL    = 1;
+    public static final String PRODUCT_ITEM_SERVICE_DELETE_TEXT     = "ProductItemService.delete.error_text";
+
+    public static final int    PRODUCT_ITEM_SERVICE_FETCH_ALL_CODE  = 204;
+    public static final int    PRODUCT_ITEM_SERVICE_FETCH_ALL_LEVEL = 1;
+    public static final String PRODUCT_ITEM_SERVICE_FETCH_ALL_TEXT  = "ProductItemService.fetchAll.error_text";
+
+    public static final int    PRODUCT_ITEM_SERVICE_FETCH_CODE      = 204;
+    public static final int    PRODUCT_ITEM_SERVICE_FETCH_LEVEL     = 1;
+    public static final String PRODUCT_ITEM_SERVICE_FETCH_TEXT      = "ProductItemService.fetch.error_text";
+
 }
