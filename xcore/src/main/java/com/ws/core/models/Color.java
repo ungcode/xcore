@@ -1,15 +1,14 @@
 package com.ws.core.models;
 
-import java.io.Serializable;
-import java.util.HashSet;
-import java.util.Set;
-
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name="COLOR")
@@ -37,21 +36,35 @@ public class Color implements Serializable {
 		this.id = id;
 	}
 
-	public String getSizeValue() {
-		return colorValue;
-	}
 
-	public void setSizeValue(String sizeValue) {
-		this.colorValue = sizeValue;
-	}
 
-	public Set<ProductItem> getProductEntry() {
-		return productEntries;
-	}
+    public String getColorValue()
+    {
+        return colorValue;
+    }
+
+    public void setColorValue( String colorValue )
+    {
+        this.colorValue = colorValue;
+    }
+
+    public Set< ProductItem > getProductEntries()
+    {
+        return productEntries;
+    }
 
 	public void setProductEntry(Set<ProductItem> productEntry) {
 		this.productEntries = productEntry;
 	}
+
+    public void merge( Color from,
+                       Color to )
+    {
+        to.setId( from.getId() );
+        to.setColorValue( from.getColorValue() );
+        to.setProductEntry( from.getProductEntries() );
+
+    }
 	
 	
 

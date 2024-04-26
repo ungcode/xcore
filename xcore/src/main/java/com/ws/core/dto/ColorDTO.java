@@ -58,7 +58,7 @@ public class ColorDTO
     {
         ColorDTO dto = new ColorDTO();
         dto.setId( color.getId() );
-        dto.setColorValue( color.getSizeValue() );
+        dto.setColorValue( color.getColorValue() );
         return dto;
     }
 

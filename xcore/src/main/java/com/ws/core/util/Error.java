@@ -92,5 +92,48 @@ public class Error {
     public static final int    PRODUCT_SERVICE_FETCH_LEVEL      = 1;
     public static final String PRODUCT_SERVICE_FETCH_TEXT       = "ProductService.fetch.error_text";
 
-    
+    // COLOR ERROR PROPERTIES
+
+    public static final int    COLOR_SERVICE_PERSIST_CODE       = 422;
+    public static final int    COLOR_SERVICE_PERSIST_LEVEL      = 1;
+    public static final String COLOR_SERVICE_PERSIST_TEXT       = "ColorService.persist.error_text";
+
+    public static final int    COLOR_SERVICE_UPDATE_CODE        = 422;
+    public static final int    COLOR_SERVICE_UPDATE_LEVEL       = 1;
+    public static final String COLOR_SERVICE_UPDATE_TEXT        = "ColorService.update.error_text";
+
+    public static final int    COLOR_SERVICE_DELETE_CODE        = 422;
+    public static final int    COLOR_SERVICE_DELETE_LEVEL       = 1;
+    public static final String COLOR_SERVICE_DELETE_TEXT        = "ColorService.delete.error_text";
+
+    public static final int    COLOR_SERVICE_FETCH_ALL_CODE     = 204;
+    public static final int    COLOR_SERVICE_FETCH_ALL_LEVEL    = 1;
+    public static final String COLOR_SERVICE_FETCH_ALL_TEXT     = "ColorService.fetchAll.error_text";
+
+    public static final int    COLOR_SERVICE_FETCH_CODE         = 204;
+    public static final int    COLOR_SERVICE_FETCH_LEVEL        = 1;
+    public static final String COLOR_SERVICE_FETCH_TEXT         = "ColorService.fetch.error_text";
+
+    // SIZE ERROR PROPERTIES
+
+    public static final int    SIZE_SERVICE_PERSIST_CODE        = 422;
+    public static final int    SIZE_SERVICE_PERSIST_LEVEL       = 1;
+    public static final String SIZE_SERVICE_PERSIST_TEXT        = "SizeService.persist.error_text";
+
+    public static final int    SIZE_SERVICE_UPDATE_CODE         = 422;
+    public static final int    SIZE_SERVICE_UPDATE_LEVEL        = 1;
+    public static final String SIZE_SERVICE_UPDATE_TEXT         = "SizeService.update.error_text";
+
+    public static final int    SIZE_SERVICE_DELETE_CODE         = 422;
+    public static final int    SIZE_SERVICE_DELETE_LEVEL        = 1;
+    public static final String SIZE_SERVICE_DELETE_TEXT         = "SizeService.delete.error_text";
+
+    public static final int    SIZE_SERVICE_FETCH_ALL_CODE      = 204;
+    public static final int    SIZE_SERVICE_FETCH_ALL_LEVEL     = 1;
+    public static final String SIZE_SERVICE_FETCH_ALL_TEXT      = "SizeService.fetchAll.error_text";
+
+    public static final int    SIZE_SERVICE_FETCH_CODE          = 204;
+    public static final int    SIZE_SERVICE_FETCH_LEVEL         = 1;
+    public static final String SIZE_SERVICE_FETCH_TEXT          = "SizeService.fetch.error_text";
+
 }
