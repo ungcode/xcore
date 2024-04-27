@@ -202,4 +202,26 @@ public class Error {
     public static final int    PRODUCT_ITEM_SERVICE_FETCH_LEVEL     = 1;
     public static final String PRODUCT_ITEM_SERVICE_FETCH_TEXT      = "ProductItemService.fetch.error_text";
 
+    // CART ERROR PROPERTIES
+
+    public static final int    CART_SERVICE_PERSIST_CODE            = 422;
+    public static final int    CART_SERVICE_PERSIST_LEVEL           = 1;
+    public static final String CART_SERVICE_PERSIST_TEXT            = "CartService.persist.error_text";
+
+    public static final int    CART_SERVICE_UPDATE_CODE             = 422;
+    public static final int    CART_SERVICE_UPDATE_LEVEL            = 1;
+    public static final String CART_SERVICE_UPDATE_TEXT             = "CartService.update.error_text";
+
+    public static final int    CART_SERVICE_DELETE_CODE             = 422;
+    public static final int    CART_SERVICE_DELETE_LEVEL            = 1;
+    public static final String CART_SERVICE_DELETE_TEXT             = "CartService.delete.error_text";
+
+    public static final int    CART_SERVICE_FETCH_ALL_CODE          = 204;
+    public static final int    CART_SERVICE_FETCH_ALL_LEVEL         = 1;
+    public static final String CART_SERVICE_FETCH_ALL_TEXT          = "CartService.fetchAll.error_text";
+
+    public static final int    CART_SERVICE_FETCH_CODE              = 204;
+    public static final int    CART_SERVICE_FETCH_LEVEL             = 1;
+    public static final String CART_SERVICE_FETCH_TEXT              = "CartService.fetch.error_text";
+
 }
