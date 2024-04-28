@@ -76,6 +76,16 @@ public class UserAddress implements Serializable
 	{
 		this.isDefault = isDefault;
 	}
+
+    public void merge( UserAddress from,
+                       UserAddress to )
+    {
+        to.setId( from.getId() );
+        to.setDefault( to.isDefault() );
+        to.setUser( from.getUser() );
+        to.setAddress( from.getAddress() );
+
+    }
 	
 	
 

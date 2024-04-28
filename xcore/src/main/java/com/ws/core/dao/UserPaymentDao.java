@@ -27,7 +27,7 @@ public class UserPaymentDao< T >
 	@Override
     public void update( UserPayment userPayment )
 	{
-        addDependent( userPayment );
+        add( userPayment );
         getEntityManager().merge( userPayment );
 	}
 
@@ -57,7 +57,7 @@ public class UserPaymentDao< T >
                                  .getResultList();
 	}
 
-    private void addDependent( UserPayment userPayment )
+    private void add( UserPayment userPayment )
     {
         if( userPayment.getUser() != null
             && userPayment.getUser().getId() != null )
