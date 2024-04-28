@@ -267,4 +267,28 @@ public class Error {
     public static final int    SHIPPING_ADDRESS_SERVICE_FETCH_LEVEL     = 1;
     public static final String SHIPPING_ADDRESS_SERVICE_FETCH_TEXT      = "ShippingAddress.fetch.error_text";
 
+    // USER_PAYMENT ERROR PROPERTIES
+    public static final int    USER_PAYMENT_SERVICE_PERSIST_CODE    = 422;
+    public static final int    USER_PAYMENT_SERVICE_PERSIST_LEVEL   = 1;
+    public static final String USER_PAYMENT_SERVICE_PERSIST_TEXT    = "UserPayment.persist.error_text";
+
+    public static final int    USER_PAYMENT_SERVICE_UPDATE_CODE     = 422;
+    public static final int    USER_PAYMENT_SERVICE_UPDATE_LEVEL    = 1;
+    public static final String USER_PAYMENT_SERVICE_UPDATE_TEXT     = "UserPayment.update.error_text";
+
+    public static final int    USER_PAYMENT_SERVICE_DELETE_CODE     = 422;
+    public static final int    USER_PAYMENT_SERVICE_DELETE_LEVEL    = 1;
+    public static final String USER_PAYMENT_SERVICE_DELETE_TEXT     = "UserPayment.delete.error_text";
+
+    public static final int    USER_PAYMENT_SERVICE_FETCH_ALL_CODE  = 204;
+    public static final int    USER_PAYMENT_SERVICE_FETCH_ALL_LEVEL = 1;
+    public static final String USER_PAYMENT_SERVICE_FETCH_ALL_TEXT  = "UserPayment.fetchAll.error_text";
+
+    public static final int    USER_PAYMENT_SERVICE_FETCH_CODE      = 204;
+    public static final int    USER_PAYMENT_SERVICE_FETCH_LEVEL     = 1;
+    public static final String USER_PAYMENT_SERVICE_FETCH_TEXT      = "UserPayment.fetch.error_text";
+
+    
+    
+
 }
