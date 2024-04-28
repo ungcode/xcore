@@ -84,6 +84,16 @@ public class UserReview implements Serializable
 		this.shopOrder = shopOrder;
 	}
 
+    public void merge( UserReview from,
+                       UserReview to )
+    {
+
+        to.setId( from.getId() );
+        to.setComment( from.getComment() );
+        to.setRating( from.getRating() );
+        to.setShopOrder( from.getShopOrder() );
+        to.setUser( from.getUser() );
+    }
 
 	
 	
