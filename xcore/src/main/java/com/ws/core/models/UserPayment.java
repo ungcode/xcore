@@ -21,7 +21,7 @@ public class UserPayment implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private long id;
+    private Long              id;
 
 	private boolean isDefault;
 
@@ -40,7 +40,8 @@ public class UserPayment implements Serializable {
 
 	}
 
-	public long getId() {
+    public Long getId()
+    {
 		return id;
 	}
 

@@ -120,6 +120,20 @@ public class ShopOrder implements Serializable {
 	public void setUserReviews(Set<UserReview> userReviews) {
 		this.userReviews = userReviews;
 	}
+
+    public void merge( ShopOrder from,
+                       ShopOrder to )
+    {
+        to.setId( from.getId() );
+        to.setTotal( from.getTotal() );
+        to.setOrderDate( from.getOrderDate() );
+        to.setOrderStatus( from.getOrderStatus() );
+        to.setUserPayment( from.getUserPayment() );
+        to.setCartItem( from.getCartItem() );
+        to.setShippingAddress( from.getShippingAddress() );
+        to.setUserReviews( from.getUserReviews() );
+
+    }
 	
 	
 
