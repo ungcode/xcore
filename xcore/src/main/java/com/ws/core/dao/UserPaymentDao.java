@@ -1,7 +1,9 @@
 
 package com.ws.core.dao;
 import com.ws.core.idao.Dao;
+import com.ws.core.models.Tuser;
 import com.ws.core.models.UserPayment;
+import jakarta.inject.Inject;
 import jakarta.persistence.Query;
 import jakarta.transaction.Transactional;
 import java.util.List;
@@ -12,9 +14,12 @@ public class UserPaymentDao< T >
     extends Dao< UserPayment >
 {
 
+    @Inject
+    private UserDao< Tuser > userDao;
 	@Override
     public void persist( UserPayment userPayment )
 	{
+
         getEntityManager().persist( userPayment );
 
 	}
@@ -22,6 +27,7 @@ public class UserPaymentDao< T >
 	@Override
     public void update( UserPayment userPayment )
 	{
+        addDependent( userPayment );
         getEntityManager().merge( userPayment );
 	}
 
@@ -50,6 +56,16 @@ public class UserPaymentDao< T >
                                                UserPayment.class )
                                  .getResultList();
 	}
+
+    private void addDependent( UserPayment userPayment )
+    {
+        if( userPayment.getUser() != null
+            && userPayment.getUser().getId() != null )
+        {
+            Tuser user = userDao.fetch( userPayment.getUser().getId() );
+            userPayment.setUser( user );
+        }
+    }
 
 	
 }

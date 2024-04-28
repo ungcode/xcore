@@ -10,10 +10,6 @@ public class UserDao< T >
     extends Dao< Tuser >
 {
 
-    // @PersistenceContext
-    // private EntityManager em;
-
-
 	@Override
 	public void persist(Tuser tuser)
 	{

@@ -18,24 +18,17 @@ public class ItemDao< T >
 	@Override
     public void persist( Item item )
 	{
-        handleProduct( item );
+
         getEntityManager().persist( item );
 
 	}
 
-    private void handleProduct( Item item )
-    {
-        if( item.getProduct() != null
-            && item.getProduct().getId() != null )
-        {
-            Product product = productDao.fetch( item.getProduct().getId() );
-            item.setProduct( product );
-        }
-    }
+
 
 	@Override
     public void update( Item item )
 	{
+        add( item );
         getEntityManager().merge( item );
 	}
 
@@ -64,6 +57,16 @@ public class ItemDao< T >
                                                Item.class )
                                  .getResultList();
 	}
+
+    private void add( Item item )
+    {
+        if( item.getProduct() != null
+            && item.getProduct().getId() != null )
+        {
+            Product product = productDao.fetch( item.getProduct().getId() );
+            item.setProduct( product );
+        }
+    }
 
 	
 }

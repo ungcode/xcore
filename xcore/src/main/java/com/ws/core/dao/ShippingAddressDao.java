@@ -1,7 +1,9 @@
 
 package com.ws.core.dao;
 import com.ws.core.idao.Dao;
+import com.ws.core.models.Address;
 import com.ws.core.models.ShippingAddress;
+import jakarta.inject.Inject;
 import jakarta.persistence.Query;
 import jakarta.transaction.Transactional;
 import java.util.List;
@@ -12,6 +14,8 @@ public class ShippingAddressDao< T >
     extends Dao< ShippingAddress >
 {
 
+    @Inject
+    private AddressDao< Address > addressDao;
 	@Override
     public void persist( ShippingAddress shoppingAddress )
 	{
@@ -22,6 +26,7 @@ public class ShippingAddressDao< T >
 	@Override
     public void update( ShippingAddress shoppingAddress )
 	{
+        add( shoppingAddress );
         getEntityManager().merge( shoppingAddress );
 	}
 
@@ -50,6 +55,17 @@ public class ShippingAddressDao< T >
                                                ShippingAddress.class )
                                  .getResultList();
 	}
+
+    private void add( ShippingAddress shippingAddress )
+    {
+        if( shippingAddress.getAddress() != null
+            && shippingAddress.getAddress().getId() != null )
+        {
+            Address address = addressDao.fetch( shippingAddress.getAddress()
+                                                               .getId() );
+            shippingAddress.setAddress( address );
+        }
+    }
 
 	
 }
