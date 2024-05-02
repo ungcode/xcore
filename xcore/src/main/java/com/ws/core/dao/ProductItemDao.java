@@ -58,12 +58,12 @@ public class ProductItemDao< T >
 
     private void add( ProductItem productItem )
     {
-        if( productItem.getEntry() != null
-            && productItem.getEntry().getId() != null )
+        if( productItem.getItem() != null
+            && productItem.getItem().getId() != null )
         {
-            Item item = itemDao.fetch( productItem.getEntry().getProduct()
+            Item item = itemDao.fetch( productItem.getItem().getProduct()
                                                   .getId() );
-            productItem.setEntry( item );
+            productItem.setItem( item );
         }
     }
 

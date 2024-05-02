@@ -30,6 +30,12 @@ public class ProductItem implements Serializable {
 	
 	private double price;
 	
+    private double            discountPrice;
+
+    private double            discount;
+
+
+
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "item_id")
 	private Item item;
@@ -97,11 +103,11 @@ public class ProductItem implements Serializable {
 		this.color = color;
 	}
 
-	public Item getEntry() {
+	public Item getItem() {
 		return item;
 	}
 
-	public void setEntry(Item entry) {
+	public void setItem(Item entry) {
 		this.item = entry;
 	}
 	
@@ -113,6 +119,26 @@ public class ProductItem implements Serializable {
 		this.cartItems = cartItem;
 	}
 
+    public double getDiscountPrice()
+    {
+        return discountPrice;
+    }
+
+    public void setDiscountPrice( double discountPrice )
+    {
+        this.discountPrice = discountPrice;
+    }
+
+    public double getDiscount()
+    {
+        return discount;
+    }
+
+    public void setDiscount( double discount )
+    {
+        this.discount = discount;
+    }
+
     public void merge( ProductItem from,
                        ProductItem to )
     {
@@ -120,11 +146,13 @@ public class ProductItem implements Serializable {
         to.setId( from.getId() );
         to.setCartItem( from.getCartItem() );
         to.setColor( from.getColor() );
-        to.setEntry( from.getEntry() );
+        to.setItem( from.getItem() );
         to.setPrice( from.getPrice() );
         to.setQtInStock( from.getQtInStock() );
         to.setSize( from.getSize() );
         to.setSku( from.getSku() );
+        to.setDiscount( from.getDiscount() );
+        to.setDiscountPrice( from.getDiscountPrice() );
     }
 
 

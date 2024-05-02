@@ -26,6 +26,10 @@ public class Product implements Serializable{
 	
 	private String description;
 	
+    @ManyToOne( cascade = CascadeType.ALL )
+    @JoinColumn( name = "brand_id" )
+    private Brand             brand;
+
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "category_id")
 	private Category category;
@@ -66,14 +70,37 @@ public class Product implements Serializable{
 		this.items = entry;
 	}
 
+
+    public Brand getBrand()
+    {
+        return brand;
+    }
+
+    public void setBrand( Brand brand )
+    {
+        this.brand = brand;
+    }
+
+    public Set< Item > getItems()
+    {
+        return items;
+    }
+
+    public void setItems( Set< Item > items )
+    {
+        this.items = items;
+    }
     public void merge( Product from,
                        Product to )
     {
-        to.setName( from.getName() );
+
         to.setId( from.getId() );
+        to.setName( from.getName() );
         to.setCategory( from.getCategory() );
         to.setDescription( from.getDescription() );
         to.setEntry( from.getEntry() );
+        to.setBrand( from.getBrand() );
+        to.setItems( from.getItems() );
 
     }
 

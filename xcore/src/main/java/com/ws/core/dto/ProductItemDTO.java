@@ -123,7 +123,7 @@ public class ProductItemDTO
         dto.setPrice( productItem.getPrice() );
         dto.setQtInStock( productItem.getQtInStock() );
         dto.setSku( productItem.getSku() );
-        dto.setItem( new ItemDTO().mapper( productItem.getEntry() ) );
+        dto.setItem( new ItemDTO().mapper( productItem.getItem() ) );
         dto.setColor( new ColorDTO().mapper( productItem.getColor() ) );
         dto.setSize( new SizeDTO().mapper( productItem.getSize() ) );
         return dto;

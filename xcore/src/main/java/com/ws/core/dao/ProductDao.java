@@ -1,6 +1,7 @@
 
 package com.ws.core.dao;
 import com.ws.core.idao.Dao;
+import com.ws.core.models.Brand;
 import com.ws.core.models.Category;
 import com.ws.core.models.Product;
 import jakarta.inject.Inject;
@@ -13,6 +14,9 @@ import java.util.List;
 public class ProductDao< T >
     extends Dao< Product >
 {
+
+    @Inject
+    protected BrandDao< Brand >       brandDao;
     @Inject
     protected CategoryDao< Category > categoryDao;
 	@Override
@@ -64,6 +68,13 @@ public class ProductDao< T >
             Category category = categoryDao.fetch( product.getCategory()
                                                           .getId() );
             product.setCategory( category );
+        }
+
+        if( product.getBrand() != null
+            && product.getBrand().getId() != null )
+        {
+            Brand brand = brandDao.fetch( product.getBrand().getId() );
+            product.setBrand( brand );
         }
     }
 

@@ -351,5 +351,25 @@ public class Error {
     public static final int    USER_REVIEW_SERVICE_FETCH_LEVEL          = 1;
     public static final String USER_REVIEW_SERVICE_FETCH_TEXT           = "UserReview.fetch.error_text";
     
+    // BRAND ERROR PROPERTIES
+    public static final int    BRAND_SERVICE_PERSIST_CODE               = 422;
+    public static final int    BRAND_SERVICE_PERSIST_LEVEL              = 1;
+    public static final String BRAND_SERVICE_PERSIST_TEXT               = "Brand.persist.error_text";
+
+    public static final int    BRAND_SERVICE_UPDATE_CODE                = 422;
+    public static final int    BRAND_SERVICE_UPDATE_LEVEL               = 1;
+    public static final String BRAND_SERVICE_UPDATE_TEXT                = "Brand.update.error_text";
+
+    public static final int    BRAND_SERVICE_DELETE_CODE                = 422;
+    public static final int    BRAND_SERVICE_DELETE_LEVEL               = 1;
+    public static final String BRAND_SERVICE_DELETE_TEXT                = "Brand.delete.error_text";
+
+    public static final int    BRAND_SERVICE_FETCH_ALL_CODE             = 204;
+    public static final int    BRAND_SERVICE_FETCH_ALL_LEVEL            = 1;
+    public static final String BRAND_SERVICE_FETCH_ALL_TEXT             = "Brand.fetchAll.error_text";
+
+    public static final int    BRAND_SERVICE_FETCH_CODE                 = 204;
+    public static final int    BRAND_SERVICE_FETCH_LEVEL                = 1;
+    public static final String BRAND_SERVICE_FETCH_TEXT                 = "Brand.fetch.error_text";
 
 }
