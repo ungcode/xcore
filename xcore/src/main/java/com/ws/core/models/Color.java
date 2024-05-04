@@ -22,7 +22,7 @@ public class Color implements Serializable {
 	private String colorValue;
 	
 	@OneToMany(mappedBy = "color")
-	private Set<ProductItem> productEntries = new HashSet<>();
+	private Set<Product> productEntries = new HashSet<>();
 
 	public Color() {
 		
@@ -48,12 +48,12 @@ public class Color implements Serializable {
         this.colorValue = colorValue;
     }
 
-    public Set< ProductItem > getProductEntries()
+    public Set< Product > getProductEntries()
     {
         return productEntries;
     }
 
-	public void setProductEntry(Set<ProductItem> productEntry) {
+	public void setProductEntry(Set<Product> productEntry) {
 		this.productEntries = productEntry;
 	}
 

@@ -8,36 +8,39 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import java.io.Serializable;
-import java.util.HashSet;
-import java.util.Set;
 
+
+/**
+ * Properties should hold other related product entries such as
+ * images ULRs . Images for example should be stored inform of
+ * pro_key : _img_x where "x" is a number and _cover_img for image
+ * representing the product cover
+ * 
+ *
+ * @version 1.0
+ */
 @Entity
-@Table(name="ITEM")
-public class Item implements Serializable {
+@Table( name = "PRODUCT_PROPERTIES" )
+public class Properties implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 	
-	@Column(name="item_name")
-	private String itemName;
+    @Column( name = "prop_name" )
+	private String name;
 	
-	@Column(name="item_value")
-	private String itemValue;
+    @Column( name = "prop_value" )
+	private String value;
 	
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "product_id")
-	private Product product;
+    private Product           product;
 	
-	@OneToMany(mappedBy = "item")
-	private Set<ProductItem> productItems = new HashSet<>();
-	
-
-	public Item() {
+	public Properties() {
 		
 	}
 
@@ -52,55 +55,51 @@ public class Item implements Serializable {
 	
 
 	public String getMaterialKey() {
-		return itemName;
+		return name;
 	}
 
 	public void setMaterialKey(String materialKey) {
-		this.itemName = materialKey;
+		this.name = materialKey;
 	}
 
 	public String getMaterialValue() {
-		return itemValue;
+		return value;
 	}
 
 	public void setMaterialValue(String materialValue) {
-		this.itemValue = materialValue;
+		this.value = materialValue;
 	}
 
 	public String getItemName() {
-		return itemName;
+		return name;
 	}
 
 	public void setItemName(String entry) {
-		this.itemName = entry;
+		this.name = entry;
 	}
 
 	public String getItemValue() {
-		return itemValue;
+		return value;
 	}
 
 	public void setItemValue(String eValue) {
-		this.itemValue = eValue;
+		this.value = eValue;
 	}
 
-	public Product getProduct() {
+    public Product getProduct()
+    {
 		return product;
 	}
 
-	public void setProduct(Product product) {
+    public void setProduct( Product product )
+    {
 		this.product = product;
 	}
 	
-	public Set<ProductItem> getProductItem() {
-		return productItems;
-	}
 
-	public void setProductItem(Set<ProductItem> productItem) {
-		this.productItems = productItem;
-	}
 
-    public void merge( Item from,
-                       Item to )
+    public void merge( Properties from,
+                       Properties to )
     {
         to.setId( from.getId() );
         to.setItemName( from.getItemName() );
@@ -108,7 +107,6 @@ public class Item implements Serializable {
         to.setMaterialKey( from.getMaterialKey() );
         to.setMaterialValue( from.getMaterialValue() );
         to.setProduct( from.getProduct() );
-        to.setProductItem( from.getProductItem() );
 
     }
 

@@ -2,7 +2,6 @@
 package com.ws.core.dao;
 import com.ws.core.idao.Dao;
 import com.ws.core.models.Brand;
-import com.ws.core.models.Product;
 import jakarta.persistence.Query;
 import jakarta.transaction.Transactional;
 import java.util.List;
@@ -38,7 +37,7 @@ public class BrandDao< T >
     public Brand fetch( Long id )
 	{
         Query query = getEntityManager().createQuery( "SELECT b FROM Brand b WHERE b.id =:id",
-                                                      Product.class );
+                                                      Brand.class );
         query.setParameter( "id",
                             id );
         return ( Brand )query.getSingleResult();

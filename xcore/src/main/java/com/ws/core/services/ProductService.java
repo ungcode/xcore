@@ -20,7 +20,7 @@ public class ProductService
 
     @Inject
     protected ProductDao< Product > dao;
-    protected ProductService        service = null;
+    protected ProductService            service = null;
 
     @PostConstruct
     public void init()
@@ -30,33 +30,33 @@ public class ProductService
     }
     
     /**
-     * store product data in database
+     * store productItem data in database
      * 
-     * @param product to be saved
+     * @param productItem to be saved
      * @return service class operation result
      * @see StandardResponse
      */
 	@Common
-    public ProductService persist( Product product )
+    public ProductService persist( Product productItem )
 	{
-        final String TAG = "ProductService.persist";
+        final String TAG = "ProductItemService.persist";
 
         try
         {
             XcoreLogger.info( TAG,
                               XcoreLogger.START );
 
-            dao.persist( product );
-            service.setResponse( new StandardResponse< ProductDTO >( new ProductDTO().mapper( product ) ) );
+            dao.persist( productItem );
+            service.setResponse( new StandardResponse< ProductDTO >( new ProductDTO().mapper( productItem ) ) );
 
             XcoreLogger.info( TAG,
                               XcoreLogger.END );
 
 		} catch (Exception e) {
 
-            setError( Error.PRODUCT_SERVICE_PERSIST_CODE,
-                      Error.PRODUCT_SERVICE_PERSIST_LEVEL,
-                      Error.PRODUCT_SERVICE_PERSIST_TEXT,
+            setError( Error.PRODUCT_ITEM_SERVICE_PERSIST_CODE,
+                      Error.PRODUCT_ITEM_SERVICE_PERSIST_LEVEL,
+                      Error.PRODUCT_ITEM_SERVICE_PERSIST_TEXT,
                       new StandardResponse< Product >() );
 
             service.setResponse( getResponse() );
@@ -69,7 +69,7 @@ public class ProductService
 	}
 
     /**
-     * updates product with new supplied informations
+     * updates productItem with new supplied informations
      * 
      * @param __new object containing new address information
      * @return service class operation result
@@ -79,20 +79,20 @@ public class ProductService
     public ProductService update( Product __new )
     {
 
-        final String TAG = "ProductService.update";
+        final String TAG = "ProductItemService.update";
         try
         {
             XcoreLogger.info( TAG,
                               XcoreLogger.START );
 
-            Product product = dao.fetch( __new.getId() );
+            Product productItem = dao.fetch( __new.getId() );
 
-            product.merge( __new,
-                           product );
+            productItem.merge( __new,
+                               productItem );
 
-            dao.update( product );
+            dao.update( productItem );
 
-            service.setResponse( new StandardResponse< ProductDTO >( new ProductDTO().mapper( product ) ) );
+            service.setResponse( new StandardResponse< ProductDTO >( new ProductDTO().mapper( productItem ) ) );
 
             XcoreLogger.info( TAG,
                               XcoreLogger.END );
@@ -101,9 +101,9 @@ public class ProductService
         catch( Exception e )
         {
 
-            setError( Error.PRODUCT_SERVICE_UPDATE_CODE,
-                      Error.PRODUCT_SERVICE_UPDATE_LEVEL,
-                      Error.PRODUCT_SERVICE_UPDATE_TEXT,
+            setError( Error.PRODUCT_ITEM_SERVICE_UPDATE_CODE,
+                      Error.PRODUCT_ITEM_SERVICE_UPDATE_LEVEL,
+                      Error.PRODUCT_ITEM_SERVICE_UPDATE_TEXT,
                       new StandardResponse< Product >() );
             service.setResponse( getResponse() );
 
@@ -116,9 +116,9 @@ public class ProductService
     }
 
     /**
-     * delete product according to supplied identification
+     * delete productItem according to supplied identification
      * 
-     * @param id identifies the product to be removed
+     * @param id identifies the productItem to be removed
      * @return service class operation result
      * @see StandardResponse
      */
@@ -126,17 +126,17 @@ public class ProductService
     public ProductService delete( Long id )
     {
 
-        final String TAG = "ProductService.delete";
+        final String TAG = "ProductItemService.delete";
         try
         {
             XcoreLogger.info( TAG,
                               XcoreLogger.START );
 
-            Product product = dao.fetch( id );
+            Product productItem = dao.fetch( id );
 
-            dao.delete( product );
+            dao.delete( productItem );
 
-            service.setResponse( new StandardResponse< ProductDTO >( new ProductDTO().mapper( product ) ) );
+            service.setResponse( new StandardResponse< ProductDTO >( new ProductDTO().mapper( productItem ) ) );
 
             XcoreLogger.info( TAG,
                               XcoreLogger.END );
@@ -145,9 +145,9 @@ public class ProductService
         catch( Exception e )
         {
 
-            setError( Error.PRODUCT_SERVICE_DELETE_CODE,
-                      Error.PRODUCT_SERVICE_DELETE_LEVEL,
-                      Error.PRODUCT_SERVICE_DELETE_TEXT,
+            setError( Error.PRODUCT_ITEM_SERVICE_DELETE_CODE,
+                      Error.PRODUCT_ITEM_SERVICE_DELETE_LEVEL,
+                      Error.PRODUCT_ITEM_SERVICE_DELETE_TEXT,
                       new StandardResponse< Product >() );
             service.setResponse( getResponse() );
 
@@ -160,7 +160,7 @@ public class ProductService
     }
 
     /**
-     * retrieve all related persisted products
+     * retrieve all related persisted productItems
      * 
      * @return service class operation result
      * @see StandardResponse
@@ -169,7 +169,7 @@ public class ProductService
     public ProductService fetchAll()
     {
 
-        final String TAG = "ProductService.fetchAll";
+        final String TAG = "ProductItemService.fetchAll";
         try
         {
             XcoreLogger.info( TAG,
@@ -183,9 +183,9 @@ public class ProductService
         }
         catch( Exception e )
         {
-            setError( Error.PRODUCT_SERVICE_FETCH_ALL_CODE,
-                      Error.PRODUCT_SERVICE_FETCH_ALL_LEVEL,
-                      Error.PRODUCT_SERVICE_FETCH_ALL_TEXT,
+            setError( Error.PRODUCT_ITEM_SERVICE_FETCH_ALL_CODE,
+                      Error.PRODUCT_ITEM_SERVICE_FETCH_ALL_LEVEL,
+                      Error.PRODUCT_ITEM_SERVICE_FETCH_ALL_TEXT,
                       new StandardResponse< Product >() );
             service.setResponse( getResponse() );
             XcoreLogger.error( TAG,
@@ -196,7 +196,7 @@ public class ProductService
     }
 
     /**
-     * retrieve product matching the supplied address
+     * retrieve productItem matching the supplied product item
      * 
      * @return service class operation result
      * @see StandardResponse
@@ -205,7 +205,7 @@ public class ProductService
     public ProductService fetch( long id )
     {
 
-        final String TAG = "ProductService.fetch";
+        final String TAG = "ProductItemService.fetch";
         try
         {
             XcoreLogger.info( TAG,
@@ -219,9 +219,9 @@ public class ProductService
         }
         catch( Exception e )
         {
-            setError( Error.PRODUCT_SERVICE_FETCH_CODE,
-                      Error.PRODUCT_SERVICE_FETCH_LEVEL,
-                      Error.PRODUCT_SERVICE_FETCH_TEXT,
+            setError( Error.PRODUCT_ITEM_SERVICE_FETCH_CODE,
+                      Error.PRODUCT_ITEM_SERVICE_FETCH_LEVEL,
+                      Error.PRODUCT_ITEM_SERVICE_FETCH_TEXT,
                       new StandardResponse< Product >() );
             service.setResponse( getResponse() );
 

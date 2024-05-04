@@ -22,14 +22,15 @@ public class Category {
 
 	private String name;
 
-	@ManyToOne(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
+    @ManyToOne( fetch = FetchType.LAZY, cascade = CascadeType.ALL )
 	private Category parentCategory;
+
 
 	@OneToMany(mappedBy = "parentCategory")
 	private Set<Category> subCategories = new HashSet<>();
 	
 	@OneToMany(mappedBy = "category")
-	private Set<Product> products = new HashSet<>();
+    private Set< Product >  products      = new HashSet<>();
 
 	public Category() {
 
@@ -68,11 +69,13 @@ public class Category {
 		this.subCategories = subCategories;
 	}
 	
-	public Set<Product> getProduct() {
+    public Set< Product > getProduct()
+    {
 		return products;
 	}
 
-	public void setProduct(Set<Product> product) {
+    public void setProduct( Set< Product > product )
+    {
 		this.products = product;
 	}
 

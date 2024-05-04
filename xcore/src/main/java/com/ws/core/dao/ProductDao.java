@@ -19,6 +19,7 @@ public class ProductDao< T >
     protected BrandDao< Brand >       brandDao;
     @Inject
     protected CategoryDao< Category > categoryDao;
+
 	@Override
     public void persist( Product product )
 	{
@@ -62,6 +63,7 @@ public class ProductDao< T >
 
     private void add( Product product )
     {
+
         if( product.getCategory() != null
             && product.getCategory().getId() != null )
         {
@@ -76,6 +78,7 @@ public class ProductDao< T >
             Brand brand = brandDao.fetch( product.getBrand().getId() );
             product.setBrand( brand );
         }
+
     }
 
 	

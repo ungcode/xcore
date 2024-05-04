@@ -1,7 +1,7 @@
 
 package com.ws.core.dao;
 import com.ws.core.idao.Dao;
-import com.ws.core.models.CartItem;
+import com.ws.core.models.CartProduct;
 import com.ws.core.models.ShippingAddress;
 import com.ws.core.models.ShopOrder;
 import com.ws.core.models.UserPayment;
@@ -16,8 +16,6 @@ public class ShopOrderDao< T >
     extends Dao< ShopOrder >
 {
 
-    @Inject
-    private CartItemDao< CartItem >               cartItemDao;
     @Inject
     private ShippingAddressDao< ShippingAddress > shippingAddressDao;
     @Inject
@@ -67,7 +65,8 @@ public class ShopOrderDao< T >
         if( shopOrder.getCartItem() != null
             && shopOrder.getCartItem().getId() != null )
         {
-            CartItem cartItem = cartItemDao.fetch( shopOrder.getCartItem()
+            CartProductDao< CartProduct > cartPropertyDao = new CartProductDao< CartProduct >();
+            CartProduct cartItem = cartPropertyDao.fetch( shopOrder.getCartItem()
                                                             .getId() );
             shopOrder.setCartItem( cartItem );
         }

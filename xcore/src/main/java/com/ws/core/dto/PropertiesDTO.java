@@ -1,11 +1,11 @@
 package com.ws.core.dto;
 
-import com.ws.core.models.Item;
+import com.ws.core.models.Properties;
 import java.util.ArrayList;
 import java.util.List;
 
 
-public class ItemDTO
+public class PropertiesDTO
 {
 
 	private Long id;
@@ -16,7 +16,7 @@ public class ItemDTO
 	
     private ProductDTO productDTO;
 
-    public ItemDTO()
+    public PropertiesDTO()
     {
     }
 
@@ -60,17 +60,17 @@ public class ItemDTO
         this.productDTO = productDTO;
     }
 
-    public ItemDTO mapper( Item item )
+    public PropertiesDTO mapper( Properties properties )
     {
 
-        return create( item );
+        return create( properties );
 
     }
 
-    public List< ItemDTO > mapper( List< Item > items )
+    public List< PropertiesDTO > mapper( List< Properties > properties )
     {
-        List< ItemDTO > dtos = new ArrayList< ItemDTO >();
-        items.forEach( item -> {
+        List< PropertiesDTO > dtos = new ArrayList< PropertiesDTO >();
+        properties.forEach( item -> {
             dtos.add( create( item ) );
 
         } );
@@ -78,13 +78,13 @@ public class ItemDTO
         return dtos;
     }
 
-    private ItemDTO create( Item item )
+    private PropertiesDTO create( Properties properties )
     {
-        ItemDTO dto = new ItemDTO();
-        dto.setId( item.getId() );
-        dto.setItemName( item.getItemName() );
-        dto.setItemValue( item.getItemValue() );
-        dto.setProductDTO( new ProductDTO().mapper( item.getProduct() ) );
+        PropertiesDTO dto = new PropertiesDTO();
+        dto.setId( properties.getId() );
+        dto.setItemName( properties.getItemName() );
+        dto.setItemValue( properties.getItemValue() );
+        dto.setProductDTO( new ProductDTO().mapper( properties.getProduct() ) );
         return dto;
     }
 

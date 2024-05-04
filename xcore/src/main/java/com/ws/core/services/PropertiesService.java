@@ -1,9 +1,9 @@
 package com.ws.core.services;
 
-import com.ws.core.dao.ItemDao;
-import com.ws.core.dto.ItemDTO;
+import com.ws.core.dao.PropertiesDao;
+import com.ws.core.dto.PropertiesDTO;
 import com.ws.core.interceptors.Common;
-import com.ws.core.models.Item;
+import com.ws.core.models.Properties;
 import com.ws.core.response.StandardResponse;
 import com.ws.core.util.Error;
 import com.ws.core.util.XcoreLogger;
@@ -14,30 +14,30 @@ import jakarta.transaction.Transactional;
 
 @ApplicationScoped
 @Transactional
-public class ItemService
-    extends StandardService< Item >
+public class PropertiesService
+    extends StandardService< Properties >
 {
 
     @Inject
-    protected ItemDao< Item > dao;
-    protected ItemService        service = null;
+    protected PropertiesDao< Properties > dao;
+    protected PropertiesService        service = null;
 
     @PostConstruct
     public void init()
     {
-        service = new ItemService();
+        service = new PropertiesService();
         service.setResponse( getResponse() );
     }
     
     /**
      * store item data in database
      * 
-     * @param item to be saved
+     * @param properties to be saved
      * @return service class operation result
      * @see StandardResponse
      */
 	@Common
-    public ItemService persist( Item item )
+    public PropertiesService persist( Properties properties )
 	{
         final String TAG = "ItemService.persist";
 
@@ -46,18 +46,18 @@ public class ItemService
             XcoreLogger.info( TAG,
                               XcoreLogger.START );
 
-            dao.persist( item );
-            service.setResponse( new StandardResponse< ItemDTO >( new ItemDTO().mapper( item ) ) );
+            dao.persist( properties );
+            service.setResponse( new StandardResponse< PropertiesDTO >( new PropertiesDTO().mapper( properties ) ) );
 
             XcoreLogger.info( TAG,
                               XcoreLogger.END );
 
 		} catch (Exception e) {
 
-            setError( Error.ITEM_SERVICE_PERSIST_CODE,
-                      Error.ITEM_SERVICE_PERSIST_LEVEL,
-                      Error.ITEM_SERVICE_PERSIST_TEXT,
-                      new StandardResponse< Item >() );
+            setError( Error.PROPERTIES_SERVICE_PERSIST_CODE,
+                      Error.PROPERTIES_SERVICE_PERSIST_LEVEL,
+                      Error.PROPERTIES_SERVICE_PERSIST_TEXT,
+                      new StandardResponse< Properties >() );
 
             service.setResponse( getResponse() );
 
@@ -76,7 +76,7 @@ public class ItemService
      * @see StandardResponse
      */
 
-    public ItemService update( Item __new )
+    public PropertiesService update( Properties __new )
     {
 
         final String TAG = "ItemService.update";
@@ -85,14 +85,14 @@ public class ItemService
             XcoreLogger.info( TAG,
                               XcoreLogger.START );
 
-            Item item = dao.fetch( __new.getId() );
+            Properties properties = dao.fetch( __new.getId() );
 
-            item.merge( __new,
-                        item );
+            properties.merge( __new,
+                        properties );
 
-            dao.update( item );
+            dao.update( properties );
 
-            service.setResponse( new StandardResponse< ItemDTO >( new ItemDTO().mapper( item ) ) );
+            service.setResponse( new StandardResponse< PropertiesDTO >( new PropertiesDTO().mapper( properties ) ) );
 
             XcoreLogger.info( TAG,
                               XcoreLogger.END );
@@ -101,10 +101,10 @@ public class ItemService
         catch( Exception e )
         {
 
-            setError( Error.ITEM_SERVICE_UPDATE_CODE,
-                      Error.ITEM_SERVICE_UPDATE_LEVEL,
-                      Error.ITEM_SERVICE_UPDATE_TEXT,
-                      new StandardResponse< Item >() );
+            setError( Error.PROPERTIES_SERVICE_UPDATE_CODE,
+                      Error.PROPERTIES_SERVICE_UPDATE_LEVEL,
+                      Error.PROPERTIES_SERVICE_UPDATE_TEXT,
+                      new StandardResponse< Properties >() );
             service.setResponse( getResponse() );
 
             XcoreLogger.error( TAG,
@@ -123,7 +123,7 @@ public class ItemService
      * @see StandardResponse
      */
 
-    public ItemService delete( Long id )
+    public PropertiesService delete( Long id )
     {
 
         final String TAG = "ItemService.delete";
@@ -132,11 +132,11 @@ public class ItemService
             XcoreLogger.info( TAG,
                               XcoreLogger.START );
 
-            Item item = dao.fetch( id );
+            Properties properties = dao.fetch( id );
 
-            dao.delete( item );
+            dao.delete( properties );
 
-            service.setResponse( new StandardResponse< ItemDTO >( new ItemDTO().mapper( item ) ) );
+            service.setResponse( new StandardResponse< PropertiesDTO >( new PropertiesDTO().mapper( properties ) ) );
 
             XcoreLogger.info( TAG,
                               XcoreLogger.END );
@@ -145,10 +145,10 @@ public class ItemService
         catch( Exception e )
         {
 
-            setError( Error.ITEM_SERVICE_DELETE_CODE,
-                      Error.ITEM_SERVICE_DELETE_LEVEL,
-                      Error.ITEM_SERVICE_DELETE_TEXT,
-                      new StandardResponse< Item >() );
+            setError( Error.PROPERTIES_SERVICE_DELETE_CODE,
+                      Error.PROPERTIES_SERVICE_DELETE_LEVEL,
+                      Error.PROPERTIES_SERVICE_DELETE_TEXT,
+                      new StandardResponse< Properties >() );
             service.setResponse( getResponse() );
 
             XcoreLogger.error( TAG,
@@ -166,7 +166,7 @@ public class ItemService
      * @see StandardResponse
      */
 
-    public ItemService fetchAll()
+    public PropertiesService fetchAll()
     {
 
         final String TAG = "ItemsService.fetchAll";
@@ -175,7 +175,7 @@ public class ItemService
             XcoreLogger.info( TAG,
                               XcoreLogger.START );
 
-            service.setResponse( new StandardResponse< ItemDTO >( new ItemDTO().mapper( dao.fetchAll() ) ) );
+            service.setResponse( new StandardResponse< PropertiesDTO >( new PropertiesDTO().mapper( dao.fetchAll() ) ) );
 
             XcoreLogger.info( TAG,
                               XcoreLogger.END );
@@ -183,10 +183,10 @@ public class ItemService
         }
         catch( Exception e )
         {
-            setError( Error.ITEM_SERVICE_FETCH_ALL_CODE,
-                      Error.ITEM_SERVICE_FETCH_ALL_LEVEL,
-                      Error.ITEM_SERVICE_FETCH_ALL_TEXT,
-                      new StandardResponse< Item >() );
+            setError( Error.PROPERTIES_SERVICE_FETCH_ALL_CODE,
+                      Error.PROPERTIES_SERVICE_FETCH_ALL_LEVEL,
+                      Error.PROPERTIES_SERVICE_FETCH_ALL_TEXT,
+                      new StandardResponse< Properties >() );
             service.setResponse( getResponse() );
             XcoreLogger.error( TAG,
                               e.getMessage() );
@@ -202,7 +202,7 @@ public class ItemService
      * @see StandardResponse
      */
 
-    public ItemService fetch( long id )
+    public PropertiesService fetch( long id )
     {
 
         final String TAG = "ItemService.fetch";
@@ -211,7 +211,7 @@ public class ItemService
             XcoreLogger.info( TAG,
                               XcoreLogger.START );
 
-            service.setResponse( new StandardResponse< ItemDTO >( new ItemDTO().mapper( dao.fetch( id ) ) ) );
+            service.setResponse( new StandardResponse< PropertiesDTO >( new PropertiesDTO().mapper( dao.fetch( id ) ) ) );
 
             XcoreLogger.info( TAG,
                               XcoreLogger.END );
@@ -219,10 +219,10 @@ public class ItemService
         }
         catch( Exception e )
         {
-            setError( Error.ITEM_SERVICE_FETCH_CODE,
-                      Error.ITEM_SERVICE_FETCH_LEVEL,
-                      Error.ITEM_SERVICE_FETCH_TEXT,
-                      new StandardResponse< Item >() );
+            setError( Error.PROPERTIES_SERVICE_FETCH_CODE,
+                      Error.PROPERTIES_SERVICE_FETCH_LEVEL,
+                      Error.PROPERTIES_SERVICE_FETCH_TEXT,
+                      new StandardResponse< Properties >() );
             service.setResponse( getResponse() );
 
             XcoreLogger.error( TAG,

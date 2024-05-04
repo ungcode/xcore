@@ -1,7 +1,7 @@
 package com.ws.core.api;
 
-import com.ws.core.models.ProductItem;
-import com.ws.core.services.ProductItemService;
+import com.ws.core.models.Image;
+import com.ws.core.services.ImageService;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.DELETE;
 import jakarta.ws.rs.GET;
@@ -14,29 +14,27 @@ import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 
 
-@Path( "productItem" )
-public class ProductItemResource {
+@Path( "images" )
+public class ImageResource {
 
-	
     @Inject
-    ProductItemService productItemService;
-
+    ImageService imageService;
 
     @POST
     @Produces( MediaType.APPLICATION_JSON )
-    public Response persist( ProductItem productItem )
+    public Response persist( Image image )
     {
 
-        return Response.ok( productItemService.persist( productItem ) ).build();
+        return Response.ok( imageService.persist( image ) ).build();
 
     }
 
     @PUT
     @Produces( MediaType.APPLICATION_JSON )
-    public Response update( ProductItem productItem )
+    public Response update( Image image )
     {
 
-        return Response.ok( productItemService.update( productItem ) ).build();
+        return Response.ok( imageService.update( image ) ).build();
 
     }
 
@@ -46,7 +44,7 @@ public class ProductItemResource {
     public Response delete( @PathParam( "id" ) Long id )
     {
 
-        return Response.ok().entity( productItemService.delete( id ) ).build();
+        return Response.ok().entity( imageService.delete( id ) ).build();
 
     }
 
@@ -55,7 +53,7 @@ public class ProductItemResource {
     public Response fetchAll()
     {
 
-        return Response.ok().entity( productItemService.fetchAll() ).build();
+        return Response.ok().entity( imageService.fetchAll() ).build();
 
     }
 
@@ -65,7 +63,7 @@ public class ProductItemResource {
     public Response fetch( @PathParam( "id" ) Long id )
     {
 
-        return Response.ok().entity( productItemService.fetch( id ) ).build();
+        return Response.ok().entity( imageService.fetch( id ) ).build();
 
     }
 	

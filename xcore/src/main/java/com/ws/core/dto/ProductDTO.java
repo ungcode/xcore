@@ -5,17 +5,19 @@ import com.ws.core.models.Product;
 import java.util.ArrayList;
 import java.util.List;
 
-
 public class ProductDTO
 {
+    // ---------------------------------------------------------------------
+    // Construction
+    // ---------------------------------------------------------------------
+    private Long            id;
 
-    private Long                 id;
-
-    private String               name;
-
-    private String               description;
-
-    private CategoryDTO          categoryDTO;
+    private String          sku;
+    private int             qtInStock;
+    private double          price;
+    private PropertiesDTO                  propertiesDTO;
+    private SizeDTO                  sizeDTO;
+    private ColorDTO                 colorDTO;
 
 
     public ProductDTO()
@@ -33,62 +35,99 @@ public class ProductDTO
         this.id = id;
     }
 
-    public String getName()
+    public String getSku()
     {
-        return name;
+        return sku;
     }
 
-    public void setName( String name )
+    public void setSku( String sku )
     {
-        this.name = name;
+        this.sku = sku;
     }
 
-    public String getDescription()
+    public int getQtInStock()
     {
-        return description;
+        return qtInStock;
     }
 
-    public void setDescription( String description )
+    public void setQtInStock( int qtInStock )
     {
-        this.description = description;
+        this.qtInStock = qtInStock;
     }
 
-    public CategoryDTO getCategoryDTO()
+    public double getPrice()
     {
-        return categoryDTO;
+        return price;
     }
 
-    public void setCategoryDTO( CategoryDTO categoryDTO )
+    public void setPrice( double price )
     {
-        this.categoryDTO = categoryDTO;
+        this.price = price;
     }
 
-    public ProductDTO mapper( Product product )
+    public PropertiesDTO getItem()
+    {
+        return propertiesDTO;
+    }
+
+    public void setItem( PropertiesDTO propertiesDTO )
+    {
+        this.propertiesDTO = propertiesDTO;
+    }
+
+    public SizeDTO getSize()
+    {
+        return sizeDTO;
+    }
+
+    public void setSize( SizeDTO sizeDTO )
+    {
+        this.sizeDTO = sizeDTO;
+    }
+
+    public ColorDTO getColor()
+    {
+        return colorDTO;
+    }
+
+    public void setColor( ColorDTO colorDTO )
+    {
+        this.colorDTO = colorDTO;
+    }
+
+
+    public ProductDTO mapper( Product productItem )
     {
 
-        return create( product );
+        return create( productItem );
 
     }
-    public List< ProductDTO > mapper( List< Product > Products )
+
+    public List< ProductDTO > mapper( List< Product > produtItems )
     {
 
         List< ProductDTO > dtos = new ArrayList< ProductDTO >();
-        Products.forEach( product -> {
-            dtos.add( create( product ) );
+        produtItems.forEach( productItem -> {
+
+            dtos.add( create( productItem ) );
 
         } );
 
         return dtos;
-
     }
-    private ProductDTO create( Product product )
+
+    private ProductDTO create( Product productItem )
     {
         ProductDTO dto = new ProductDTO();
-        dto.setId( product.getId() );
-        dto.setName( product.getName() );
-        dto.setDescription( product.getDescription() );
-        dto.setCategoryDTO( new CategoryDTO().mapper( product.getCategory() ) );
+        dto.setId( productItem.getId() );
+        dto.setQtInStock( productItem.getQtInStock() );
+        dto.setSku( productItem.getSku() );
+        dto.setColor( new ColorDTO().mapper( productItem.getColor() ) );
+        dto.setSize( new SizeDTO().mapper( productItem.getSize() ) );
         return dto;
     }
 
 }
+
+// -------------------------------------------------------------------------
+// end of class ProductItemDTO.java

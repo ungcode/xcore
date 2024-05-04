@@ -1,7 +1,7 @@
 package com.ws.core.api;
 
-import com.ws.core.models.Item;
-import com.ws.core.services.ItemService;
+import com.ws.core.models.Properties;
+import com.ws.core.services.PropertiesService;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.DELETE;
 import jakarta.ws.rs.GET;
@@ -14,29 +14,29 @@ import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 
 
-@Path( "item" )
-public class ItemResource {
+@Path( "properties" )
+public class PropertiesResource {
 
 	
     @Inject
-    ItemService itemService;
+    PropertiesService propertiesService;
 
 
     @POST
     @Produces( MediaType.APPLICATION_JSON )
-    public Response persist( Item item )
+    public Response persist( Properties properties )
     {
 
-        return Response.ok( itemService.persist( item ) ).build();
+        return Response.ok( propertiesService.persist( properties ) ).build();
 
     }
 
     @PUT
     @Produces( MediaType.APPLICATION_JSON )
-    public Response update( Item item )
+    public Response update( Properties properties )
     {
 
-        return Response.ok( itemService.update( item ) ).build();
+        return Response.ok( propertiesService.update( properties ) ).build();
 
     }
 
@@ -46,7 +46,7 @@ public class ItemResource {
     public Response delete( @PathParam( "id" ) Long id )
     {
 
-        return Response.ok().entity( itemService.delete( id ) ).build();
+        return Response.ok().entity( propertiesService.delete( id ) ).build();
 
     }
 
@@ -55,7 +55,7 @@ public class ItemResource {
     public Response fetchAll()
     {
 
-        return Response.ok().entity( itemService.fetchAll() ).build();
+        return Response.ok().entity( propertiesService.fetchAll() ).build();
 
     }
 
@@ -65,7 +65,7 @@ public class ItemResource {
     public Response fetch( @PathParam( "id" ) Long id )
     {
 
-        return Response.ok().entity( itemService.fetch( id ) ).build();
+        return Response.ok().entity( propertiesService.fetch( id ) ).build();
 
     }
 	

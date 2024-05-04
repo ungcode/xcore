@@ -28,8 +28,9 @@ public class Brand implements Serializable
     private Long   id;
     private String name;
 
+
     @OneToMany( mappedBy = "brand" )
-    private Set< Product > products = new HashSet<>();
+    private Set< Product >    products         = new HashSet<>();
 
     public Long getId()
     {

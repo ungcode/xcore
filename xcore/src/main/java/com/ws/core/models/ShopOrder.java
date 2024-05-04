@@ -44,8 +44,8 @@ public class ShopOrder implements Serializable {
 	private ShippingAddress shippingAddress;
 	
 	@ManyToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "cart_item_id")
-	private CartItem cartItem;
+    @JoinColumn( name = "cart_product_id" )
+    private CartProduct       cartProduct;
 	
 	@OneToMany(mappedBy = "shopOrder")
 	private Set<UserReview> userReviews = new HashSet<>();
@@ -94,12 +94,12 @@ public class ShopOrder implements Serializable {
 		this.shippingAddress = shippingAddress;
 	}
 
-	public CartItem getCartItem() {
-		return cartItem;
+	public CartProduct getCartItem() {
+        return cartProduct;
 	}
 
-	public void setCartItem(CartItem cartItem) {
-		this.cartItem = cartItem;
+	public void setCartItem(CartProduct cartItem) {
+        this.cartProduct = cartItem;
 	}
 
     public double getTotal()

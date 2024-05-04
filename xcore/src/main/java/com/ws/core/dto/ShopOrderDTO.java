@@ -21,7 +21,7 @@ public class ShopOrderDTO
 	
     private ShippingAddressDTO shippingAddress;
 	
-    private CartItemDTO        cartItem;
+    private CartProductDTO        cartItem;
 	
     public ShopOrderDTO()
     {
@@ -88,12 +88,12 @@ public class ShopOrderDTO
         this.shippingAddress = shippingAddress;
     }
 
-    public CartItemDTO getCartItem()
+    public CartProductDTO getCartItem()
     {
         return cartItem;
     }
 
-    public void setCartItem( CartItemDTO cartItem )
+    public void setCartItem( CartProductDTO cartItem )
     {
         this.cartItem = cartItem;
     }
@@ -124,7 +124,7 @@ public class ShopOrderDTO
         dto.setOrderDate( shopOrder.getOrderDate() );
         dto.setTotal( shopOrder.getTotal() );
         dto.setOrderStatus( shopOrder.getOrderStatus() );
-        dto.setCartItem( new CartItemDTO().mapper( shopOrder.getCartItem() ) );
+        dto.setCartItem( new CartProductDTO().mapper( shopOrder.getCartItem() ) );
         dto.setShippingAddress( new ShippingAddressDTO().mapper( shopOrder.getShippingAddress() ) );
         dto.setUserPayment( new UserPaymentDTO().mapper( shopOrder.getUserPayment() ) );
         return dto;

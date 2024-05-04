@@ -1,7 +1,7 @@
 package com.ws.core.api;
 
-import com.ws.core.models.CartItem;
-import com.ws.core.services.CartItemService;
+import com.ws.core.models.CartProduct;
+import com.ws.core.services.CartProductService;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.DELETE;
 import jakarta.ws.rs.GET;
@@ -14,29 +14,29 @@ import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 
 
-@Path( "cartItem" )
-public class CartItemResource {
+@Path( "cartProducts" )
+public class CartProductResource {
 
 	
     @Inject
-    CartItemService cartItemService;
+    CartProductService cartProductService;
 
 
     @POST
     @Produces( MediaType.APPLICATION_JSON )
-    public Response persist( CartItem cartItem )
+    public Response persist( CartProduct cartItem )
     {
 
-        return Response.ok( cartItemService.persist( cartItem ) ).build();
+        return Response.ok( cartProductService.persist( cartItem ) ).build();
 
     }
 
     @PUT
     @Produces( MediaType.APPLICATION_JSON )
-    public Response update( CartItem cartItem )
+    public Response update( CartProduct cartItem )
     {
 
-        return Response.ok( cartItemService.update( cartItem ) ).build();
+        return Response.ok( cartProductService.update( cartItem ) ).build();
 
     }
 
@@ -46,7 +46,7 @@ public class CartItemResource {
     public Response delete( @PathParam( "id" ) Long id )
     {
 
-        return Response.ok( cartItemService.delete( id ) ).build();
+        return Response.ok( cartProductService.delete( id ) ).build();
 
     }
 
@@ -55,7 +55,7 @@ public class CartItemResource {
     public Response fetchAll()
     {
 
-        return Response.ok().entity( cartItemService.fetchAll() ).build();
+        return Response.ok().entity( cartProductService.fetchAll() ).build();
 
     }
 
@@ -65,7 +65,7 @@ public class CartItemResource {
     public Response fetch( @PathParam( "id" ) Long id )
     {
 
-        return Response.ok().entity( cartItemService.fetch( id ) ).build();
+        return Response.ok().entity( cartProductService.fetch( id ) ).build();
 
     }
 	

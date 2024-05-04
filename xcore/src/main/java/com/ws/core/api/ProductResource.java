@@ -14,29 +14,29 @@ import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 
 
-@Path( "product" )
+@Path( "products" )
 public class ProductResource {
 
 	
     @Inject
-    ProductService productService;
+    ProductService productItemService;
 
 
     @POST
     @Produces( MediaType.APPLICATION_JSON )
-    public Response persist( Product product )
+    public Response persist( Product productItem )
     {
 
-        return Response.ok( productService.persist( product ) ).build();
+        return Response.ok( productItemService.persist( productItem ) ).build();
 
     }
 
     @PUT
     @Produces( MediaType.APPLICATION_JSON )
-    public Response update( Product product )
+    public Response update( Product productItem )
     {
 
-        return Response.ok( productService.update( product ) ).build();
+        return Response.ok( productItemService.update( productItem ) ).build();
 
     }
 
@@ -46,7 +46,7 @@ public class ProductResource {
     public Response delete( @PathParam( "id" ) Long id )
     {
 
-        return Response.ok().entity( productService.delete( id ) ).build();
+        return Response.ok().entity( productItemService.delete( id ) ).build();
 
     }
 
@@ -55,7 +55,7 @@ public class ProductResource {
     public Response fetchAll()
     {
 
-        return Response.ok().entity( productService.fetchAll() ).build();
+        return Response.ok().entity( productItemService.fetchAll() ).build();
 
     }
 
@@ -65,7 +65,7 @@ public class ProductResource {
     public Response fetch( @PathParam( "id" ) Long id )
     {
 
-        return Response.ok().entity( productService.fetch( id ) ).build();
+        return Response.ok().entity( productItemService.fetch( id ) ).build();
 
     }
 	

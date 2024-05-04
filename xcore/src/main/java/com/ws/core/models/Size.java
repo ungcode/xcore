@@ -24,7 +24,7 @@ public class Size implements Serializable {
 	private String sizeValue;
 	
 	@OneToMany(mappedBy = "size")
-	private Set<ProductItem> productEntries = new HashSet<>();
+	private Set<Product> productEntries = new HashSet<>();
 
 	public Size() {
 		
@@ -46,11 +46,11 @@ public class Size implements Serializable {
 		this.sizeValue = sizeValue;
 	}
 
-	public Set<ProductItem> getProductEntry() {
+	public Set<Product> getProductEntry() {
 		return productEntries;
 	}
 
-	public void setProductEntry(Set<ProductItem> productEntry) {
+	public void setProductEntry(Set<Product> productEntry) {
 		this.productEntries = productEntry;
 	}
 

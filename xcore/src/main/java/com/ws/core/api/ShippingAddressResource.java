@@ -14,7 +14,7 @@ import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 
 
-@Path( "shippingAddress" )
+@Path( "shipping-addresses" )
 public class ShippingAddressResource {
 
 	

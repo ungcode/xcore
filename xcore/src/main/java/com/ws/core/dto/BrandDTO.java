@@ -2,11 +2,8 @@
 package com.ws.core.dto;
 
 import com.ws.core.models.Brand;
-import com.ws.core.models.Product;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 
 public class BrandDTO
@@ -14,7 +11,6 @@ public class BrandDTO
 
     private Long           id;
     private String         name;
-    private Set< Product > products = new HashSet<>();
 
     public Long getId()
     {
@@ -37,19 +33,6 @@ public class BrandDTO
     public void setName( String name )
     {
         this.name = name;
-    }
-
-
-    public Set< Product > getProducts()
-    {
-        return products;
-    }
-
-
-
-    public void setProducts( Set< Product > products )
-    {
-        this.products = products;
     }
 
     public BrandDTO mapper( Brand brand )
@@ -79,7 +62,6 @@ public class BrandDTO
 
         dto.setId( brand.getId() );
         dto.setName( brand.getName() );
-        dto.setProducts( brand.getProducts() );
         return dto;
     }
 

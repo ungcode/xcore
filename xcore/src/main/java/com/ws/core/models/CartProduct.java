@@ -14,8 +14,8 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-@Table(name = "CART_ITEM")
-public class CartItem implements Serializable {
+@Table( name = "CART_PRODUCT" )
+public class CartProduct implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	@Id
@@ -29,13 +29,13 @@ public class CartItem implements Serializable {
 	private Cart cart;
 
 	@ManyToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "product_item_id")
-	private ProductItem productItem;
+    @JoinColumn( name = "product_id" )
+    private Product           product;
 
-	@OneToMany(mappedBy = "cartItem")
+    @OneToMany( mappedBy = "cartProduct" )
 	private Set<ShopOrder> shopOrders = new HashSet<>();
 
-	public CartItem() {
+	public CartProduct() {
 
 	}
 
@@ -71,12 +71,14 @@ public class CartItem implements Serializable {
 		this.cart = cart;
 	}
 
-	public ProductItem getProductItem() {
-		return productItem;
+    public Product getProduct()
+    {
+        return product;
 	}
 
-	public void setProductItem(ProductItem productItem) {
-		this.productItem = productItem;
+    public void setProduct( Product product )
+    {
+        this.product = product;
 	}
 
 	public Set<ShopOrder> getShopOrders() {
@@ -87,14 +89,14 @@ public class CartItem implements Serializable {
 		this.shopOrders = shopOrders;
 	}
 
-    public void merge( CartItem from,
-                       CartItem to )
+    public void merge( CartProduct from,
+                       CartProduct to )
     {
         to.setId( from.getId() );
         to.setQt( from.getQt() );
         to.setQuantity( from.getQuantity() );
         to.setCart( from.getCart() );
-        to.setProductItem( from.getProductItem() );
+        to.setProduct( from.getProduct() );
         to.setShopOrders( from.getShopOrders() );
 
     }

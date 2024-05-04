@@ -14,7 +14,7 @@ import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 
 
-@Path( "size" )
+@Path( "sizes" )
 public class SizeResource {
 
 	

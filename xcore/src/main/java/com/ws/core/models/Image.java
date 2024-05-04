@@ -7,58 +7,65 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import java.io.Serializable;
-import java.util.HashSet;
-import java.util.Set;
+
 
 @Entity
-@Table(name="CART")
-public class Cart implements Serializable {
+@Table( name = "PRODUCT_IMAGES" )
+public class Image implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
+    private String            url;
 	
 	@ManyToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "user_id")
-	private Tuser user;
+	@JoinColumn(name = "product_id")
+    private Product           product;
 	
-	@OneToMany(mappedBy = "cart")
-	private Set<CartProduct> cartProducts = new HashSet<>();
-	
-	public Cart() {
+	public Image() {
 		
 	}
-	
 
 	public Long getId() {
 		return id;
 	}
-
 
 	public void setId(Long id) {
 		this.id = id;
 	}
 
 
-	public Tuser getUser() {
-		return user;
+    public Product getProduct()
+    {
+		return product;
 	}
 
-
-	public void setUser(Tuser user) {
-		this.user = user;
+    public void setProduct( Product product )
+    {
+		this.product = product;
 	}
 
-    public void merge( Cart from,
-                       Cart to )
+    public String getUrl()
+    {
+        return url;
+    }
+
+    public void setUrl( String url )
+    {
+        this.url = url;
+    }
+
+    public void merge( Image from,
+                       Image to )
     {
         to.setId( from.getId() );
-        to.setUser( from.getUser() );
+        to.setProduct( from.getProduct() );
+        to.setUrl( from.getUrl() );
+
 
     }
-	
+
 }

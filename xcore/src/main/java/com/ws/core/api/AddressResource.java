@@ -14,7 +14,7 @@ import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 
 
-@Path( "address" )
+@Path( "adresses" )
 public class AddressResource {
 
 	
