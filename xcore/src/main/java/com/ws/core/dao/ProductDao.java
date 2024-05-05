@@ -3,7 +3,9 @@ package com.ws.core.dao;
 import com.ws.core.idao.Dao;
 import com.ws.core.models.Brand;
 import com.ws.core.models.Category;
+import com.ws.core.models.Color;
 import com.ws.core.models.Product;
+import com.ws.core.models.Size;
 import jakarta.inject.Inject;
 import jakarta.persistence.Query;
 import jakarta.transaction.Transactional;
@@ -19,6 +21,10 @@ public class ProductDao< T >
     protected BrandDao< Brand >       brandDao;
     @Inject
     protected CategoryDao< Category > categoryDao;
+    @Inject
+    private ColorDao< Color >         colorDao;
+    @Inject
+    private SizeDao< Size >           sizeDao;
 
 	@Override
     public void persist( Product product )
@@ -77,6 +83,20 @@ public class ProductDao< T >
         {
             Brand brand = brandDao.fetch( product.getBrand().getId() );
             product.setBrand( brand );
+        }
+
+        if( product.getSize() != null
+            && product.getSize().getId() != null )
+        {
+            Size size = sizeDao.fetch( product.getSize().getId() );
+            product.setSize( size );
+        }
+
+        if( product.getColor() != null
+            && product.getColor().getId() != null )
+        {
+            Color color = colorDao.fetch( product.getColor().getId() );
+            product.setColor( color );
         }
 
     }

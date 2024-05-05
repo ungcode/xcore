@@ -23,8 +23,6 @@ public class PropertiesDao< T >
 
 	}
 
-
-
 	@Override
     public void update( Properties properties )
 	{
