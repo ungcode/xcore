@@ -14,11 +14,10 @@ import java.io.Serializable;
 
 /**
  * Properties should hold other related product entries such as
- * images ULRs . Images for example should be stored inform of
- * pro_key : _img_x where "x" is a number and _cover_img for image
- * representing the product cover
- * 
+ * tax class, tax id etc . tax for example should be stored inform of
+ * pro_key : _tax_x where "x" is any attribute to this element.
  *
+ * 
  * @version 1.0
  */
 @Entity
@@ -31,10 +30,10 @@ public class Properties implements Serializable {
 	private Long id;
 	
     @Column( name = "prop_name" )
-	private String name;
+	private String propName;
 	
     @Column( name = "prop_value" )
-	private String value;
+	private String propValue;
 	
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "product_id")
@@ -44,68 +43,52 @@ public class Properties implements Serializable {
 		
 	}
 
-	public Long getId() {
-		return id;
-	}
+    public Long getId()
+    {
+        return id;
+    }
 
-	public void setId(Long id) {
-		this.id = id;
-	}
+    public void setId( Long id )
+    {
+        this.id = id;
+    }
 
-	
+    public String getPropName()
+    {
+        return propName;
+    }
 
-	public String getMaterialKey() {
-		return name;
-	}
+    public void setPropName( String propName )
+    {
+        this.propName = propName;
+    }
 
-	public void setMaterialKey(String materialKey) {
-		this.name = materialKey;
-	}
+    public String getPropValue()
+    {
+        return propValue;
+    }
 
-	public String getMaterialValue() {
-		return value;
-	}
-
-	public void setMaterialValue(String materialValue) {
-		this.value = materialValue;
-	}
-
-	public String getItemName() {
-		return name;
-	}
-
-	public void setItemName(String entry) {
-		this.name = entry;
-	}
-
-	public String getItemValue() {
-		return value;
-	}
-
-	public void setItemValue(String eValue) {
-		this.value = eValue;
-	}
+    public void setPropValue( String propValue )
+    {
+        this.propValue = propValue;
+    }
 
     public Product getProduct()
     {
-		return product;
-	}
+        return product;
+    }
 
     public void setProduct( Product product )
     {
-		this.product = product;
-	}
-	
-
+        this.product = product;
+    }
 
     public void merge( Properties from,
                        Properties to )
     {
         to.setId( from.getId() );
-        to.setItemName( from.getItemName() );
-        to.setItemValue( from.getItemValue() );
-        to.setMaterialKey( from.getMaterialKey() );
-        to.setMaterialValue( from.getMaterialValue() );
+        to.setPropName( from.getPropName() );
+        to.setPropValue( to.getPropValue() );
         to.setProduct( from.getProduct() );
 
     }

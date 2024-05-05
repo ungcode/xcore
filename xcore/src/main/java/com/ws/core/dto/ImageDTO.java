@@ -11,7 +11,6 @@ public class ImageDTO
 
 	private Long id;
     private String            url;
-	
     private Product           product;
 	
 	public ImageDTO() {

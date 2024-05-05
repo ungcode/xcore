@@ -1,7 +1,11 @@
 
 package com.ws.core.dto;
 
+import com.ws.core.models.Brand;
+import com.ws.core.models.Category;
+import com.ws.core.models.Color;
 import com.ws.core.models.Product;
+import com.ws.core.models.Size;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,20 +14,19 @@ public class ProductDTO
     // ---------------------------------------------------------------------
     // Construction
     // ---------------------------------------------------------------------
-    private Long            id;
-
-    private String          sku;
-    private int             qtInStock;
-    private double          price;
-    private PropertiesDTO                  propertiesDTO;
-    private SizeDTO                  sizeDTO;
-    private ColorDTO                 colorDTO;
-
-
-    public ProductDTO()
-    {
-
-    }
+    private Long     id;
+    private String   name;
+    private String   shortDescription;
+    private String   description;
+    private String   sku;
+    private String   coverUrl;
+    private int      qtInStock;
+    private double   regularPrice;
+    private double   salePrice;
+    private Brand    brand;
+    private Category category;
+    private Size     size;
+    private Color    color;
 
     public Long getId()
     {
@@ -33,6 +36,36 @@ public class ProductDTO
     public void setId( Long id )
     {
         this.id = id;
+    }
+
+    public String getName()
+    {
+        return name;
+    }
+
+    public void setName( String name )
+    {
+        this.name = name;
+    }
+
+    public String getShortDescription()
+    {
+        return shortDescription;
+    }
+
+    public void setShortDescription( String shortDescription )
+    {
+        this.shortDescription = shortDescription;
+    }
+
+    public String getDescription()
+    {
+        return description;
+    }
+
+    public void setDescription( String description )
+    {
+        this.description = description;
     }
 
     public String getSku()
@@ -45,6 +78,16 @@ public class ProductDTO
         this.sku = sku;
     }
 
+    public String getCoverUrl()
+    {
+        return coverUrl;
+    }
+
+    public void setCoverUrl( String coverUrl )
+    {
+        this.coverUrl = coverUrl;
+    }
+
     public int getQtInStock()
     {
         return qtInStock;
@@ -55,46 +98,65 @@ public class ProductDTO
         this.qtInStock = qtInStock;
     }
 
-    public double getPrice()
+    public double getRegularPrice()
     {
-        return price;
+        return regularPrice;
     }
 
-    public void setPrice( double price )
+    public void setRegularPrice( double regularPrice )
     {
-        this.price = price;
+        this.regularPrice = regularPrice;
     }
 
-    public PropertiesDTO getItem()
+    public double getSalePrice()
     {
-        return propertiesDTO;
+        return salePrice;
     }
 
-    public void setItem( PropertiesDTO propertiesDTO )
+    public void setSalePrice( double salePrice )
     {
-        this.propertiesDTO = propertiesDTO;
+        this.salePrice = salePrice;
     }
 
-    public SizeDTO getSize()
+    public Brand getBrand()
     {
-        return sizeDTO;
+        return brand;
     }
 
-    public void setSize( SizeDTO sizeDTO )
+    public void setBrand( Brand brand )
     {
-        this.sizeDTO = sizeDTO;
+        this.brand = brand;
     }
 
-    public ColorDTO getColor()
+    public Category getCategory()
     {
-        return colorDTO;
+        return category;
     }
 
-    public void setColor( ColorDTO colorDTO )
+    public void setCategory( Category category )
     {
-        this.colorDTO = colorDTO;
+        this.category = category;
     }
 
+    public Size getSize()
+    {
+        return size;
+    }
+
+    public void setSize( Size size )
+    {
+        this.size = size;
+    }
+
+    public Color getColor()
+    {
+        return color;
+    }
+
+    public void setColor( Color color )
+    {
+        this.color = color;
+    }
 
     public ProductDTO mapper( Product productItem )
     {
@@ -116,14 +178,23 @@ public class ProductDTO
         return dtos;
     }
 
-    private ProductDTO create( Product productItem )
+    private ProductDTO create( Product product )
     {
         ProductDTO dto = new ProductDTO();
-        dto.setId( productItem.getId() );
-        dto.setQtInStock( productItem.getQtInStock() );
-        dto.setSku( productItem.getSku() );
-        dto.setColor( new ColorDTO().mapper( productItem.getColor() ) );
-        dto.setSize( new SizeDTO().mapper( productItem.getSize() ) );
+
+        dto.setId( product.getId() );
+        dto.setQtInStock( product.getQtInStock() );
+        dto.setSku( product.getSku() );
+        dto.setCoverUrl( product.getCoverUrl() );
+        dto.setRegularPrice( product.getRegularPrice() );
+        dto.setSalePrice( product.getSalePrice() );
+        dto.setShortDescription( product.getShortDescription() );
+        dto.setDescription( product.getDescription() );
+
+        dto.setSize( product.getSize() );
+        dto.setColor( product.getColor() );
+        dto.setBrand( product.getBrand() );
+        dto.setCategory( product.getCategory() );
         return dto;
     }
 

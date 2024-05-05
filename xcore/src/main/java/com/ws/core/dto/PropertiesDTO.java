@@ -8,17 +8,13 @@ import java.util.List;
 public class PropertiesDTO
 {
 
-	private Long id;
-	
-	private String itemName;
-	
-	private String itemValue;
-	
-    private ProductDTO productDTO;
+    private Long    id;
 
-    public PropertiesDTO()
-    {
-    }
+    private String  propName;
+
+    private String  propValue;
+
+    private ProductDTO product;
 
     public Long getId()
     {
@@ -30,34 +26,34 @@ public class PropertiesDTO
         this.id = id;
     }
 
-    public String getItemName()
+    public String getPropName()
     {
-        return itemName;
+        return propName;
     }
 
-    public void setItemName( String itemName )
+    public void setPropName( String propName )
     {
-        this.itemName = itemName;
+        this.propName = propName;
     }
 
-    public String getItemValue()
+    public String getPropValue()
     {
-        return itemValue;
+        return propValue;
     }
 
-    public void setItemValue( String itemValue )
+    public void setPropValue( String propValue )
     {
-        this.itemValue = itemValue;
+        this.propValue = propValue;
     }
 
-    public ProductDTO getProductDTO()
+    public ProductDTO getProduct()
     {
-        return productDTO;
+        return product;
     }
 
-    public void setProductDTO( ProductDTO productDTO )
+    public void setProduct( ProductDTO product )
     {
-        this.productDTO = productDTO;
+        this.product = product;
     }
 
     public PropertiesDTO mapper( Properties properties )
@@ -82,14 +78,10 @@ public class PropertiesDTO
     {
         PropertiesDTO dto = new PropertiesDTO();
         dto.setId( properties.getId() );
-        dto.setItemName( properties.getItemName() );
-        dto.setItemValue( properties.getItemValue() );
-        dto.setProductDTO( new ProductDTO().mapper( properties.getProduct() ) );
+        dto.setPropName( propName );
+        dto.setPropValue( properties.getPropValue() );
+        dto.setProduct( new ProductDTO().mapper( properties.getProduct() ) );
         return dto;
     }
-
-	
-	
-
 
 }

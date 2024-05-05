@@ -55,19 +55,23 @@ public class CartProduct implements Serializable {
 		this.qt = quantity;
 	}
 
-	public int getQt() {
+    public int getQt()
+    {
 		return qt;
 	}
 
-	public void setQt(int qt) {
+    public void setQt( int qt )
+    {
 		this.qt = qt;
 	}
 
-	public Cart getCart() {
+    public Cart getCart()
+    {
 		return cart;
 	}
 
-	public void setCart(Cart cart) {
+    public void setCart( Cart cart )
+    {
 		this.cart = cart;
 	}
 
@@ -85,7 +89,8 @@ public class CartProduct implements Serializable {
 		return shopOrders;
 	}
 
-	public void setShopOrders(Set<ShopOrder> shopOrders) {
+    public void setShopOrders( Set< ShopOrder > shopOrders )
+    {
 		this.shopOrders = shopOrders;
 	}
 

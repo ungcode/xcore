@@ -31,6 +31,9 @@ public class Product implements Serializable {
 
 	private String sku;
 	
+    @Column( name = "cover_url" )
+    private String             coverUrl;
+
 	@Column(name="qt_in_stock")
 	private int qtInStock;
 	
@@ -87,7 +90,28 @@ public class Product implements Serializable {
 		this.sku = sku;
 	}
 
-	public int getQtInStock() {
+    public String getCoverUrl()
+    {
+        return coverUrl;
+    }
+
+    public void setCoverUrl( String coverUrl )
+    {
+        this.coverUrl = coverUrl;
+    }
+
+    public Set< Image > getImage()
+    {
+        return image;
+    }
+
+    public void setImage( Set< Image > image )
+    {
+        this.image = image;
+    }
+
+    public int getQtInStock()
+    {
 		return qtInStock;
 	}
 
@@ -131,17 +155,12 @@ public class Product implements Serializable {
         this.image = image;
     }
 
-    public void setCartProduct( Set< CartProduct > cartProduct )
-    {
-        this.cartProduct = cartProduct;
-    }
-
     public Set< CartProduct > getCartProduct()
     {
         return cartProduct;
 	}
 
-    public void setCartItem( Set< CartProduct > cartProduct )
+    public void setCartProduct( Set< CartProduct > cartProduct )
     {
         this.cartProduct = cartProduct;
 	}
@@ -215,12 +234,6 @@ public class Product implements Serializable {
     {
         this.category = category;
     }
-
-    public Set< CartProduct > getCartItems()
-    {
-        return cartProduct;
-    }
-
     public void setCartProducts( Set< CartProduct > cartProducts )
     {
         this.cartProduct = cartProducts;
@@ -231,12 +244,21 @@ public class Product implements Serializable {
     {
 
         to.setId( from.getId() );
-        to.setCartItem( from.getCartProduct() );
-        to.setColor( from.getColor() );
         to.setQtInStock( from.getQtInStock() );
-        to.setSize( from.getSize() );
         to.setSku( from.getSku() );
+        to.setCoverUrl( from.getCoverUrl() );
+        to.setRegularPrice( from.getRegularPrice() );
+        to.setSalePrice( from.getSalePrice() );
+        to.setShortDescription( from.getShortDescription() );
+        to.setDescription( from.getDescription() );
+        to.setProperties( from.getProperties() );
+        to.setSize( from.getSize() );
+        to.setColor( from.getColor() );
         to.setImages( from.getImages() );
+        to.setBrand( from.getBrand() );
+        to.setCartProduct( from.getCartProduct() );
+        to.setCategory( from.getCategory() );
+
     }
 
 
