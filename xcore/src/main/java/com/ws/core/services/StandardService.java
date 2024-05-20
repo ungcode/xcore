@@ -14,7 +14,7 @@ import java.util.Arrays;
  */
 public class StandardService<T> {
 
-	private StandardResponse<?> response;
+    private StandardResponse< ? > response;
 
     public void setError( final int errorCore,
                           final int errorLevel,

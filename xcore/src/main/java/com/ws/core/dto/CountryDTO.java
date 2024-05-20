@@ -1,6 +1,11 @@
 
 package com.ws.core.dto;
 
+import com.ws.core.models.Country;
+import java.util.ArrayList;
+import java.util.List;
+
+
 public class CountryDTO
 {
     // ---------------------------------------------------------------------
@@ -40,6 +45,30 @@ public class CountryDTO
     public void setCountryName( String countryName )
     {
         this.countryName = countryName;
+    }
+
+    public CountryDTO mapper( Country country )
+    {
+        return create( country );
+
+    }
+
+    public List< CountryDTO > mapper( List< Country > countries )
+    {
+        List< CountryDTO > dtos = new ArrayList< CountryDTO >();
+        countries.forEach( country -> {
+            dtos.add( create( country ) );
+        } );
+        return dtos;
+
+    }
+
+    private CountryDTO create( Country country )
+    {
+        CountryDTO dto = new CountryDTO();
+        dto.setId( country.getId() );
+        dto.setCountryName( country.getCountryName() );
+        return dto;
     }
 
 }

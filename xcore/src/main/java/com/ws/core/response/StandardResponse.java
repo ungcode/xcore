@@ -1,5 +1,6 @@
 package com.ws.core.response;
 
+import com.ws.core.pagination.PaginationResult;
 import java.io.Serializable;
 import java.util.Arrays;
 import java.util.List;
@@ -20,7 +21,8 @@ public class StandardResponse< T >
     private int               errorCode;
 	private int errorLevel;
 	private String errorText;
-	private List<?> Data ;
+    private List< ? >         Data;
+    private PaginationResult  paginationResult;
 	
 
     public StandardResponse()
@@ -41,14 +43,24 @@ public class StandardResponse< T >
 
 	}
 
-    public StandardResponse( List< ? > Data )
+    public StandardResponse( PaginationResult< T > paginationResult )
     {
         this.errorCode = 0;
         this.errorLevel = 0;
         this.errorText = "{}";
-        setData( Data );
+        setPaginationResult( paginationResult );
 
     }
+
+    public StandardResponse( List< ? > data )
+    {
+        this.errorCode = 0;
+        this.errorLevel = 0;
+        this.errorText = "{}";
+        setData( data );
+
+    }
+    
 
     public int getErrorCode()
     {
@@ -98,5 +110,15 @@ public class StandardResponse< T >
     {
 		return Arrays.asList(t);
 	}
+
+    public PaginationResult getPaginationResult()
+    {
+        return paginationResult;
+    }
+
+    public void setPaginationResult( PaginationResult paginationResult )
+    {
+        this.paginationResult = paginationResult;
+    }
 
 }

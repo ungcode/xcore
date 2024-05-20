@@ -1,7 +1,5 @@
 package com.ws.core.models;
 
-import java.io.Serializable;
-
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -10,6 +8,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import java.io.Serializable;
 
 @Entity
 @Table(name="SHIPPING_ADDRESS")
@@ -44,6 +43,14 @@ public class ShippingAddress  implements Serializable{
 	public void setAddress(Address address) {
 		this.address = address;
 	}
+
+    public void merge( ShippingAddress from,
+                       ShippingAddress to )
+    {
+        to.setId( from.getId() );
+        to.setAddress( from.getAddress() );
+
+    }
 	
 	
 

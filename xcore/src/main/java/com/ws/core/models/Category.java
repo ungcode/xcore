@@ -1,8 +1,5 @@
 package com.ws.core.models;
 
-import java.util.HashSet;
-import java.util.Set;
-
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -12,6 +9,8 @@ import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name="CATEGORY")
@@ -23,19 +22,21 @@ public class Category {
 
 	private String name;
 
-	@ManyToOne(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
+    @ManyToOne( fetch = FetchType.LAZY, cascade = CascadeType.ALL )
 	private Category parentCategory;
+
 
 	@OneToMany(mappedBy = "parentCategory")
 	private Set<Category> subCategories = new HashSet<>();
 	
 	@OneToMany(mappedBy = "category")
-	private Set<Product> products = new HashSet<>();
+    private Set< Product >  products      = new HashSet<>();
 
 	public Category() {
 
 	}
 	
+
 
 	public Long getId() {
 		return id;
@@ -69,11 +70,13 @@ public class Category {
 		this.subCategories = subCategories;
 	}
 	
-	public Set<Product> getProduct() {
+    public Set< Product > getProduct()
+    {
 		return products;
 	}
 
-	public void setProduct(Set<Product> product) {
+    public void setProduct( Set< Product > product )
+    {
 		this.products = product;
 	}
 
@@ -91,20 +94,27 @@ public class Category {
 		newParent.getSubCategories().add(this);
 	}
 
-	@Override
-	public String toString() {
-		StringBuilder builder = new StringBuilder();
-		builder.append("Category [id=");
-		builder.append(id);
-		builder.append(", name=");
-		builder.append(name);
-		builder.append(", parentCategory=");
-		builder.append(parentCategory);
-		builder.append(", subCategories=");
-		builder.append(subCategories);
-		builder.append("]");
-		return builder.toString();
-	}
-	
+    public void merge( Category from,
+                       Category to )
+    {
+
+        to.setName( from.getName() );
+        to.setParentCategory( from.getParentCategory() );
+
+    }
+
+    @Override
+    public String toString()
+    {
+        StringBuilder builder = new StringBuilder();
+        builder.append( "Category [id=" );
+        builder.append( id );
+        builder.append( ", name=" );
+        builder.append( name );
+        builder.append( ", parentCategory=" );
+        builder.append( parentCategory );
+        builder.append( "]" );
+        return builder.toString();
+    }
 	
 }

@@ -227,6 +227,7 @@ public class AddressService
 
             XcoreLogger.error( TAG,
                               e.getMessage() );
+            System.out.println( e.getLocalizedMessage() );
 
         }
         return service;

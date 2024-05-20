@@ -1,9 +1,5 @@
 package com.ws.core.models;
 
-import java.io.Serializable;
-import java.util.HashSet;
-import java.util.Set;
-
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -13,10 +9,13 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
-@Table(name = "CART_ITEM")
-public class CartItem implements Serializable {
+@Table( name = "CART_PRODUCT" )
+public class CartProduct implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	@Id
@@ -30,13 +29,13 @@ public class CartItem implements Serializable {
 	private Cart cart;
 
 	@ManyToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "product_item_id")
-	private ProductItem productItem;
+    @JoinColumn( name = "product_id" )
+    private Product           product;
 
-	@OneToMany(mappedBy = "cartItem")
+    @OneToMany( mappedBy = "cartProduct" )
 	private Set<ShopOrder> shopOrders = new HashSet<>();
 
-	public CartItem() {
+	public CartProduct() {
 
 	}
 
@@ -56,36 +55,55 @@ public class CartItem implements Serializable {
 		this.qt = quantity;
 	}
 
-	public int getQt() {
+    public int getQt()
+    {
 		return qt;
 	}
 
-	public void setQt(int qt) {
+    public void setQt( int qt )
+    {
 		this.qt = qt;
 	}
 
-	public Cart getCart() {
+    public Cart getCart()
+    {
 		return cart;
 	}
 
-	public void setCart(Cart cart) {
+    public void setCart( Cart cart )
+    {
 		this.cart = cart;
 	}
 
-	public ProductItem getProductItem() {
-		return productItem;
+    public Product getProduct()
+    {
+        return product;
 	}
 
-	public void setProductItem(ProductItem productItem) {
-		this.productItem = productItem;
+    public void setProduct( Product product )
+    {
+        this.product = product;
 	}
 
 	public Set<ShopOrder> getShopOrders() {
 		return shopOrders;
 	}
 
-	public void setShopOrders(Set<ShopOrder> shopOrders) {
+    public void setShopOrders( Set< ShopOrder > shopOrders )
+    {
 		this.shopOrders = shopOrders;
 	}
+
+    public void merge( CartProduct from,
+                       CartProduct to )
+    {
+        to.setId( from.getId() );
+        to.setQt( from.getQt() );
+        to.setQuantity( from.getQuantity() );
+        to.setCart( from.getCart() );
+        to.setProduct( from.getProduct() );
+        to.setShopOrders( from.getShopOrders() );
+
+    }
 
 }

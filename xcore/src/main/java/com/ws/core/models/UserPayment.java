@@ -1,9 +1,5 @@
 package com.ws.core.models;
 
-import java.io.Serializable;
-import java.util.HashSet;
-import java.util.Set;
-
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -13,6 +9,9 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "USER_PAYMENT")
@@ -22,7 +21,7 @@ public class UserPayment implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private long id;
+    private Long              id;
 
 	private boolean isDefault;
 
@@ -41,7 +40,8 @@ public class UserPayment implements Serializable {
 
 	}
 
-	public long getId() {
+    public Long getId()
+    {
 		return id;
 	}
 
@@ -72,15 +72,6 @@ public class UserPayment implements Serializable {
 	public void setUser(Tuser user) {
 		this.user = user;
 	}
-
-	public PaymentMethod getPaymentType() {
-		return paymentMethod;
-	}
-
-	public void setPaymentType(PaymentMethod paymentType) {
-		this.paymentMethod = paymentType;
-	}
-
 	public PaymentMethod getPaymentMethod() {
 		return paymentMethod;
 	}
@@ -88,9 +79,15 @@ public class UserPayment implements Serializable {
 	public void setPaymentMethod(PaymentMethod paymentMethod) {
 		this.paymentMethod = paymentMethod;
 	}
-	/*
-	 * public Set<Order> getOrders() { return Orders; } public void
-	 * setOrders(Set<Order> orders) { Orders = orders; }
-	 */
+
+    public void merge( UserPayment from,
+                       UserPayment to )
+    {
+        to.setId( from.getId() );
+        to.setDefault( from.isDefault() );
+        to.setPaymentMethod( from.getPaymentMethod() );
+        to.setUser( from.getUser() );
+
+    }
 
 }

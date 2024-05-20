@@ -1,7 +1,7 @@
 package com.ws.core.services;
 
 import com.ws.core.dao.UserDao;
-import com.ws.core.dto.UserDTO;
+import com.ws.core.dto.TuserDTO;
 import com.ws.core.interceptors.Common;
 import com.ws.core.models.Tuser;
 import com.ws.core.response.StandardResponse;
@@ -56,7 +56,7 @@ extends StandardService< Tuser >
 			user.setHash(properties.getProperty(PasswordManager.HASHED));
 			user.setSalt(properties.getProperty(PasswordManager.SALT));
 			dao.persist(user);
-			service.setResponse( new StandardResponse< UserDTO >( new UserDTO().mapper( user ) ) );
+			service.setResponse( new StandardResponse< TuserDTO >( new TuserDTO().mapper( user ) ) );
 
             XcoreLogger.info( TAG,
                               XcoreLogger.END );
@@ -99,7 +99,7 @@ extends StandardService< Tuser >
 
             dao.update( user );
 
-            service.setResponse( new StandardResponse< UserDTO >( new UserDTO().mapper( user ) ) );
+            service.setResponse( new StandardResponse< TuserDTO >( new TuserDTO().mapper( user ) ) );
 
             XcoreLogger.info( TAG,
                               XcoreLogger.END );
@@ -142,7 +142,7 @@ extends StandardService< Tuser >
 
             dao.delete( user );
 
-            service.setResponse( new StandardResponse< UserDTO >( new UserDTO().mapper( user ) ) );
+            service.setResponse( new StandardResponse< TuserDTO >( new TuserDTO().mapper( user ) ) );
 
             XcoreLogger.info( TAG,
                               XcoreLogger.END );
@@ -181,7 +181,7 @@ extends StandardService< Tuser >
             XcoreLogger.info( TAG,
                               XcoreLogger.START );
 
-            service.setResponse( new StandardResponse< UserDTO >( new UserDTO().mapper( dao.fetchAll() ) ) );
+            service.setResponse( new StandardResponse< TuserDTO >( new TuserDTO().mapper( dao.fetchAll() ) ) );
 
             XcoreLogger.info( TAG,
                               XcoreLogger.END );
@@ -217,7 +217,7 @@ extends StandardService< Tuser >
             XcoreLogger.info( TAG,
                               XcoreLogger.START );
 
-            service.setResponse( new StandardResponse< UserDTO >( new UserDTO().mapper( dao.fetch( id ) ) ) );
+            service.setResponse( new StandardResponse< TuserDTO >( new TuserDTO().mapper( dao.fetch( id ) ) ) );
 
             XcoreLogger.info( TAG,
                               XcoreLogger.END );

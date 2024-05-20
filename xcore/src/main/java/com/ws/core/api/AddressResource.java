@@ -14,7 +14,7 @@ import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 
 
-@Path( "address" )
+@Path( "adresses" )
 public class AddressResource {
 
 	
@@ -43,7 +43,7 @@ public class AddressResource {
     @DELETE
     @Path( "/{id}" )
     @Produces( MediaType.APPLICATION_JSON )
-    public Response update( @PathParam( "id" ) Long id )
+    public Response delete( @PathParam( "id" ) Long id )
     {
 
         return Response.ok( addressService.delete( id ) ).build();
@@ -55,7 +55,7 @@ public class AddressResource {
     public Response fetchAll()
     {
 
-        return Response.ok( addressService.fetchAll() ).build();
+        return Response.ok().entity( addressService.fetchAll() ).build();
 
     }
 
@@ -65,7 +65,7 @@ public class AddressResource {
     public Response fetch( @PathParam( "id" ) Long id )
     {
 
-        return Response.ok( addressService.fetch( id ) ).build();
+        return Response.ok().entity( addressService.fetch( id ) ).build();
 
     }
 	

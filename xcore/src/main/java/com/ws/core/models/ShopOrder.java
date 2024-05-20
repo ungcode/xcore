@@ -1,10 +1,5 @@
 package com.ws.core.models;
 
-import java.io.Serializable;
-import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
-
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -17,6 +12,10 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
+import java.io.Serializable;
+import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name="SHOP_ORDER")
@@ -34,7 +33,7 @@ public class ShopOrder implements Serializable {
 	@Column(name="order_status")
 	private String orderStatus;
 	
-	private boolean total;
+    private double            total;
 
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "user_payment_id")
@@ -45,8 +44,8 @@ public class ShopOrder implements Serializable {
 	private ShippingAddress shippingAddress;
 	
 	@ManyToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "cart_item_id")
-	private CartItem cartItem;
+    @JoinColumn( name = "cart_product_id" )
+    private CartProduct       cartProduct;
 	
 	@OneToMany(mappedBy = "shopOrder")
 	private Set<UserReview> userReviews = new HashSet<>();
@@ -95,29 +94,46 @@ public class ShopOrder implements Serializable {
 		this.shippingAddress = shippingAddress;
 	}
 
-	public CartItem getCartItem() {
-		return cartItem;
+	public CartProduct getCartItem() {
+        return cartProduct;
 	}
 
-	public void setCartItem(CartItem cartItem) {
-		this.cartItem = cartItem;
+	public void setCartItem(CartProduct cartItem) {
+        this.cartProduct = cartItem;
 	}
 
-	public boolean isTotal() {
-		return total;
-	}
+    public double getTotal()
+    {
+        return total;
+    }
 
-	public void setTotal(boolean total) {
-		this.total = total;
-	}
+    public void setTotal( double total )
+    {
+        this.total = total;
+    }
 
-	public Set<UserReview> getUserReviews() {
+    public Set< UserReview > getUserReviews()
+    {
 		return userReviews;
 	}
 
 	public void setUserReviews(Set<UserReview> userReviews) {
 		this.userReviews = userReviews;
 	}
+
+    public void merge( ShopOrder from,
+                       ShopOrder to )
+    {
+        to.setId( from.getId() );
+        to.setTotal( from.getTotal() );
+        to.setOrderDate( from.getOrderDate() );
+        to.setOrderStatus( from.getOrderStatus() );
+        to.setUserPayment( from.getUserPayment() );
+        to.setCartItem( from.getCartItem() );
+        to.setShippingAddress( from.getShippingAddress() );
+        to.setUserReviews( from.getUserReviews() );
+
+    }
 	
 	
 

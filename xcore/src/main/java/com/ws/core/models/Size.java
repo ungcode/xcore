@@ -1,9 +1,5 @@
 package com.ws.core.models;
 
-import java.io.Serializable;
-import java.util.HashSet;
-import java.util.Set;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -11,6 +7,9 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name="SIZE")
@@ -25,7 +24,7 @@ public class Size implements Serializable {
 	private String sizeValue;
 	
 	@OneToMany(mappedBy = "size")
-	private Set<ProductItem> productEntries = new HashSet<>();
+	private Set<Product> productEntries = new HashSet<>();
 
 	public Size() {
 		
@@ -47,13 +46,22 @@ public class Size implements Serializable {
 		this.sizeValue = sizeValue;
 	}
 
-	public Set<ProductItem> getProductEntry() {
+	public Set<Product> getProductEntry() {
 		return productEntries;
 	}
 
-	public void setProductEntry(Set<ProductItem> productEntry) {
+	public void setProductEntry(Set<Product> productEntry) {
 		this.productEntries = productEntry;
 	}
+
+    public void merge( Size from,
+                       Size to )
+    {
+        to.setId( from.getId() );
+        to.setSizeValue( from.getSizeValue() );
+        to.setProductEntry( from.getProductEntry() );
+
+    }
 	
 	
 

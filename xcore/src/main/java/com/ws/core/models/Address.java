@@ -1,9 +1,5 @@
 package com.ws.core.models;
 
-import java.io.Serializable;
-import java.util.HashSet;
-import java.util.Set;
-
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -14,6 +10,9 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
+import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "ADDRESS")
@@ -146,7 +145,11 @@ public class Address implements Serializable {
 		this.shippingAddress = shippingAddress;
 	}
 
-	public void merge(Address from, Address to) {
+
+
+    public void merge( Address from,
+                       Address to )
+    {
 
 		to.setPostalCode(from.getPostalCode());
 		to.setCity(from.getCity());
