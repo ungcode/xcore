@@ -23,24 +23,24 @@ public class ProductResource {
 
 	
     @Inject
-    ProductService productItemService;
+    ProductService productService;
 
 
     @POST
     @Produces( MediaType.APPLICATION_JSON )
-    public Response persist( Product productItem )
+    public Response persist( Product product )
     {
 
-        return Response.ok( productItemService.persist( productItem ) ).build();
+        return Response.ok( productService.persist( product ) ).build();
 
     }
 
     @PUT
     @Produces( MediaType.APPLICATION_JSON )
-    public Response update( Product productItem )
+    public Response update( Product product )
     {
 
-        return Response.ok( productItemService.update( productItem ) ).build();
+        return Response.ok( productService.update( product ) ).build();
 
     }
 
@@ -50,10 +50,11 @@ public class ProductResource {
     public Response delete( @PathParam( "id" ) Long id )
     {
 
-        return Response.ok().entity( productItemService.delete( id ) ).build();
+        return Response.ok().entity( productService.delete( id ) ).build();
 
     }
 
+    @SuppressWarnings( "unchecked" )
     @GET
     @Produces( MediaType.APPLICATION_JSON )
     public Response fetchAll()
@@ -64,9 +65,9 @@ public class ProductResource {
         List< Product > products = ( List< Product > )data.get( "products" );
         products.forEach( product -> {
 
-            // productItemService.persist( product );
+            // productService.persist( product );
         } );
-        return Response.ok().entity( productItemService.fetchAll() ).build();
+        return Response.ok().entity( productService.fetchAll() ).build();
 
     }
 
@@ -77,7 +78,7 @@ public class ProductResource {
     {
 
 
-        return Response.ok().entity( productItemService.fetch( id ) ).build();
+        return Response.ok().entity( productService.fetch( id ) ).build();
 
     }
 
@@ -89,7 +90,7 @@ public class ProductResource {
 
 
         return Response.ok()
-                       .entity( productItemService.pagination( pagination ) )
+                       .entity( productService.pagination( pagination ) )
                        .build();
 
     }
