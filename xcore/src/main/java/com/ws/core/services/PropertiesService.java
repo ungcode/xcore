@@ -39,7 +39,7 @@ public class PropertiesService
 	@Common
     public PropertiesService persist( Properties properties )
 	{
-        final String TAG = "ItemService.persist";
+        final String TAG = "PropertiesService.persist";
 
         try
         {
@@ -79,7 +79,7 @@ public class PropertiesService
     public PropertiesService update( Properties __new )
     {
 
-        final String TAG = "ItemService.update";
+        final String TAG = "PropertiesService.update";
         try
         {
             XcoreLogger.info( TAG,
@@ -126,7 +126,7 @@ public class PropertiesService
     public PropertiesService delete( Long id )
     {
 
-        final String TAG = "ItemService.delete";
+        final String TAG = "PropertiesService.delete";
         try
         {
             XcoreLogger.info( TAG,
@@ -169,7 +169,7 @@ public class PropertiesService
     public PropertiesService fetchAll()
     {
 
-        final String TAG = "ItemsService.fetchAll";
+        final String TAG = "PropertiesService.fetchAll";
         try
         {
             XcoreLogger.info( TAG,
@@ -205,7 +205,7 @@ public class PropertiesService
     public PropertiesService fetch( long id )
     {
 
-        final String TAG = "ItemService.fetch";
+        final String TAG = "PropertiesService.fetch";
         try
         {
             XcoreLogger.info( TAG,

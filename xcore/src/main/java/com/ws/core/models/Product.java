@@ -74,7 +74,22 @@ public class Product implements Serializable {
 	public Product() {
 	}
 
-	public Long getId() {
+    public Product( String name,
+                    String shortDescription,
+                    String description,
+                    double regularPrice,
+                    double salePrice )
+    {
+        super();
+        this.name = name;
+        this.shortDescription = shortDescription;
+        this.description = description;
+        this.regularPrice = regularPrice;
+        this.salePrice = salePrice;
+    }
+
+    public Long getId()
+    {
 		return id;
 	}
 
@@ -261,5 +276,32 @@ public class Product implements Serializable {
 
     }
 
+    @Override
+    public String toString()
+    {
+        StringBuilder builder = new StringBuilder();
+        builder.append( "Product [id=" );
+        builder.append( id );
+        builder.append( ", name=" );
+        builder.append( name );
+        builder.append( ", shortDescription=" );
+        builder.append( shortDescription );
+        builder.append( ", description=" );
+        builder.append( description );
+        builder.append( ", sku=" );
+        builder.append( sku );
+        builder.append( ", coverUrl=" );
+        builder.append( coverUrl );
+        builder.append( ", qtInStock=" );
+        builder.append( qtInStock );
+        builder.append( ", regularPrice=" );
+        builder.append( regularPrice );
+        builder.append( ", salePrice=" );
+        builder.append( salePrice );
+        builder.append( ", properties=" );
+        builder.append( properties );
+        builder.append( "]" );
+        return builder.toString();
+    }
 
 }

@@ -1,13 +1,12 @@
 
 package com.ws.core.dto;
 
-import com.ws.core.models.Brand;
-import com.ws.core.models.Category;
-import com.ws.core.models.Color;
 import com.ws.core.models.Product;
-import com.ws.core.models.Size;
+import com.ws.core.models.Properties;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class ProductDTO
 {
@@ -23,10 +22,11 @@ public class ProductDTO
     private int      qtInStock;
     private double   regularPrice;
     private double   salePrice;
-    private Brand    brand;
-    private Category category;
-    private Size     size;
-    private Color    color;
+    private BrandDTO    brand;
+    private CategoryDTO category;
+    private SizeDTO     size;
+    private ColorDTO    color;
+    private Set< Properties > properties = new HashSet<>();
 
     public Long getId()
     {
@@ -118,44 +118,54 @@ public class ProductDTO
         this.salePrice = salePrice;
     }
 
-    public Brand getBrand()
+    public BrandDTO getBrand()
     {
         return brand;
     }
 
-    public void setBrand( Brand brand )
+    public void setBrand( BrandDTO brand )
     {
         this.brand = brand;
     }
 
-    public Category getCategory()
+    public CategoryDTO getCategory()
     {
         return category;
     }
 
-    public void setCategory( Category category )
+    public void setCategory( CategoryDTO category )
     {
         this.category = category;
     }
 
-    public Size getSize()
+    public SizeDTO getSize()
     {
         return size;
     }
 
-    public void setSize( Size size )
+    public void setSize( SizeDTO size )
     {
         this.size = size;
     }
 
-    public Color getColor()
+    public ColorDTO getColor()
     {
         return color;
     }
 
-    public void setColor( Color color )
+    public void setColor( ColorDTO color )
     {
         this.color = color;
+    }
+
+    public Set< Properties > getProperties()
+    {
+        return properties;
+    }
+
+    public void setProperties( Set< Properties > properties )
+    {
+        this.properties = properties;
     }
 
     public ProductDTO mapper( Product productItem )
@@ -191,10 +201,13 @@ public class ProductDTO
         dto.setShortDescription( product.getShortDescription() );
         dto.setDescription( product.getDescription() );
 
-        dto.setSize( product.getSize() );
-        dto.setColor( product.getColor() );
-        dto.setBrand( product.getBrand() );
-        dto.setCategory( product.getCategory() );
+        dto.setSize( new SizeDTO().mapper( product.getSize() ) );
+        dto.setColor( new ColorDTO().mapper( product.getColor() ) );
+
+        dto.setBrand( new BrandDTO().mapper( product.getBrand() ) );
+        dto.setCategory( new CategoryDTO().mapper( product.getCategory() ) );
+        // dto.setProperties( product.getProperties() );
+
         return dto;
     }
 

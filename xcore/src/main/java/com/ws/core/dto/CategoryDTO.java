@@ -81,7 +81,10 @@ public class CategoryDTO {
         }
         dto.setId( category.getId() );
         dto.setName( category.getName() );
-        dto.setParentCategory( create( category.getParentCategory() ) );
+        if( category.getParentCategory() != null )
+        {
+            dto.setParentCategory( create( category.getParentCategory() ) );
+        }
         return dto;
     }
 	

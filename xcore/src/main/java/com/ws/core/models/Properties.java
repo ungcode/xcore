@@ -93,4 +93,18 @@ public class Properties implements Serializable {
 
     }
 
+    @Override
+    public String toString()
+    {
+        StringBuilder builder = new StringBuilder();
+        builder.append( "Properties [id=" );
+        builder.append( id );
+        builder.append( ", propName=" );
+        builder.append( propName );
+        builder.append( ", propValue=" );
+        builder.append( propValue );
+        builder.append( "]" );
+        return builder.toString();
+    }
+
 }

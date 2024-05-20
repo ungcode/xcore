@@ -29,7 +29,15 @@ public class Image implements Serializable {
 		
 	}
 
-	public Long getId() {
+
+    public Image( String url )
+    {
+
+        this.url = url;
+    }
+
+    public Long getId()
+    {
 		return id;
 	}
 
@@ -66,6 +74,20 @@ public class Image implements Serializable {
         to.setUrl( from.getUrl() );
 
 
+    }
+
+    @Override
+    public String toString()
+    {
+        StringBuilder builder = new StringBuilder();
+        builder.append( "Image [id=" );
+        builder.append( id );
+        builder.append( ", url=" );
+        builder.append( url );
+        builder.append( ", product=" );
+        builder.append( product );
+        builder.append( "]" );
+        return builder.toString();
     }
 
 }

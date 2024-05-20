@@ -4,6 +4,8 @@ import com.ws.core.dao.ProductDao;
 import com.ws.core.dto.ProductDTO;
 import com.ws.core.interceptors.Common;
 import com.ws.core.models.Product;
+import com.ws.core.pagination.Pagination;
+import com.ws.core.pagination.PaginationResult;
 import com.ws.core.response.StandardResponse;
 import com.ws.core.util.Error;
 import com.ws.core.util.XcoreLogger;
@@ -11,6 +13,7 @@ import jakarta.annotation.PostConstruct;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
+import java.util.List;
 
 @ApplicationScoped
 @Transactional
@@ -54,9 +57,9 @@ public class ProductService
 
 		} catch (Exception e) {
 
-            setError( Error.PRODUCT_ITEM_SERVICE_PERSIST_CODE,
-                      Error.PRODUCT_ITEM_SERVICE_PERSIST_LEVEL,
-                      Error.PRODUCT_ITEM_SERVICE_PERSIST_TEXT,
+            setError( Error.PRODUCT_SERVICE_PERSIST_CODE,
+                      Error.PRODUCT_SERVICE_PERSIST_LEVEL,
+                      Error.PRODUCT_SERVICE_PERSIST_TEXT,
                       new StandardResponse< Product >() );
 
             service.setResponse( getResponse() );
@@ -101,9 +104,9 @@ public class ProductService
         catch( Exception e )
         {
 
-            setError( Error.PRODUCT_ITEM_SERVICE_UPDATE_CODE,
-                      Error.PRODUCT_ITEM_SERVICE_UPDATE_LEVEL,
-                      Error.PRODUCT_ITEM_SERVICE_UPDATE_TEXT,
+            setError( Error.PRODUCT_SERVICE_UPDATE_CODE,
+                      Error.PRODUCT_SERVICE_UPDATE_LEVEL,
+                      Error.PRODUCT_SERVICE_UPDATE_TEXT,
                       new StandardResponse< Product >() );
             service.setResponse( getResponse() );
 
@@ -145,9 +148,9 @@ public class ProductService
         catch( Exception e )
         {
 
-            setError( Error.PRODUCT_ITEM_SERVICE_DELETE_CODE,
-                      Error.PRODUCT_ITEM_SERVICE_DELETE_LEVEL,
-                      Error.PRODUCT_ITEM_SERVICE_DELETE_TEXT,
+            setError( Error.PRODUCT_SERVICE_DELETE_CODE,
+                      Error.PRODUCT_SERVICE_DELETE_LEVEL,
+                      Error.PRODUCT_SERVICE_DELETE_TEXT,
                       new StandardResponse< Product >() );
             service.setResponse( getResponse() );
 
@@ -177,15 +180,16 @@ public class ProductService
 
             service.setResponse( new StandardResponse< ProductDTO >( new ProductDTO().mapper( dao.fetchAll() ) ) );
 
+
             XcoreLogger.info( TAG,
                               XcoreLogger.END );
 
         }
         catch( Exception e )
         {
-            setError( Error.PRODUCT_ITEM_SERVICE_FETCH_ALL_CODE,
-                      Error.PRODUCT_ITEM_SERVICE_FETCH_ALL_LEVEL,
-                      Error.PRODUCT_ITEM_SERVICE_FETCH_ALL_TEXT,
+            setError( Error.PRODUCT_SERVICE_FETCH_ALL_CODE,
+                      Error.PRODUCT_SERVICE_FETCH_ALL_LEVEL,
+                      Error.PRODUCT_SERVICE_FETCH_ALL_TEXT,
                       new StandardResponse< Product >() );
             service.setResponse( getResponse() );
             XcoreLogger.error( TAG,
@@ -219,14 +223,52 @@ public class ProductService
         }
         catch( Exception e )
         {
-            setError( Error.PRODUCT_ITEM_SERVICE_FETCH_CODE,
-                      Error.PRODUCT_ITEM_SERVICE_FETCH_LEVEL,
-                      Error.PRODUCT_ITEM_SERVICE_FETCH_TEXT,
+            setError( Error.PRODUCT_SERVICE_FETCH_CODE,
+                      Error.PRODUCT_SERVICE_FETCH_LEVEL,
+                      Error.PRODUCT_SERVICE_FETCH_TEXT,
                       new StandardResponse< Product >() );
             service.setResponse( getResponse() );
 
             XcoreLogger.error( TAG,
                               e.getMessage() );
+
+
+        }
+        return service;
+    }
+
+    @SuppressWarnings( { "rawtypes", "unchecked" } )
+    public ProductService pagination( Pagination pagination )
+    {
+
+        final String TAG = "ProductItemService.pagination";
+        try
+        {
+            XcoreLogger.info( TAG,
+                              XcoreLogger.START );
+
+
+            PaginationResult paginationResult = dao.paginations( pagination );
+
+            List< ProductDTO > products = new ProductDTO().mapper( paginationResult.getRecords() );
+            paginationResult.setRecords( products );
+
+            service.setResponse( new StandardResponse< PaginationResult >( paginationResult ) );
+
+            XcoreLogger.info( TAG,
+                              XcoreLogger.END );
+
+        }
+        catch( Exception e )
+        {
+            setError( Error.PRODUCT_SERVICE_FETCH_CODE,
+                      Error.PRODUCT_SERVICE_FETCH_LEVEL,
+                      Error.PRODUCT_SERVICE_FETCH_TEXT,
+                      new StandardResponse< Product >() );
+            service.setResponse( getResponse() );
+
+            XcoreLogger.error( TAG,
+                               e.getMessage() );
 
 
         }

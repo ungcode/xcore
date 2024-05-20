@@ -37,6 +37,7 @@ public class Category {
 	}
 	
 
+
 	public Long getId() {
 		return id;
 	}
@@ -100,6 +101,20 @@ public class Category {
         to.setName( from.getName() );
         to.setParentCategory( from.getParentCategory() );
 
+    }
+
+    @Override
+    public String toString()
+    {
+        StringBuilder builder = new StringBuilder();
+        builder.append( "Category [id=" );
+        builder.append( id );
+        builder.append( ", name=" );
+        builder.append( name );
+        builder.append( ", parentCategory=" );
+        builder.append( parentCategory );
+        builder.append( "]" );
+        return builder.toString();
     }
 	
 }

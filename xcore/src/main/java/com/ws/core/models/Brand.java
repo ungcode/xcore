@@ -32,10 +32,31 @@ public class Brand implements Serializable
     @OneToMany( mappedBy = "brand" )
     private Set< Product >    products         = new HashSet<>();
 
+
+    public Brand()
+    {
+
+    }
+
+    public Brand( Long id,
+                  String name )
+    {
+
+        this.id = id;
+        this.name = name;
+    }
+
+    public Brand( String name )
+    {
+
+        this.name = name;
+    }
+
     public Long getId()
     {
         return id;
     }
+
 
     public void setId( Long id )
     {
@@ -70,6 +91,18 @@ public class Brand implements Serializable
         to.setName( from.getName() );
         to.setProducts( from.getProducts() );
 
+    }
+
+    @Override
+    public String toString()
+    {
+        StringBuilder builder = new StringBuilder();
+        builder.append( "Brand [id=" );
+        builder.append( id );
+        builder.append( ", name=" );
+        builder.append( name );
+        builder.append( "]" );
+        return builder.toString();
     }
     
 

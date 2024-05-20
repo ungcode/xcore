@@ -2,6 +2,7 @@ package com.ws.core.api;
 
 import com.ws.core.models.Properties;
 import com.ws.core.services.PropertiesService;
+import com.ws.core.util.Samples;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.DELETE;
 import jakarta.ws.rs.GET;
@@ -12,6 +13,7 @@ import jakarta.ws.rs.PathParam;
 import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
+import java.util.List;
 
 
 @Path( "properties" )
@@ -50,10 +52,18 @@ public class PropertiesResource {
 
     }
 
+
     @GET
     @Produces( MediaType.APPLICATION_JSON )
     public Response fetchAll()
     {
+
+        List< Properties > properties = ( List< Properties > )new Samples().getData()
+                                                                     .get( "properties" );
+
+        properties.forEach( property -> {
+            // propertiesService.persist( property );
+        } );
 
         return Response.ok().entity( propertiesService.fetchAll() ).build();
 
