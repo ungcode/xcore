@@ -1,10 +1,14 @@
 package com.ws.core.api;
 
+import com.ws.core.models.Image;
 import com.ws.core.models.Product;
+import com.ws.core.models.Properties;
 import com.ws.core.pagination.Pagination;
 import com.ws.core.services.ProductService;
+import com.ws.core.util.ParseJSON;
 import com.ws.core.util.Samples;
 import jakarta.inject.Inject;
+import jakarta.json.JsonObject;
 import jakarta.ws.rs.DELETE;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.POST;
@@ -28,10 +32,27 @@ public class ProductResource {
 
     @POST
     @Produces( MediaType.APPLICATION_JSON )
-    public Response persist( Product product )
+    public Response persist( JsonObject product )
     {
+        ParseJSON obj = new ParseJSON( product );
 
-        return Response.ok( productService.persist( product ) ).build();
+        Product p = obj.buildObj( "product",
+                                  Product.class );
+        System.out.println( p );
+
+        List< Properties > properties = obj.buildObjList( "properties",
+                                                          Properties.class );
+        System.out.println( properties.get( 0 ) );
+
+
+        List< Image > images = obj.buildObjList( "images",
+                                                 Image.class );
+        // System.out.println( images );
+
+        System.out.println( images.get( 0 ) );
+
+        return null;
+        // return Response.ok( productService.persist( product ) ).build();
 
     }
 

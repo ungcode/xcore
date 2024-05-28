@@ -211,6 +211,40 @@ public class ProductDTO
         return dto;
     }
 
+    @Override
+    public String toString()
+    {
+        StringBuilder builder = new StringBuilder();
+        builder.append( "ProductDTO [id=" );
+        builder.append( id );
+        builder.append( ", name=" );
+        builder.append( name );
+        builder.append( ", shortDescription=" );
+        builder.append( shortDescription );
+        builder.append( ", description=" );
+        builder.append( description );
+        builder.append( ", sku=" );
+        builder.append( sku );
+        builder.append( ", coverUrl=" );
+        builder.append( coverUrl );
+        builder.append( ", qtInStock=" );
+        builder.append( qtInStock );
+        builder.append( ", regularPrice=" );
+        builder.append( regularPrice );
+        builder.append( ", salePrice=" );
+        builder.append( salePrice );
+        builder.append( ", brand=" );
+        builder.append( brand );
+        builder.append( ", category=" );
+        builder.append( category );
+        builder.append( ", size=" );
+        builder.append( size );
+        builder.append( ", color=" );
+        builder.append( color );
+        builder.append( "]" );
+        return builder.toString();
+    }
+
 }
 
 // -------------------------------------------------------------------------

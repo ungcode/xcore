@@ -298,8 +298,14 @@ public class Product implements Serializable {
         builder.append( regularPrice );
         builder.append( ", salePrice=" );
         builder.append( salePrice );
-        builder.append( ", properties=" );
-        builder.append( properties );
+        builder.append( ", brand=" );
+        builder.append( brand );
+        builder.append( ", category=" );
+        builder.append( category );
+        builder.append( ", size=" );
+        builder.append( size );
+        builder.append( ", color=" );
+        builder.append( color );
         builder.append( "]" );
         return builder.toString();
     }

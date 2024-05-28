@@ -62,6 +62,20 @@ public class Size implements Serializable {
         to.setProductEntry( from.getProductEntry() );
 
     }
+
+    @Override
+    public String toString()
+    {
+        StringBuilder builder = new StringBuilder();
+        builder.append( "Size [id=" );
+        builder.append( id );
+        builder.append( ", sizeValue=" );
+        builder.append( sizeValue );
+        builder.append( ", productEntries=" );
+        builder.append( productEntries );
+        builder.append( "]" );
+        return builder.toString();
+    }
 	
 	
 
