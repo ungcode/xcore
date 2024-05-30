@@ -10,8 +10,8 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import java.io.Serializable;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name="CART")
@@ -27,7 +27,7 @@ public class Cart implements Serializable {
 	private Tuser user;
 	
 	@OneToMany(mappedBy = "cart")
-	private Set<CartProduct> cartProducts = new HashSet<>();
+    private List< CartProduct > cartProducts     = new ArrayList<>();
 	
 	public Cart() {
 		

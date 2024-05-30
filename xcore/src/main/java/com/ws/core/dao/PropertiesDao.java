@@ -1,9 +1,7 @@
 
 package com.ws.core.dao;
 import com.ws.core.idao.Dao;
-import com.ws.core.models.Product;
 import com.ws.core.models.Properties;
-import jakarta.inject.Inject;
 import jakarta.persistence.Query;
 import jakarta.transaction.Transactional;
 import java.util.List;
@@ -13,34 +11,33 @@ import java.util.List;
 public class PropertiesDao< T >
     extends Dao< Properties >
 {
-    @Inject
-    protected ProductDao< Product > productDao;
+
 	@Override
-    public void persist( Properties properties )
+    public Properties persist( Properties properties )
 	{
 
-        getEntityManager().persist( properties );
+        return mergeAndFlush( properties );
 
 	}
 
 	@Override
-    public void update( Properties properties )
+    public Properties update( Properties properties )
 	{
-        add( properties );
-        getEntityManager().merge( properties );
+
+        return mergeAndFlush( properties );
 	}
 
 	@Override
     public void delete( Properties properties )
 	{
-        getEntityManager().remove( properties );
+        entityManager().remove( properties );
 
 	}
 
     @Override
     public Properties fetch( Long id )
 	{
-        Query query = getEntityManager().createQuery( "SELECT prop FROM Properties prop WHERE prop.id =:id",
+        Query query = entityManager().createQuery( "SELECT prop FROM Properties prop WHERE prop.id =:id",
                                                       Properties.class );
         query.setParameter( "id",
                             id );
@@ -51,19 +48,25 @@ public class PropertiesDao< T >
     @Override
     public List< Properties > fetchAll()
 	{
-        return getEntityManager().createQuery( "SELECT prop FROM properties prop",
+        return entityManager().createQuery( "SELECT prop FROM properties prop",
                                                Properties.class )
                                  .getResultList();
 	}
 
-    private void add( Properties properties )
+
+    @SuppressWarnings( "unchecked" )
+    public List< Properties > fetchByProductId( Long id )
     {
-        if( properties.getProduct() != null
-            && properties.getProduct().getId() != null )
-        {
-            Product product = productDao.fetch( properties.getProduct().getId() );
-            properties.setProduct( product );
-        }
+
+        Query query = entityManager().createQuery( "SELECT prop FROM Properties prop"
+                                                      + " WHERE prop.product.id =:productId",
+                                                      Properties.class );
+        query.setParameter( "productId",
+                            id );
+
+        List< Properties > properties = query.getResultList();
+
+        return properties;
     }
 
 	

@@ -9,7 +9,9 @@ import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -30,7 +32,7 @@ public class Category {
 	private Set<Category> subCategories = new HashSet<>();
 	
 	@OneToMany(mappedBy = "category")
-    private Set< Product >  products      = new HashSet<>();
+    private List< Product > products      = new ArrayList<>();
 
 	public Category() {
 
@@ -70,12 +72,12 @@ public class Category {
 		this.subCategories = subCategories;
 	}
 	
-    public Set< Product > getProduct()
+    public List< Product > getProduct()
     {
 		return products;
 	}
 
-    public void setProduct( Set< Product > product )
+    public void setProduct( List< Product > product )
     {
 		this.products = product;
 	}

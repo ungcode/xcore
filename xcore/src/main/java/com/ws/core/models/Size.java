@@ -8,8 +8,8 @@ import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import java.io.Serializable;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name="SIZE")
@@ -24,7 +24,7 @@ public class Size implements Serializable {
 	private String sizeValue;
 	
 	@OneToMany(mappedBy = "size")
-	private Set<Product> productEntries = new HashSet<>();
+    private List< Product >   productEntries   = new ArrayList<>();
 
 	public Size() {
 		
@@ -46,11 +46,13 @@ public class Size implements Serializable {
 		this.sizeValue = sizeValue;
 	}
 
-	public Set<Product> getProductEntry() {
+    public List< Product > getProductEntry()
+    {
 		return productEntries;
 	}
 
-	public void setProductEntry(Set<Product> productEntry) {
+    public void setProductEntry( List< Product > productEntry )
+    {
 		this.productEntries = productEntry;
 	}
 

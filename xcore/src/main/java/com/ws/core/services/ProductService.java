@@ -237,6 +237,7 @@ public class ProductService
         return service;
     }
 
+
     @SuppressWarnings( { "rawtypes", "unchecked" } )
     public ProductService pagination( Pagination pagination )
     {
@@ -269,7 +270,6 @@ public class ProductService
 
             XcoreLogger.error( TAG,
                                e.getMessage() );
-
 
         }
         return service;

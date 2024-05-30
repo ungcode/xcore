@@ -12,29 +12,31 @@ public class ColorDao< T >
 
 
 	@Override
-    public void persist( Color color )
+    public Color persist( Color entity )
 	{
-        getEntityManager().persist( color );
+
+        persistAndFlush( entity );
+        return entity;
 
 	}
 
 	@Override
-    public void update( Color color )
+    public Color update( Color color )
 	{
-        getEntityManager().merge( color );
+        return mergeAndFlush( color );
 	}
 
 	@Override
     public void delete( Color color )
 	{
-        getEntityManager().remove( color );
+        entityManager().remove( color );
 
 	}
 
 	@Override
     public Color fetch( Long id )
 	{
-        Query query = getEntityManager().createQuery( "SELECT c FROM Color c WHERE c.id =:id" );
+        Query query = entityManager().createQuery( "SELECT c FROM Color c WHERE c.id =:id" );
         query.setParameter( "id",
                             id );
         return ( Color )query.getSingleResult();
@@ -43,7 +45,7 @@ public class ColorDao< T >
 	@Override
     public List< Color > fetchAll()
 	{
-        return getEntityManager().createQuery( "SELECT c FROM Color c",
+        return entityManager().createQuery( "SELECT c FROM Color c",
                                                Color.class )
                                  .getResultList();
 	}

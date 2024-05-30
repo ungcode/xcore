@@ -11,29 +11,30 @@ public class UserDao< T >
 {
 
 	@Override
-	public void persist(Tuser tuser)
+    public Tuser persist( Tuser tuser )
 	{
-        getEntityManager().persist( tuser );
+        persistAndFlush( tuser );
+        return tuser;
 
 	}
 
 	@Override
-	public void update(Tuser entity)
+    public Tuser update( Tuser entity )
 	{
-        getEntityManager().merge( entity );
+        return mergeAndFlush( entity );
 	}
 
 	@Override
 	public void delete(Tuser entity)
 	{
-        getEntityManager().remove( entity );
+        entityManager().remove( entity );
 
 	}
 
 	@Override
 	public Tuser fetch(Long id)
 	{
-        Query query = getEntityManager().createQuery( "SELECT tu FROM Tuser tu WHERE tu.id =:id" );
+        Query query = entityManager().createQuery( "SELECT tu FROM Tuser tu WHERE tu.id =:id" );
         query.setParameter( "id",
                             id );
         return ( Tuser )query.getSingleResult();
@@ -42,7 +43,7 @@ public class UserDao< T >
 	@Override
 	public List<Tuser> fetchAll()
 	{
-        return getEntityManager().createQuery( "SELECT tu FROM Tuser tu",
+        return entityManager().createQuery( "SELECT tu FROM Tuser tu",
         		Tuser.class ).getResultList();
 	}
 

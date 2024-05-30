@@ -10,8 +10,8 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.persistence.Transient;
 import java.io.Serializable;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name="TUSER")
@@ -38,16 +38,16 @@ public class Tuser implements Serializable
 	private String password;
 	
 	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-	private Set<UserAddress> userAddresses = new HashSet<>();
+    private List< UserAddress > userAddresses    = new ArrayList<>();
 
 	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-	private Set<UserReview> userReviews = new HashSet<>();
+    private List< UserReview >  userReviews      = new ArrayList<>();
 	
 	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-	private Set<Cart> carts = new HashSet<>();
+    private List< Cart >        carts            = new ArrayList<>();
 	
 	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-	private Set<UserPayment> paymentMethods = new HashSet<>();
+    private List< UserPayment > paymentMethods   = new ArrayList<>();
 
 	public Tuser()
 	{
@@ -114,47 +114,53 @@ public class Tuser implements Serializable
 		this.hash = hash;
 	}
 
-	public Set<UserAddress> getUserAddresses()
+    public List< UserAddress > getUserAddresses()
 	{
 		return userAddresses;
 	}
 
-	public void setUserAddresses(Set<UserAddress> userAddresses)
+    public void setUserAddresses( List< UserAddress > userAddresses )
 	{
 		this.userAddresses = userAddresses;
 	}
 
-	public Set<UserReview> getUserReview()
+    public List< UserReview > getUserReview()
 	{
 		return userReviews;
 	}
 
-	public void setUserReview(Set<UserReview> userReview)
+    public void setUserReview( List< UserReview > userReview )
 	{
 		this.userReviews = userReview;
 	}
 
-	public Set<UserPayment> getPaymentMethods() {
+    public List< UserPayment > getPaymentMethods()
+    {
 		return paymentMethods;
 	}
 
-	public void setPaymentMethods(Set<UserPayment> paymentMethods) {
+    public void setPaymentMethods( List< UserPayment > paymentMethods )
+    {
 		this.paymentMethods = paymentMethods;
 	}
 
-	public Set<UserReview> getUserReviews() {
+    public List< UserReview > getUserReviews()
+    {
 		return userReviews;
 	}
 
-	public void setUserReviews(Set<UserReview> userReviews) {
+    public void setUserReviews( List< UserReview > userReviews )
+    {
 		this.userReviews = userReviews;
 	}
 
-	public Set<Cart> getCarts() {
+    public List< Cart > getCarts()
+    {
 		return carts;
 	}
 
-	public void setCarts(Set<Cart> carts) {
+    public void setCarts( List< Cart > carts )
+    {
 		this.carts = carts;
 	}
 

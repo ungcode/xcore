@@ -20,30 +20,31 @@ public class CartProductDao< T >
     @Inject
     private ProductDao< Product > productDao;
 	@Override
-    public void persist( CartProduct cartProduct )
+    public CartProduct persist( CartProduct cartProduct )
 	{
-        getEntityManager().persist( cartProduct );
+        persistAndFlush( cartProduct );
+        return cartProduct;
 
 	}
 
 	@Override
-    public void update( CartProduct cartProduct )
+    public CartProduct update( CartProduct cartProduct )
 	{
         add( cartProduct );
-        getEntityManager().merge( cartProduct );
+        return mergeAndFlush( cartProduct );
 	}
 
 	@Override
     public void delete( CartProduct cartProduct )
 	{
-        getEntityManager().remove( cartProduct );
+        entityManager().remove( cartProduct );
 
 	}
 
     @Override
     public CartProduct fetch( Long id )
 	{
-        Query query = getEntityManager().createQuery( "SELECT cp FROM CartProduct cp WHERE cp.id =:id",
+        Query query = entityManager().createQuery( "SELECT cp FROM CartProduct cp WHERE cp.id =:id",
                                                       CartProduct.class );
         query.setParameter( "id",
                             id );
@@ -54,7 +55,7 @@ public class CartProductDao< T >
     @Override
     public List< CartProduct > fetchAll()
 	{
-        return getEntityManager().createQuery( "SELECT cp FROM CartProduct cp ",
+        return entityManager().createQuery( "SELECT cp FROM CartProduct cp ",
                                                CartProduct.class )
                                  .getResultList();
 	}

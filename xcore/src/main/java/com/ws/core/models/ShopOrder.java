@@ -13,9 +13,9 @@ import jakarta.persistence.Table;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.List;
 
 @Entity
 @Table(name="SHOP_ORDER")
@@ -48,7 +48,7 @@ public class ShopOrder implements Serializable {
     private CartProduct       cartProduct;
 	
 	@OneToMany(mappedBy = "shopOrder")
-	private Set<UserReview> userReviews = new HashSet<>();
+    private List< UserReview > userReviews      = new ArrayList<>();
 
 	public ShopOrder() {
 
@@ -112,12 +112,13 @@ public class ShopOrder implements Serializable {
         this.total = total;
     }
 
-    public Set< UserReview > getUserReviews()
+    public List< UserReview > getUserReviews()
     {
 		return userReviews;
 	}
 
-	public void setUserReviews(Set<UserReview> userReviews) {
+    public void setUserReviews( List< UserReview > userReviews )
+    {
 		this.userReviews = userReviews;
 	}
 

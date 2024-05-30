@@ -1,22 +1,18 @@
 
 package com.ws.core.dao;
 import com.ws.core.idao.Dao;
-import com.ws.core.models.Brand;
-import com.ws.core.models.Category;
-import com.ws.core.models.Color;
+import com.ws.core.models.Image;
 import com.ws.core.models.Product;
 import com.ws.core.models.Properties;
-import com.ws.core.models.Size;
 import com.ws.core.pagination.Pagination;
 import com.ws.core.pagination.PaginationResult;
 import com.ws.core.pagination.Paginator;
 import jakarta.inject.Inject;
 import jakarta.persistence.Query;
+import jakarta.persistence.Tuple;
 import jakarta.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
-import java.util.TreeSet;
 
 
 @Transactional
@@ -24,42 +20,39 @@ public class ProductDao< T >
     extends Dao< Product >
 {
 
+
     @Inject
-    protected BrandDao< Brand >       brandDao;
+    private PropertiesDao< Properties > propertiesDao;
     @Inject
-    protected CategoryDao< Category > categoryDao;
-    @Inject
-    private ColorDao< Color >         colorDao;
-    @Inject
-    private SizeDao< Size >           sizeDao;
+    private ImageDao< Image >           imageDao;
 
 
 	@Override
-    public void persist( Product product )
+    public Product persist( Product product )
 	{
 
-        getEntityManager().persist( product );
+        return persistAndFlush( product );
 
 	}
 
 	@Override
-    public void update( Product product )
+    public Product update( Product product )
 	{
-        add( product );
-        getEntityManager().merge( product );
+
+        return entityManager().merge( product );
 	}
 
 	@Override
     public void delete( Product product )
 	{
-        getEntityManager().remove( product );
+        entityManager().remove( product );
 
 	}
 
     @Override
     public Product fetch( Long id )
 	{
-        Query query = getEntityManager().createQuery( "SELECT p FROM Product p WHERE p.id =:id",
+        Query query = entityManager().createQuery( "SELECT p FROM Product p WHERE p.id =:id",
                                                       Product.class );
         query.setParameter( "id",
                             id );
@@ -70,65 +63,27 @@ public class ProductDao< T >
     @Override
     public List< Product > fetchAll()
 	{
-        List< Product > products = getEntityManager().createQuery( "SELECT p FROM Product p ",
+        List< Product > products = entityManager().createQuery( "SELECT p FROM Product p ",
                                                                    Product.class )
                                                      .getResultList();
         addProperties( products );
         return products;
 	}
 
-    private void add( Product product )
-    {
-
-        if( product.getCategory() != null
-            && product.getCategory().getId() != null )
-        {
-            Category category = categoryDao.fetch( product.getCategory()
-                                                          .getId() );
-            product.setCategory( category );
-        }
-
-        if( product.getBrand() != null
-            && product.getBrand().getId() != null )
-        {
-            Brand brand = brandDao.fetch( product.getBrand().getId() );
-            product.setBrand( brand );
-        }
-
-        if( product.getSize() != null
-            && product.getSize().getId() != null )
-        {
-            Size size = sizeDao.fetch( product.getSize().getId() );
-            product.setSize( size );
-        }
-
-        if( product.getColor() != null
-            && product.getColor().getId() != null )
-        {
-            Color color = colorDao.fetch( product.getColor().getId() );
-            product.setColor( color );
-        }
-
-    }
-
     @SuppressWarnings( "unchecked" )
-    public Set< Properties > fetchProductById( Long id )
+    public List< Properties > fetchProductById( Long id )
     {
         try
         {
 
-            Query query = getEntityManager().createNativeQuery( "SELECT * FROM product_properties prop WHERE prop.product_id =:id",
+            Query query = entityManager().createNativeQuery( "SELECT * FROM product_properties prop WHERE prop.product_id =:id",
                                                                 Properties.class );
             query.setParameter( "id",
                                 id );
 
             List< Properties > properties = query.getResultList();
 
-            System.out.println( "properties: "
-                                + properties );
-
-
-            Set< Properties > set = new TreeSet< Properties >();
+            List< Properties > set = new ArrayList< Properties >();
 
             properties.forEach( property -> {
                 set.add( property );
@@ -159,17 +114,54 @@ public class ProductDao< T >
 
     }
 
-    public PaginationResult paginations( Pagination pagination )
+    public PaginationResult< Product > paginations( Pagination pagination )
     {
-        Query query = getEntityManager().createQuery( "SELECT p FROM Product p ",
-                                                      Product.class );
 
-        Paginator< Product > paginator = new Paginator< Product >( query,
-                                                                   pagination );
+        String sql = "SELECT p as product FROM Product p "
+                     + " WHERE p.id >:cursorPosition "
+                     + "ORDER BY p.id ASC ";
 
+        List< Product > products = new ArrayList< Product >();
+        Query query = entityManager().createQuery( sql,
+                                                   Tuple.class );
+
+        Paginator< Product > paginator = new Paginator< Product >( pagination );
+        paginator.setQuery( query );
+        paginator.search();
+        dependents( paginator,
+                    products,
+                    paginator.getTuples() );
 
         return paginator.getPaginationResult();
     }
+
+    private void dependents( Paginator< Product > paginator,
+                             List< Product > products,
+                             List< Tuple > tuples )
+    {
+        System.out.println( "properties: "
+                            + products );
+        tuples.forEach( tuple -> {
+
+            Product product = ( Product )tuple.get( "product" );
+            product.setProperties( propertiesDao.fetchByProductId( product.getId() ) );
+            product.setImages( imageDao.fetchByProductId( product.getId() ) );
+            products.add( product );
+
+        } );
+
+        if( !products.isEmpty() )
+        {
+            paginator.setFinalResult( paginator,
+                                      products,
+                                      products.get( products.size()
+                                                    - 1 )
+                                              .getId().toString() );
+        }
+
+    }
+
+
 
 	
 }

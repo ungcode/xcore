@@ -3,6 +3,7 @@ package com.ws.core.api;
 import com.ws.core.models.Product;
 import com.ws.core.pagination.Pagination;
 import com.ws.core.services.ProductService;
+import com.ws.core.util.SampleService;
 import com.ws.core.util.Samples;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.DELETE;
@@ -25,11 +26,16 @@ public class ProductResource {
     @Inject
     ProductService productService;
 
+    @Inject
+    SampleService  samplesService;
+
+
 
     @POST
     @Produces( MediaType.APPLICATION_JSON )
     public Response persist( Product product )
     {
+
 
         return Response.ok( productService.persist( product ) ).build();
 
@@ -83,7 +89,7 @@ public class ProductResource {
     }
 
     @GET
-    @Path( "/{pages}" )
+    @Path( "/pages" )
     @Produces( MediaType.APPLICATION_JSON )
     public Response pagination( Pagination pagination )
     {
@@ -93,6 +99,16 @@ public class ProductResource {
                        .entity( productService.pagination( pagination ) )
                        .build();
 
+    }
+
+    @GET
+    @Path( "/samples" )
+    @Produces( MediaType.APPLICATION_JSON )
+    public Response loadSamples()
+    {
+
+        samplesService.loadSamples();
+        return Response.ok().build();
     }
 
 	

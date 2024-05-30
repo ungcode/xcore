@@ -7,8 +7,8 @@ import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import java.io.Serializable;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name="COLOR")
@@ -22,7 +22,7 @@ public class Color implements Serializable {
 	private String colorValue;
 	
 	@OneToMany(mappedBy = "color")
-	private Set<Product> productEntries = new HashSet<>();
+    private List< Product >   productEntries   = new ArrayList<>();
 
 	public Color() {
 		
@@ -48,12 +48,13 @@ public class Color implements Serializable {
         this.colorValue = colorValue;
     }
 
-    public Set< Product > getProductEntries()
+    public List< Product > getProductEntries()
     {
         return productEntries;
     }
 
-	public void setProductEntry(Set<Product> productEntry) {
+    public void setProductEntry( List< Product > productEntry )
+    {
 		this.productEntries = productEntry;
 	}
 

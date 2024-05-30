@@ -20,31 +20,31 @@ public class UserAddressDao< T >
     @Inject
     private AddressDao< Address > addressDao;
 	@Override
-    public void persist( UserAddress userAddress )
+    public UserAddress persist( UserAddress userAddress )
 	{
-
-        getEntityManager().persist( userAddress );
+        persistAndFlush( userAddress );
+        return userAddress;
 
 	}
 
 	@Override
-    public void update( UserAddress userAddress )
+    public UserAddress update( UserAddress userAddress )
 	{
         add( userAddress );
-        getEntityManager().merge( userAddress );
+        return mergeAndFlush( userAddress );
 	}
 
 	@Override
     public void delete( UserAddress userAddress )
 	{
-        getEntityManager().remove( userAddress );
+        entityManager().remove( userAddress );
 
 	}
 
     @Override
     public UserAddress fetch( Long id )
 	{
-        Query query = getEntityManager().createQuery( "SELECT ua FROM UserAddress ua WHERE ua.id =:id",
+        Query query = entityManager().createQuery( "SELECT ua FROM UserAddress ua WHERE ua.id =:id",
                                                       UserAddress.class );
         query.setParameter( "id",
                             id );
@@ -55,7 +55,7 @@ public class UserAddressDao< T >
     @Override
     public List< UserAddress > fetchAll()
 	{
-        return getEntityManager().createQuery( "SELECT ua FROM UserAddress ua ",
+        return entityManager().createQuery( "SELECT ua FROM UserAddress ua ",
                                                UserAddress.class )
                                  .getResultList();
 	}

@@ -17,30 +17,31 @@ public class ShippingAddressDao< T >
     @Inject
     private AddressDao< Address > addressDao;
 	@Override
-    public void persist( ShippingAddress shoppingAddress )
+    public ShippingAddress persist( ShippingAddress shippingAddress )
 	{
-        getEntityManager().persist( shoppingAddress );
+        persistAndFlush( shippingAddress );
+        return shippingAddress;
 
 	}
 
 	@Override
-    public void update( ShippingAddress shoppingAddress )
+    public ShippingAddress update( ShippingAddress shoppingAddress )
 	{
         add( shoppingAddress );
-        getEntityManager().merge( shoppingAddress );
+        return mergeAndFlush( shoppingAddress );
 	}
 
 	@Override
     public void delete( ShippingAddress shoppingAddress )
 	{
-        getEntityManager().remove( shoppingAddress );
+        entityManager().remove( shoppingAddress );
 
 	}
 
     @Override
     public ShippingAddress fetch( Long id )
 	{
-        Query query = getEntityManager().createQuery( "SELECT sh FROM ShippingAddress sh WHERE sh.id =:id",
+        Query query = entityManager().createQuery( "SELECT sh FROM ShippingAddress sh WHERE sh.id =:id",
                                                       ShippingAddress.class );
         query.setParameter( "id",
                             id );
@@ -51,7 +52,7 @@ public class ShippingAddressDao< T >
     @Override
     public List< ShippingAddress > fetchAll()
 	{
-        return getEntityManager().createQuery( "SELECT sh FROM ShippingAddress sh ",
+        return entityManager().createQuery( "SELECT sh FROM ShippingAddress sh ",
                                                ShippingAddress.class )
                                  .getResultList();
 	}

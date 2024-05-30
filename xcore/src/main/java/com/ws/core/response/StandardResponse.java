@@ -22,7 +22,7 @@ public class StandardResponse< T >
 	private int errorLevel;
 	private String errorText;
     private List< ? >         Data;
-    private PaginationResult  paginationResult;
+
 	
 
     public StandardResponse()
@@ -48,8 +48,6 @@ public class StandardResponse< T >
         this.errorCode = 0;
         this.errorLevel = 0;
         this.errorText = "{}";
-        setPaginationResult( paginationResult );
-
     }
 
     public StandardResponse( List< ? > data )
@@ -110,15 +108,5 @@ public class StandardResponse< T >
     {
 		return Arrays.asList(t);
 	}
-
-    public PaginationResult getPaginationResult()
-    {
-        return paginationResult;
-    }
-
-    public void setPaginationResult( PaginationResult paginationResult )
-    {
-        this.paginationResult = paginationResult;
-    }
 
 }

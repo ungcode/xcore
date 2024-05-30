@@ -17,31 +17,32 @@ public class UserPaymentDao< T >
     @Inject
     private UserDao< Tuser > userDao;
 	@Override
-    public void persist( UserPayment userPayment )
+    public UserPayment persist( UserPayment userPayment )
 	{
 
-        getEntityManager().persist( userPayment );
+        persistAndFlush( userPayment );
+        return userPayment;
 
 	}
 
 	@Override
-    public void update( UserPayment userPayment )
+    public UserPayment update( UserPayment userPayment )
 	{
         add( userPayment );
-        getEntityManager().merge( userPayment );
+        return mergeAndFlush( userPayment );
 	}
 
 	@Override
     public void delete( UserPayment userPayment )
 	{
-        getEntityManager().remove( userPayment );
+        entityManager().remove( userPayment );
 
 	}
 
     @Override
     public UserPayment fetch( Long id )
 	{
-        Query query = getEntityManager().createQuery( "SELECT up FROM UserPayment up WHERE up.id =:id",
+        Query query = entityManager().createQuery( "SELECT up FROM UserPayment up WHERE up.id =:id",
                                                       UserPayment.class );
         query.setParameter( "id",
                             id );
@@ -52,7 +53,7 @@ public class UserPaymentDao< T >
     @Override
     public List< UserPayment > fetchAll()
 	{
-        return getEntityManager().createQuery( "SELECT up FROM UserPayment up ",
+        return entityManager().createQuery( "SELECT up FROM UserPayment up ",
                                                UserPayment.class )
                                  .getResultList();
 	}

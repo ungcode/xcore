@@ -12,19 +12,35 @@ public abstract class Dao< T >
 
     @PersistenceContext
     private EntityManager em;
-    public Session getSession()
+    public Session getHibernateSession()
     {
         return em.unwrap( Session.class );
     }
 
-    public EntityManager getEntityManager()
+    public EntityManager entityManager()
     {
         return em;
     }
 
-    public abstract void persist( T entity );
+    public T persistAndFlush( T entity )
+    {
+        em.persist( entity );
+        em.flush();
+        
+        return entity;
+    }
 
-    public abstract void update( T entity );
+    public T mergeAndFlush( T entity )
+    {
+        em.merge( entity );
+        em.flush();
+
+        return entity;
+    }
+
+    public abstract T persist( T entity );
+
+    public abstract T update( T entity );
 
     public abstract void delete( T entity );
 

@@ -17,30 +17,32 @@ public class CartDao< T >
     @Inject
     private UserDao< Tuser > userDao;
 	@Override
-    public void persist( Cart cart )
+    public Cart persist( Cart cart )
 	{
-        getEntityManager().persist( cart );
+        persistAndFlush( cart );
+        
+        return cart;
 
 	}
 
 	@Override
-    public void update( Cart cart )
+    public Cart update( Cart cart )
 	{
         add( cart );
-        getEntityManager().merge( cart );
+        return mergeAndFlush( cart );
 	}
 
 	@Override
     public void delete( Cart cart )
 	{
-        getEntityManager().remove( cart );
+        entityManager().remove( cart );
 
 	}
 
     @Override
     public Cart fetch( Long id )
 	{
-        Query query = getEntityManager().createQuery( "SELECT c FROM Cart c WHERE c.id =:id",
+        Query query = entityManager().createQuery( "SELECT c FROM Cart c WHERE c.id =:id",
                                                       Cart.class );
         query.setParameter( "id",
                             id );
@@ -51,7 +53,7 @@ public class CartDao< T >
     @Override
     public List< Cart > fetchAll()
 	{
-        return getEntityManager().createQuery( "SELECT c FROM Cart c ",
+        return entityManager().createQuery( "SELECT c FROM Cart c ",
                                                Cart.class )
                                  .getResultList();
 	}

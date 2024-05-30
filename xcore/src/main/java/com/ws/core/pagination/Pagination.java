@@ -7,7 +7,7 @@ public class Pagination
     // Properties
     // ---------------------------------------------------------------------
     private int pageSize;
-    private int pageNumber;
+    private String cursorPosition;
     // ---------------------------------------------------------------------
     // Construction
     // ---------------------------------------------------------------------
@@ -21,14 +21,14 @@ public class Pagination
         this.pageSize = pageSize;
     }
 
-    public int getPageNumber()
+    public String getCursorPosition()
     {
-        return pageNumber;
+        return cursorPosition;
     }
 
-    public void setPageNumber( int pageNumber )
+    public void setCursorPosition( String cursorPosition )
     {
-        this.pageNumber = pageNumber;
+        this.cursorPosition = cursorPosition;
     }
 
     // ---------------------------------------------------------------------

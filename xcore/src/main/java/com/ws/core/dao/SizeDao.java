@@ -12,29 +12,30 @@ public class SizeDao< T >
 
 
 	@Override
-    public void persist( Size size )
+    public Size persist( Size size )
 	{
-        getEntityManager().persist( size );
+        persistAndFlush( size );
+        return size;
 
 	}
 
 	@Override
-    public void update( Size size )
+    public Size update( Size size )
 	{
-        getEntityManager().merge( size );
+        return mergeAndFlush( size );
 	}
 
 	@Override
     public void delete( Size size )
 	{
-        getEntityManager().remove( size );
+        entityManager().remove( size );
 
 	}
 
 	@Override
     public Size fetch( Long id )
 	{
-        Query query = getEntityManager().createQuery( "SELECT s FROM Size s WHERE s.id =:id" );
+        Query query = entityManager().createQuery( "SELECT s FROM Size s WHERE s.id =:id" );
         query.setParameter( "id",
                             id );
         return ( Size )query.getSingleResult();
@@ -43,7 +44,7 @@ public class SizeDao< T >
 	@Override
     public List< Size > fetchAll()
 	{
-        return getEntityManager().createQuery( "SELECT s FROM Size s",
+        return entityManager().createQuery( "SELECT s FROM Size s",
                                                Size.class )
                                  .getResultList();
 	}
