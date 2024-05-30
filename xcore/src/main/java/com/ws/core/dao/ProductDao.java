@@ -139,8 +139,7 @@ public class ProductDao< T >
                              List< Product > products,
                              List< Tuple > tuples )
     {
-        System.out.println( "properties: "
-                            + products );
+
         tuples.forEach( tuple -> {
 
             Product product = ( Product )tuple.get( "product" );

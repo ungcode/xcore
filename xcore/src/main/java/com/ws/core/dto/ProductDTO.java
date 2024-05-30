@@ -229,4 +229,4 @@ public class ProductDTO
 }
 
 // -------------------------------------------------------------------------
-// end of class ProductItemDTO.java
+// end of class ProductDTO.java
