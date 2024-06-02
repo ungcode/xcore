@@ -1,6 +1,8 @@
 package com.ws.core.services;
 
+import com.ws.core.dao.ImageDao;
 import com.ws.core.dao.ProductDao;
+import com.ws.core.dao.PropertiesDao;
 import com.ws.core.dto.ProductDTO;
 import com.ws.core.interceptors.Common;
 import com.ws.core.models.Image;
@@ -25,8 +27,15 @@ public class ProductService
     extends StandardService< Product >
 {
 
+    private static final String PRODUCT = "product";
+    private static final String IMAGES = "images";
+    private static final String PROPERTIES = "properties";
     @Inject
     protected ProductDao< Product > dao;
+    @Inject
+    protected PropertiesDao< Properties > propertiesDao;
+    @Inject
+    protected ImageDao< Image >           imageDao;
     protected ProductService            service = null;
 
     @PostConstruct
@@ -48,22 +57,24 @@ public class ProductService
 	{
         final String TAG = "ProductService.persist";
 
-        //
-        ParseJSON obj = new ParseJSON( data );
 
-        Product product = obj.buildObj( "product",
-                                        Product.class );
-        List< Properties > properties = obj.buildObjList( "properties",
-                                                          Properties.class );
-        List< Image > images = obj.buildObjList( "images",
-                                                 Image.class );
-        //
         try
         {
             XcoreLogger.info( TAG,
                               XcoreLogger.START );
 
+            ParseJSON obj = new ParseJSON( data );
+
+            Product product = obj.buildObj( PRODUCT,
+                                            Product.class );
+            List< Properties > properties = obj.buildObjList( PROPERTIES,
+                                                              Properties.class );
+            List< Image > images = obj.buildObjList( IMAGES,
+                                                     Image.class );
             dao.persist( product );
+            dependents( product,
+                        properties,
+                        images );
             service.setResponse( new StandardResponse< ProductDTO >( new ProductDTO().mapper( product ) ) );
 
             XcoreLogger.info( TAG,
@@ -84,6 +95,28 @@ public class ProductService
 
         return service;
 	}
+
+    private void dependents( Product product,
+                             List< Properties > properties,
+                             List< Image > images )
+    {
+        if( !properties.isEmpty() )
+        {
+            properties.forEach( property -> {
+                property.setProduct( product );
+                propertiesDao.persist( property );
+
+            } );
+        }
+        if( !images.isEmpty() )
+        {
+            images.forEach( image -> {
+
+                image.setProduct( product );
+                imageDao.persist( image );
+            } );
+        }
+    }
 
     /**
      * updates productItem with new supplied informations
