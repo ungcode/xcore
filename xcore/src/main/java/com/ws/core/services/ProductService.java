@@ -3,15 +3,19 @@ package com.ws.core.services;
 import com.ws.core.dao.ProductDao;
 import com.ws.core.dto.ProductDTO;
 import com.ws.core.interceptors.Common;
+import com.ws.core.models.Image;
 import com.ws.core.models.Product;
+import com.ws.core.models.Properties;
 import com.ws.core.pagination.Pagination;
 import com.ws.core.pagination.PaginationResult;
 import com.ws.core.response.StandardResponse;
 import com.ws.core.util.Error;
+import com.ws.core.util.ParseJSON;
 import com.ws.core.util.XcoreLogger;
 import jakarta.annotation.PostConstruct;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
+import jakarta.json.JsonObject;
 import jakarta.transaction.Transactional;
 import java.util.List;
 
@@ -40,17 +44,27 @@ public class ProductService
      * @see StandardResponse
      */
 	@Common
-    public ProductService persist( Product productItem )
+    public ProductService persist( JsonObject data )
 	{
-        final String TAG = "ProductItemService.persist";
+        final String TAG = "ProductService.persist";
 
+        //
+        ParseJSON obj = new ParseJSON( data );
+
+        Product product = obj.buildObj( "product",
+                                        Product.class );
+        List< Properties > properties = obj.buildObjList( "properties",
+                                                          Properties.class );
+        List< Image > images = obj.buildObjList( "images",
+                                                 Image.class );
+        //
         try
         {
             XcoreLogger.info( TAG,
                               XcoreLogger.START );
 
-            dao.persist( productItem );
-            service.setResponse( new StandardResponse< ProductDTO >( new ProductDTO().mapper( productItem ) ) );
+            dao.persist( product );
+            service.setResponse( new StandardResponse< ProductDTO >( new ProductDTO().mapper( product ) ) );
 
             XcoreLogger.info( TAG,
                               XcoreLogger.END );
