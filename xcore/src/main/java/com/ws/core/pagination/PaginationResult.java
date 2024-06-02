@@ -7,23 +7,15 @@ import java.util.List;
 
 public class PaginationResult< T >
 {
-    private int       currentPageNumber;
+
     private int       lastPageNumber;
     private int       pageSize;
     private long      totalRecords;
+    private String    nextPageToken;
     private List< T > records;
 
     public PaginationResult() {
         records = new ArrayList< T >();
-    }
-
-    public int getCurrentPageNumber()
-    {
-        return currentPageNumber;
-    }
-    public void setCurrentPageNumber( int currentPageNumber )
-    {
-        this.currentPageNumber = currentPageNumber;
     }
     public int getLastPageNumber()
     {
@@ -65,5 +57,14 @@ public class PaginationResult< T >
         this.records = records;
     }
 
+    public String getNextPageToken()
+    {
+        return nextPageToken;
+    }
+
+    public void setNextPageToken( String nextPageToken )
+    {
+        this.nextPageToken = nextPageToken;
+    }
 
 }

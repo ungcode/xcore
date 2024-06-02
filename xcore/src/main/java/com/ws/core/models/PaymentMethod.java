@@ -1,15 +1,14 @@
 package com.ws.core.models;
 
-import java.io.Serializable;
-import java.util.HashSet;
-import java.util.Set;
-
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name="PAYMENT_METHOD")
@@ -26,7 +25,7 @@ public class PaymentMethod  implements Serializable{
 	private String card;
 	
 	@OneToMany(mappedBy = "paymentMethod")
-	private Set<UserPayment> userPayments = new HashSet<>();
+    private List< UserPayment > userPayments     = new ArrayList<>();
 	
 	public PaymentMethod() {
 	
@@ -54,10 +53,14 @@ public class PaymentMethod  implements Serializable{
 	public void setCard(String card) {
 		this.card = card;
 	}
-	public Set<UserPayment> getPaymentMethod() {
+
+    public List< UserPayment > getPaymentMethod()
+    {
 		return userPayments;
 	}
-	public void setPaymentMethod(Set<UserPayment> paymentMethod) {
+
+    public void setPaymentMethod( List< UserPayment > paymentMethod )
+    {
 		this.userPayments = paymentMethod;
 	}
 	

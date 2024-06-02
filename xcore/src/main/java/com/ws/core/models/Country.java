@@ -8,8 +8,8 @@ import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import java.io.Serializable;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name="COUNTRY")
@@ -24,7 +24,7 @@ public class Country implements Serializable
 	private String countryName;
 	
     @OneToMany( mappedBy = "country" )
-    private Set< Address >    addresses        = new HashSet< Address >();
+    private List< Address >   addresses        = new ArrayList< Address >();
 
 	public Country()
 	{
@@ -51,12 +51,12 @@ public class Country implements Serializable
 	}
 
 
-    public Set< Address > getAddresses()
+    public List< Address > getAddresses()
     {
         return addresses;
     }
 
-    public void setAddresses( Set< Address > addresses )
+    public void setAddresses( List< Address > addresses )
     {
         this.addresses = addresses;
     }

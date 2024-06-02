@@ -11,7 +11,8 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import java.io.Serializable;
-import java.util.HashSet;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -54,10 +55,10 @@ public class Product implements Serializable {
 
 
     @OneToMany( mappedBy = "product" )
-    private Set< Properties >  properties       = new HashSet<>();
+    private List< Properties > properties       = new ArrayList<>();
 
     @OneToMany( mappedBy = "product" )
-    private Set< Image >      image           = new HashSet<>();
+    private List< Image >      images            = new ArrayList<>();
 	
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "size_id")
@@ -68,7 +69,7 @@ public class Product implements Serializable {
 	private Color color;
 
     @OneToMany( mappedBy = "product" )
-    private Set< CartProduct > cartProduct      = new HashSet<>();
+    private List< CartProduct > cartProduct      = new ArrayList<>();
 	
 
 	public Product() {
@@ -115,15 +116,6 @@ public class Product implements Serializable {
         this.coverUrl = coverUrl;
     }
 
-    public Set< Image > getImage()
-    {
-        return image;
-    }
-
-    public void setImage( Set< Image > image )
-    {
-        this.image = image;
-    }
 
     public int getQtInStock()
     {
@@ -150,32 +142,32 @@ public class Product implements Serializable {
 		this.color = color;
     }
 
-    public Set< Properties > getProperties()
+    public List< Properties > getProperties()
     {
         return properties;
     }
 
-    public void setProperties( Set< Properties > properties )
+    public void setProperties( List< Properties > properties )
     {
         this.properties = properties;
     }
 
-    public Set< Image > getImages()
+    public List< Image > getImages()
     {
-        return image;
+        return images;
     }
 
-    public void setImages( Set< Image > image )
+    public void setImages( List< Image > image )
     {
-        this.image = image;
+        this.images = image;
     }
 
-    public Set< CartProduct > getCartProduct()
+    public List< CartProduct > getCartProduct()
     {
         return cartProduct;
 	}
 
-    public void setCartProduct( Set< CartProduct > cartProduct )
+    public void setCartProduct( List< CartProduct > cartProduct )
     {
         this.cartProduct = cartProduct;
 	}
@@ -249,9 +241,15 @@ public class Product implements Serializable {
     {
         this.category = category;
     }
-    public void setCartProducts( Set< CartProduct > cartProducts )
+
+    public void setCartProducts( List< CartProduct > cartProducts )
     {
         this.cartProduct = cartProducts;
+    }
+
+    public void createPropertySet( Properties properties )
+    {
+        this.properties.add( properties );
     }
 
     public void merge( Product from,
@@ -274,6 +272,25 @@ public class Product implements Serializable {
         to.setCartProduct( from.getCartProduct() );
         to.setCategory( from.getCategory() );
 
+    }
+
+    public List<Properties>asPropertiesList(Set<Properties> properties){
+        List< Properties > list = new ArrayList< Properties >();
+
+        properties.forEach( prop -> {
+            list.add( prop );
+        } );
+        return list;
+    }
+
+    public List< Image > asImagesList( Set< Image > images )
+    {
+        List< Image > list = new ArrayList< Image >();
+
+        images.forEach( image -> {
+            list.add( image );
+        } );
+        return list;
     }
 
     @Override
@@ -309,5 +326,6 @@ public class Product implements Serializable {
         builder.append( "]" );
         return builder.toString();
     }
+
 
 }

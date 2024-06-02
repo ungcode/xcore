@@ -14,8 +14,6 @@ public class PropertiesDTO
 
     private String  propValue;
 
-    private ProductDTO product;
-
     public Long getId()
     {
         return id;
@@ -46,16 +44,6 @@ public class PropertiesDTO
         this.propValue = propValue;
     }
 
-    public ProductDTO getProduct()
-    {
-        return product;
-    }
-
-    public void setProduct( ProductDTO product )
-    {
-        this.product = product;
-    }
-
     public PropertiesDTO mapper( Properties properties )
     {
 
@@ -65,11 +53,16 @@ public class PropertiesDTO
 
     public List< PropertiesDTO > mapper( List< Properties > properties )
     {
-        List< PropertiesDTO > dtos = new ArrayList< PropertiesDTO >();
-        properties.forEach( item -> {
-            dtos.add( create( item ) );
 
-        } );
+
+        List< PropertiesDTO > dtos = new ArrayList< PropertiesDTO >();
+        if( properties != null )
+        {
+            properties.forEach( item -> {
+                dtos.add( create( item ) );
+
+            } );
+        }
 
         return dtos;
     }
@@ -78,9 +71,8 @@ public class PropertiesDTO
     {
         PropertiesDTO dto = new PropertiesDTO();
         dto.setId( properties.getId() );
-        dto.setPropName( propName );
+        dto.setPropName( properties.getPropName() );
         dto.setPropValue( properties.getPropValue() );
-        dto.setProduct( new ProductDTO().mapper( properties.getProduct() ) );
         return dto;
     }
 

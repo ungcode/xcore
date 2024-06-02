@@ -13,30 +13,30 @@ public class BrandDao< T >
 {
 
     @Override
-    public void persist( Brand brand )
+    public Brand persist( Brand brand )
 	{
-
-        getEntityManager().persist( brand );
+        persistAndFlush( brand );
+        return brand;
 
 	}
 
 	@Override
-    public void update( Brand brand )
+    public Brand update( Brand brand )
 	{
-        getEntityManager().merge( brand );
+        return mergeAndFlush( brand );
 	}
 
 	@Override
     public void delete( Brand brand )
 	{
-        getEntityManager().remove( brand );
+        entityManager().remove( brand );
 
 	}
 
     @Override
     public Brand fetch( Long id )
 	{
-        Query query = getEntityManager().createQuery( "SELECT b FROM Brand b WHERE b.id =:id",
+        Query query = entityManager().createQuery( "SELECT b FROM Brand b WHERE b.id =:id",
                                                       Brand.class );
         query.setParameter( "id",
                             id );
@@ -47,7 +47,7 @@ public class BrandDao< T >
     @Override
     public List< Brand > fetchAll()
 	{
-        return getEntityManager().createQuery( "SELECT b FROM Brand b ",
+        return entityManager().createQuery( "SELECT b FROM Brand b ",
                                                Brand.class )
                                  .getResultList();
 	}

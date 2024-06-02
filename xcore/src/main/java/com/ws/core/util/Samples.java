@@ -124,6 +124,8 @@ public class Samples
                                     + i );
             product.setShortDescription( "short description"
                                          + i );
+            product.setSku( "sku"
+                            + i );
             product.setCoverUrl( "url"+i );
             product.setQtInStock( i );
             product.setRegularPrice( i );
@@ -149,7 +151,7 @@ public class Samples
 
             Image image = new Image();
             image.setUrl("url"+i );
-            image.setProduct( product );
+            // image.setProduct( product );
             images.add( image );
 
             Properties property = new Properties();
@@ -157,7 +159,8 @@ public class Samples
                                   + i );
             property.setPropValue( "value"
                                    + i );
-            property.setProduct( product );
+
+            // property.setProduct( product );
 
             properties.add( property );
 

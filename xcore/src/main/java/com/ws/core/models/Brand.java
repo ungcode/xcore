@@ -8,8 +8,8 @@ import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import java.io.Serializable;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 
 @Entity
@@ -30,7 +30,7 @@ public class Brand implements Serializable
 
 
     @OneToMany( mappedBy = "brand" )
-    private Set< Product >    products         = new HashSet<>();
+    private List< Product >   products         = new ArrayList<>();
 
 
     public Brand()
@@ -73,12 +73,12 @@ public class Brand implements Serializable
         this.name = name;
     }
 
-    public Set< Product > getProducts()
+    public List< Product > getProducts()
     {
         return products;
     }
 
-    public void setProducts( Set< Product > products )
+    public void setProducts( List< Product > products )
     {
         this.products = products;
     }

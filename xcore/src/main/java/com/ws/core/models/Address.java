@@ -11,8 +11,8 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import java.io.Serializable;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "ADDRESS")
@@ -48,10 +48,10 @@ public class Address implements Serializable {
 	private Country country;
 
 	@OneToMany(mappedBy = "address")
-	private Set<UserAddress> userAddresses = new HashSet<UserAddress>();
+    private List< UserAddress >     userAddresses    = new ArrayList< UserAddress >();
 
 	@OneToMany(mappedBy = "address")
-	private Set<ShippingAddress> shippingAddress = new HashSet<>();
+    private List< ShippingAddress >                        shippingAddress  = new ArrayList<>();
 
 	public Address() {
 
@@ -129,19 +129,23 @@ public class Address implements Serializable {
 		this.country = country;
 	}
 
-	public Set<UserAddress> getUserAddresses() {
+    public List< UserAddress > getUserAddresses()
+    {
 		return userAddresses;
 	}
 
-	public void setUserAddresses(Set<UserAddress> userAddresses) {
+    public void setUserAddresses( List< UserAddress > userAddresses )
+    {
 		this.userAddresses = userAddresses;
 	}
 
-	public Set<ShippingAddress> getShippingAddress() {
+    public List< ShippingAddress > getShippingAddress()
+    {
 		return shippingAddress;
 	}
 
-	public void setShippingAddress(Set<ShippingAddress> shippingAddress) {
+    public void setShippingAddress( List< ShippingAddress > shippingAddress )
+    {
 		this.shippingAddress = shippingAddress;
 	}
 

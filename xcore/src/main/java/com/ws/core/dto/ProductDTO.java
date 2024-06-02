@@ -2,11 +2,8 @@
 package com.ws.core.dto;
 
 import com.ws.core.models.Product;
-import com.ws.core.models.Properties;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 public class ProductDTO
 {
@@ -26,7 +23,8 @@ public class ProductDTO
     private CategoryDTO category;
     private SizeDTO     size;
     private ColorDTO    color;
-    private Set< Properties > properties = new HashSet<>();
+    private List< PropertiesDTO > properties;
+    private List< ImageDTO >      images;
 
     public Long getId()
     {
@@ -158,14 +156,24 @@ public class ProductDTO
         this.color = color;
     }
 
-    public Set< Properties > getProperties()
+    public List< PropertiesDTO > getProperties()
     {
         return properties;
     }
 
-    public void setProperties( Set< Properties > properties )
+    public void setProperties( List< PropertiesDTO > properties )
     {
         this.properties = properties;
+    }
+
+    public List< ImageDTO > getImages()
+    {
+        return images;
+    }
+
+    public void setImages( List< ImageDTO > images )
+    {
+        this.images = images;
     }
 
     public ProductDTO mapper( Product productItem )
@@ -174,6 +182,7 @@ public class ProductDTO
         return create( productItem );
 
     }
+
 
     public List< ProductDTO > mapper( List< Product > produtItems )
     {
@@ -193,6 +202,7 @@ public class ProductDTO
         ProductDTO dto = new ProductDTO();
 
         dto.setId( product.getId() );
+        dto.setName( product.getName() );
         dto.setQtInStock( product.getQtInStock() );
         dto.setSku( product.getSku() );
         dto.setCoverUrl( product.getCoverUrl() );
@@ -202,11 +212,16 @@ public class ProductDTO
         dto.setDescription( product.getDescription() );
 
         dto.setSize( new SizeDTO().mapper( product.getSize() ) );
+
         dto.setColor( new ColorDTO().mapper( product.getColor() ) );
 
         dto.setBrand( new BrandDTO().mapper( product.getBrand() ) );
+
         dto.setCategory( new CategoryDTO().mapper( product.getCategory() ) );
-        // dto.setProperties( product.getProperties() );
+
+        dto.setProperties( new PropertiesDTO().mapper( product.getProperties() ) );
+
+        dto.setImages( new ImageDTO().mapper( product.getImages() ) );
 
         return dto;
     }
@@ -248,4 +263,4 @@ public class ProductDTO
 }
 
 // -------------------------------------------------------------------------
-// end of class ProductItemDTO.java
+// end of class ProductDTO.java

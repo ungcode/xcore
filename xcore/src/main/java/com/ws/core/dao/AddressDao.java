@@ -13,29 +13,30 @@ public class AddressDao< T >
 {
 
 	@Override
-    public void persist( Address address )
+    public Address persist( Address address )
 	{
-        getEntityManager().persist( address );
+        persistAndFlush( address );
+        return address;
 
 	}
 
 	@Override
-	public void update(Address address)
+    public Address update( Address address )
 	{
-        getEntityManager().merge( address );
+        return mergeAndFlush( address );
 	}
 
 	@Override
 	public void delete(Address address)
 	{
-        getEntityManager().remove( address );
+        entityManager().remove( address );
 
 	}
 
     @Override
 	public Address fetch(Long id)
 	{
-        Query query = getEntityManager().createQuery( "SELECT a FROM Address a WHERE a.id =:id",
+        Query query = entityManager().createQuery( "SELECT a FROM Address a WHERE a.id =:id",
                                                       Address.class );
         query.setParameter( "id",
                             id );
@@ -46,7 +47,7 @@ public class AddressDao< T >
     @Override
 	public List<Address> fetchAll()
 	{
-        return getEntityManager().createQuery( "SELECT a FROM Address a ",
+        return entityManager().createQuery( "SELECT a FROM Address a ",
                                                Address.class )
                                  .getResultList();
 	}

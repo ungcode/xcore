@@ -1,12 +1,9 @@
 package com.ws.core.api;
 
-import com.ws.core.models.Image;
 import com.ws.core.models.Product;
-import com.ws.core.models.Properties;
 import com.ws.core.pagination.Pagination;
 import com.ws.core.services.ProductService;
-import com.ws.core.util.ParseJSON;
-import com.ws.core.util.Samples;
+import com.ws.core.util.SampleService;
 import jakarta.inject.Inject;
 import jakarta.json.JsonObject;
 import jakarta.ws.rs.DELETE;
@@ -18,8 +15,6 @@ import jakarta.ws.rs.PathParam;
 import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
-import java.util.List;
-import java.util.Map;
 
 
 @Path( "products" )
@@ -29,38 +24,22 @@ public class ProductResource {
     @Inject
     ProductService productService;
 
+    @Inject
+    SampleService  samplesService;
+
+
 
     @POST
     @Produces( MediaType.APPLICATION_JSON )
     public Response persist( JsonObject product )
     {
-        ParseJSON obj = new ParseJSON( product );
-
-        Product p = obj.buildObj( "product",
-                                  Product.class );
-        System.out.println( p );
-
-        List< Properties > properties = obj.buildObjList( "properties",
-                                                          Properties.class );
-        System.out.println( properties.get( 0 ) );
-
-
-        List< Image > images = obj.buildObjList( "images",
-                                                 Image.class );
-        // System.out.println( images );
-
-        System.out.println( images.get( 0 ) );
-
-        return null;
-        // return Response.ok( productService.persist( product ) ).build();
-
+        return Response.ok( productService.persist( product ) ).build();
     }
 
     @PUT
     @Produces( MediaType.APPLICATION_JSON )
     public Response update( Product product )
     {
-
         return Response.ok( productService.update( product ) ).build();
 
     }
@@ -75,19 +54,10 @@ public class ProductResource {
 
     }
 
-    @SuppressWarnings( "unchecked" )
     @GET
     @Produces( MediaType.APPLICATION_JSON )
     public Response fetchAll()
     {
-
-        Samples sample = new Samples();
-        Map< String, Object > data = sample.getData();
-        List< Product > products = ( List< Product > )data.get( "products" );
-        products.forEach( product -> {
-
-            // productService.persist( product );
-        } );
         return Response.ok().entity( productService.fetchAll() ).build();
 
     }
@@ -97,23 +67,29 @@ public class ProductResource {
     @Produces( MediaType.APPLICATION_JSON )
     public Response fetch( @PathParam( "id" ) Long id )
     {
-
-
         return Response.ok().entity( productService.fetch( id ) ).build();
 
     }
 
     @GET
-    @Path( "/{pages}" )
+    @Path( "/pages" )
     @Produces( MediaType.APPLICATION_JSON )
     public Response pagination( Pagination pagination )
     {
-
-
         return Response.ok()
                        .entity( productService.pagination( pagination ) )
                        .build();
 
+    }
+
+    @GET
+    @Path( "/samples" )
+    @Produces( MediaType.APPLICATION_JSON )
+    public Response loadSamples()
+    {
+
+        samplesService.loadSamples();
+        return Response.ok().build();
     }
 
 	

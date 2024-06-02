@@ -35,7 +35,7 @@ public class Properties implements Serializable {
     @Column( name = "prop_value" )
 	private String propValue;
 	
-	@ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne( cascade = CascadeType.ALL )
 	@JoinColumn(name = "product_id")
     private Product           product;
 	

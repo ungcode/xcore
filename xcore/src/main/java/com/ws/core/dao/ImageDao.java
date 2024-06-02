@@ -2,8 +2,6 @@
 package com.ws.core.dao;
 import com.ws.core.idao.Dao;
 import com.ws.core.models.Image;
-import com.ws.core.models.Product;
-import jakarta.inject.Inject;
 import jakarta.persistence.Query;
 import jakarta.transaction.Transactional;
 import java.util.List;
@@ -13,34 +11,31 @@ import java.util.List;
 public class ImageDao< T >
     extends Dao< Image >
 {
-    @Inject
-    protected ProductDao< Product > productDao;
-	@Override
-    public void persist( Image image )
-	{
 
-        getEntityManager().persist( image );
+	@Override
+    public Image persist( Image image )
+	{
+        return mergeAndFlush( image );
 
 	}
-
 	@Override
-    public void update( Image image )
+    public Image update( Image image )
 	{
-        add( image );
-        getEntityManager().merge( image );
+
+        return mergeAndFlush( image );
 	}
 
 	@Override
     public void delete( Image image )
 	{
-        getEntityManager().remove( image );
+        entityManager().remove( image );
 
 	}
 
     @Override
     public Image fetch( Long id )
 	{
-        Query query = getEntityManager().createQuery( "SELECT i FROM image i WHERE i.id =:id",
+        Query query = entityManager().createQuery( "SELECT i FROM image i WHERE i.id =:id",
                                                       Image.class );
         query.setParameter( "id",
                             id );
@@ -51,20 +46,23 @@ public class ImageDao< T >
     @Override
     public List< Image > fetchAll()
 	{
-        return getEntityManager().createQuery( "SELECT i FROM image i",
+        return entityManager().createQuery( "SELECT i FROM image i",
                                                Image.class )
                                  .getResultList();
 	}
 
-    private void add( Image image )
+    @SuppressWarnings( "unchecked" )
+    public List< Image > fetchByProductId( Long id )
     {
-        if( image.getProduct() != null
-            && image.getProduct().getId() != null )
-        {
-            Product product = productDao.fetch( image.getProduct().getId() );
-            image.setProduct( product );
-        }
-    }
+        Query query = entityManager().createQuery( "SELECT i FROM Image i"
+                                                      + " WHERE i.product.id =:productId",
+                                                      Image.class );
+        query.setParameter( "productId",
+                            id );
 
+        List< Image > properties = query.getResultList();
+
+        return properties;
+    }
 	
 }

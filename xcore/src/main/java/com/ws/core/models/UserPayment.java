@@ -10,8 +10,8 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import java.io.Serializable;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "USER_PAYMENT")
@@ -34,7 +34,7 @@ public class UserPayment implements Serializable {
 	private PaymentMethod paymentMethod;
 
 	@OneToMany(mappedBy = "userPayment")
-	private Set<ShopOrder> shoppingOrders = new HashSet<>();
+    private List< ShopOrder > shoppingOrders   = new ArrayList<>();
 
 	public UserPayment() {
 

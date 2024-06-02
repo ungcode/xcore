@@ -12,29 +12,30 @@ public class CategoryDao< T >
 {
 
 	@Override
-    public void persist( Category category )
+    public Category persist( Category category )
 	{
-        getEntityManager().persist( category );
+        persistAndFlush( category );
+        return category;
 
 	}
 
 	@Override
-    public void update( Category category )
+    public Category update( Category category )
 	{
-        getEntityManager().merge( category );
+        return mergeAndFlush( category );
 	}
 
 	@Override
     public void delete( Category category )
 	{
-        getEntityManager().remove( category );
+        entityManager().remove( category );
 
 	}
 
 	@Override
     public Category fetch( Long id )
 	{
-        Query query = getEntityManager().createQuery( "SELECT ca FROM Category ca WHERE ca.id =:id" );
+        Query query = entityManager().createQuery( "SELECT ca FROM Category ca WHERE ca.id =:id" );
         query.setParameter( "id",
                             id );
         return ( Category )query.getSingleResult();
@@ -44,7 +45,7 @@ public class CategoryDao< T >
     public List< Category > fetchAll()
 	{
 
-        TypedQuery< Category > query = getEntityManager().createQuery( "SELECT c "
+        TypedQuery< Category > query = entityManager().createQuery( "SELECT c "
                                                                    + "FROM Category c "
                                                                    + "JOIN c.parentCategory p ",
                                                                    Category.class );

@@ -12,29 +12,30 @@ public class CountryDao< T >
 
 
 	@Override
-    public void persist( Country country )
+    public Country persist( Country country )
 	{
-        getEntityManager().persist( country );
+        persistAndFlush( country );
+        return country;
 
 	}
 
 	@Override
-    public void update( Country country )
+    public Country update( Country country )
 	{
-        getEntityManager().merge( country );
+        return mergeAndFlush( country );
 	}
 
 	@Override
     public void delete( Country country )
 	{
-        getEntityManager().remove( country );
+        entityManager().remove( country );
 
 	}
 
 	@Override
     public Country fetch( Long id )
 	{
-        Query query = getEntityManager().createQuery( "SELECT c FROM Country c WHERE c.id =:id" );
+        Query query = entityManager().createQuery( "SELECT c FROM Country c WHERE c.id =:id" );
         query.setParameter( "id",
                             id );
         return ( Country )query.getSingleResult();
@@ -43,7 +44,7 @@ public class CountryDao< T >
 	@Override
     public List< Country > fetchAll()
 	{
-        return getEntityManager().createQuery( "SELECT c FROM Country c",
+        return entityManager().createQuery( "SELECT c FROM Country c",
                                                Country.class )
                                  .getResultList();
 	}

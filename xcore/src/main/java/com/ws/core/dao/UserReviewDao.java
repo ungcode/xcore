@@ -20,30 +20,31 @@ public class UserReviewDao< T >
     @Inject
     private UserDao< Tuser >          userDao;
 	@Override
-    public void persist( UserReview userReview )
+    public UserReview persist( UserReview userReview )
 	{
-        getEntityManager().persist( userReview );
+        persistAndFlush( userReview );
+        return userReview;
 
 	}
 
 	@Override
-    public void update( UserReview userReview )
+    public UserReview update( UserReview userReview )
 	{
         add( userReview );
-        getEntityManager().merge( userReview );
+        return mergeAndFlush( userReview );
 	}
 
 	@Override
     public void delete( UserReview userReview )
 	{
-        getEntityManager().remove( userReview );
+        entityManager().remove( userReview );
 
 	}
 
     @Override
     public UserReview fetch( Long id )
 	{
-        Query query = getEntityManager().createQuery( "SELECT ur FROM UserReview ur WHERE ur.id =:id",
+        Query query = entityManager().createQuery( "SELECT ur FROM UserReview ur WHERE ur.id =:id",
                                                       UserReview.class );
         query.setParameter( "id",
                             id );
@@ -54,7 +55,7 @@ public class UserReviewDao< T >
     @Override
     public List< UserReview > fetchAll()
 	{
-        return getEntityManager().createQuery( "SELECT ur FROM UserReview ur ",
+        return entityManager().createQuery( "SELECT ur FROM UserReview ur ",
                                                UserReview.class )
                                  .getResultList();
 	}

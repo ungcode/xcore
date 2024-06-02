@@ -21,7 +21,7 @@ public class Image implements Serializable {
 	private Long id;
     private String            url;
 	
-	@ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne( cascade = CascadeType.ALL )
 	@JoinColumn(name = "product_id")
     private Product           product;
 	
@@ -84,8 +84,6 @@ public class Image implements Serializable {
         builder.append( id );
         builder.append( ", url=" );
         builder.append( url );
-        builder.append( ", product=" );
-        builder.append( product );
         builder.append( "]" );
         return builder.toString();
     }

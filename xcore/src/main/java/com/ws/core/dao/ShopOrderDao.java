@@ -21,30 +21,31 @@ public class ShopOrderDao< T >
     @Inject
     private UserPaymentDao< UserPayment >         userPaymentDao;
 	@Override
-    public void persist( ShopOrder shopOrder )
+    public ShopOrder persist( ShopOrder shopOrder )
 	{
-        getEntityManager().persist( shopOrder );
+        persistAndFlush( shopOrder );
+        return shopOrder;
 
 	}
 
 	@Override
-    public void update( ShopOrder shopOrder )
+    public ShopOrder update( ShopOrder shopOrder )
 	{
         add( shopOrder );
-        getEntityManager().merge( shopOrder );
+        return mergeAndFlush( shopOrder );
 	}
 
 	@Override
     public void delete( ShopOrder shopOrder )
 	{
-        getEntityManager().remove( shopOrder );
+        entityManager().remove( shopOrder );
 
 	}
 
     @Override
     public ShopOrder fetch( Long id )
 	{
-        Query query = getEntityManager().createQuery( "SELECT so FROM ShopOrder so WHERE so.id =:id",
+        Query query = entityManager().createQuery( "SELECT so FROM ShopOrder so WHERE so.id =:id",
                                                       ShopOrder.class );
         query.setParameter( "id",
                             id );
@@ -55,7 +56,7 @@ public class ShopOrderDao< T >
     @Override
     public List< ShopOrder > fetchAll()
 	{
-        return getEntityManager().createQuery( "SELECT so FROM ShopOrder so ",
+        return entityManager().createQuery( "SELECT so FROM ShopOrder so ",
                                                ShopOrder.class )
                                  .getResultList();
 	}
