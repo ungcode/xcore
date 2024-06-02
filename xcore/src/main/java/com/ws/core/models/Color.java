@@ -66,6 +66,20 @@ public class Color implements Serializable {
         to.setProductEntry( from.getProductEntries() );
 
     }
+
+    @Override
+    public String toString()
+    {
+        StringBuilder builder = new StringBuilder();
+        builder.append( "Color [id=" );
+        builder.append( id );
+        builder.append( ", colorValue=" );
+        builder.append( colorValue );
+        builder.append( ", productEntries=" );
+        builder.append( productEntries );
+        builder.append( "]" );
+        return builder.toString();
+    }
 	
 	
 
