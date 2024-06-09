@@ -6,10 +6,12 @@ import com.ws.core.interceptors.Common;
 import com.ws.core.models.Country;
 import com.ws.core.response.StandardResponse;
 import com.ws.core.util.Error;
+import com.ws.core.util.ParseJSON;
 import com.ws.core.util.XcoreLogger;
 import jakarta.annotation.PostConstruct;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
+import jakarta.json.JsonObject;
 import jakarta.transaction.Transactional;
 
 @ApplicationScoped
@@ -37,7 +39,7 @@ public class CountryService
      * @see StandardResponse
      */
 	@Common
-    public CountryService persist( Country country )
+    public CountryService persist( JsonObject data )
 	{
         final String TAG = "CountryService.persist";
 
@@ -46,6 +48,8 @@ public class CountryService
             XcoreLogger.info( TAG,
                               XcoreLogger.START );
 
+            ParseJSON obj = new ParseJSON( data );
+            Country country = obj.GetObj( Country.class );
             dao.persist( country );
             service.setResponse( new StandardResponse< CountryDTO >( new CountryDTO().mapper( country ) ) );
 
@@ -76,7 +80,7 @@ public class CountryService
      * @see StandardResponse
      */
 
-    public CountryService update( Country __new )
+    public CountryService update( JsonObject data )
     {
 
         final String TAG = "CountryService.update";
@@ -85,6 +89,8 @@ public class CountryService
             XcoreLogger.info( TAG,
                               XcoreLogger.START );
 
+            ParseJSON obj = new ParseJSON( data );
+            Country __new = obj.GetObj( Country.class );
             Country Country = dao.fetch( __new.getId() );
 
             Country.merge( __new,

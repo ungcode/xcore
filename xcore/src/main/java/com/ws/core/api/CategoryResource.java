@@ -1,8 +1,8 @@
 package com.ws.core.api;
 
-import com.ws.core.models.Category;
 import com.ws.core.services.CategoryService;
 import jakarta.inject.Inject;
+import jakarta.json.JsonObject;
 import jakarta.ws.rs.DELETE;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.POST;
@@ -24,7 +24,7 @@ public class CategoryResource {
 
     @POST
     @Produces( MediaType.APPLICATION_JSON )
-    public Response persist( Category category )
+    public Response persist( JsonObject category )
     {
 
         return Response.ok().entity( categoryService.persist( category ) )
@@ -34,7 +34,7 @@ public class CategoryResource {
 
     @PUT
     @Produces( MediaType.APPLICATION_JSON )
-    public Response update( Category category )
+    public Response update( JsonObject category )
     {
 
         return Response.ok().entity( categoryService.update( category ) )

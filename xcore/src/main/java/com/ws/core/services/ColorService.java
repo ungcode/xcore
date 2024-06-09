@@ -6,10 +6,12 @@ import com.ws.core.interceptors.Common;
 import com.ws.core.models.Color;
 import com.ws.core.response.StandardResponse;
 import com.ws.core.util.Error;
+import com.ws.core.util.ParseJSON;
 import com.ws.core.util.XcoreLogger;
 import jakarta.annotation.PostConstruct;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
+import jakarta.json.JsonObject;
 import jakarta.transaction.Transactional;
 
 @ApplicationScoped
@@ -37,7 +39,7 @@ public class ColorService
      * @see StandardResponse
      */
 	@Common
-    public ColorService persist( Color color )
+    public ColorService persist( JsonObject data )
 	{
         final String TAG = "ColorService.persist";
 
@@ -46,6 +48,8 @@ public class ColorService
             XcoreLogger.info( TAG,
                               XcoreLogger.START );
 
+            ParseJSON obj = new ParseJSON( data );
+            Color color = obj.GetObj( Color.class );
             dao.persist( color );
             service.setResponse( new StandardResponse< ColorDTO >( new ColorDTO().mapper( color ) ) );
 
@@ -76,7 +80,7 @@ public class ColorService
      * @see StandardResponse
      */
 
-    public ColorService update( Color __new )
+    public ColorService update( JsonObject data )
     {
 
         final String TAG = "ColorService.update";
@@ -85,6 +89,8 @@ public class ColorService
             XcoreLogger.info( TAG,
                               XcoreLogger.START );
 
+            ParseJSON obj = new ParseJSON( data );
+            Color __new = obj.GetObj( Color.class );
             Color color = dao.fetch( __new.getId() );
 
             color.merge( __new,

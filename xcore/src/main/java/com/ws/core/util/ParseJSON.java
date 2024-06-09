@@ -27,6 +27,11 @@ public class ParseJSON
         return obj;
     }
 
+    public < T > T GetObj( Class< T > _class )
+    {
+        return this.GsonObj.fromJson( this.obj.toString(),
+                                      _class );
+    }
     public < T > T buildObj( String _key,
                            Class< T > _class )
     {

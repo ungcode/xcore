@@ -6,10 +6,12 @@ import com.ws.core.interceptors.Common;
 import com.ws.core.models.Size;
 import com.ws.core.response.StandardResponse;
 import com.ws.core.util.Error;
+import com.ws.core.util.ParseJSON;
 import com.ws.core.util.XcoreLogger;
 import jakarta.annotation.PostConstruct;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
+import jakarta.json.JsonObject;
 import jakarta.transaction.Transactional;
 
 @ApplicationScoped
@@ -37,7 +39,7 @@ public class SizeService
      * @see StandardResponse
      */
 	@Common
-    public SizeService persist( Size size )
+    public SizeService persist( JsonObject data )
 	{
         final String TAG = "SizeService.persist";
 
@@ -46,6 +48,8 @@ public class SizeService
             XcoreLogger.info( TAG,
                               XcoreLogger.START );
 
+            ParseJSON obj = new ParseJSON( data );
+            Size size = obj.GetObj( Size.class );
             dao.persist( size );
             service.setResponse( new StandardResponse< SizeDTO >( new SizeDTO().mapper( size ) ) );
 
@@ -76,7 +80,7 @@ public class SizeService
      * @see StandardResponse
      */
 
-    public SizeService update( Size __new )
+    public SizeService update( JsonObject data )
     {
 
         final String TAG = "SizeService.update";
@@ -85,6 +89,8 @@ public class SizeService
             XcoreLogger.info( TAG,
                               XcoreLogger.START );
 
+            ParseJSON obj = new ParseJSON( data );
+            Size __new = obj.GetObj( Size.class );
             Size size = dao.fetch( __new.getId() );
 
             size.merge( __new,

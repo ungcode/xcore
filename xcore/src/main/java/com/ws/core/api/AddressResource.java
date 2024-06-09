@@ -1,8 +1,8 @@
 package com.ws.core.api;
 
-import com.ws.core.models.Address;
 import com.ws.core.services.AddressService;
 import jakarta.inject.Inject;
+import jakarta.json.JsonObject;
 import jakarta.ws.rs.DELETE;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.POST;
@@ -14,7 +14,7 @@ import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 
 
-@Path( "adresses" )
+@Path( "addresses" )
 public class AddressResource {
 
 	
@@ -24,16 +24,15 @@ public class AddressResource {
 
     @POST
     @Produces( MediaType.APPLICATION_JSON )
-    public Response persist( Address address )
+    public Response persist( JsonObject address )
     {
-
         return Response.ok( addressService.persist( address ) ).build();
 
     }
 
     @PUT
     @Produces( MediaType.APPLICATION_JSON )
-    public Response update( Address address )
+    public Response update( JsonObject address )
     {
 
         return Response.ok( addressService.update( address ) ).build();

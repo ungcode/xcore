@@ -6,10 +6,12 @@ import com.ws.core.interceptors.Common;
 import com.ws.core.models.Brand;
 import com.ws.core.response.StandardResponse;
 import com.ws.core.util.Error;
+import com.ws.core.util.ParseJSON;
 import com.ws.core.util.XcoreLogger;
 import jakarta.annotation.PostConstruct;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
+import jakarta.json.JsonObject;
 import jakarta.transaction.Transactional;
 
 @ApplicationScoped
@@ -32,12 +34,12 @@ public class BrandService
     /**
      * store brand data in database
      * 
-     * @param brand to be saved
+     * @param data to be saved
      * @return service class operation result
      * @see StandardResponse
      */
 	@Common
-    public BrandService persist( Brand brand )
+    public BrandService persist( JsonObject data )
 	{
         final String TAG = "BrandService.persist";
 
@@ -45,7 +47,8 @@ public class BrandService
         {
             XcoreLogger.info( TAG,
                               XcoreLogger.START );
-
+            ParseJSON obj = new ParseJSON( data );
+            Brand brand = obj.GetObj( Brand.class );
             dao.persist( brand );
             service.setResponse( new StandardResponse< BrandDTO >( new BrandDTO().mapper( brand ) ) );
 
@@ -76,7 +79,7 @@ public class BrandService
      * @see StandardResponse
      */
 
-    public BrandService update( Brand __new )
+    public BrandService update( JsonObject data )
     {
 
         final String TAG = "BrandService.update";
@@ -85,6 +88,8 @@ public class BrandService
             XcoreLogger.info( TAG,
                               XcoreLogger.START );
 
+            ParseJSON obj = new ParseJSON( data );
+            Brand __new = obj.GetObj( Brand.class );
             Brand brand = dao.fetch( __new.getId() );
 
             brand.merge( __new,

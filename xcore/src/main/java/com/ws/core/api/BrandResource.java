@@ -1,8 +1,8 @@
 package com.ws.core.api;
 
-import com.ws.core.models.Brand;
 import com.ws.core.services.BrandService;
 import jakarta.inject.Inject;
+import jakarta.json.JsonObject;
 import jakarta.ws.rs.DELETE;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.POST;
@@ -24,7 +24,7 @@ public class BrandResource {
 
     @POST
     @Produces( MediaType.APPLICATION_JSON )
-    public Response persist( Brand brand )
+    public Response persist( JsonObject brand )
     {
 
         return Response.ok( brandService.persist( brand ) ).build();
@@ -33,7 +33,7 @@ public class BrandResource {
 
     @PUT
     @Produces( MediaType.APPLICATION_JSON )
-    public Response update( Brand brand )
+    public Response update( JsonObject brand )
     {
 
         return Response.ok( brandService.update( brand ) ).build();

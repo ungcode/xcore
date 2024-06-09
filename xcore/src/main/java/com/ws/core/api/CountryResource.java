@@ -1,8 +1,8 @@
 package com.ws.core.api;
 
-import com.ws.core.models.Country;
 import com.ws.core.services.CountryService;
 import jakarta.inject.Inject;
+import jakarta.json.JsonObject;
 import jakarta.ws.rs.DELETE;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.POST;
@@ -24,7 +24,7 @@ public class CountryResource {
 
     @POST
     @Produces( MediaType.APPLICATION_JSON )
-    public Response persist( Country country )
+    public Response persist( JsonObject country )
     {
 
 
@@ -34,7 +34,7 @@ public class CountryResource {
 
     @PUT
     @Produces( MediaType.APPLICATION_JSON )
-    public Response update( Country country )
+    public Response update( JsonObject country )
     {
 
         return Response.ok( countryService.update( country ) ).build();

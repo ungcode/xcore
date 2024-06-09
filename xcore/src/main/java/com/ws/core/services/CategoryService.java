@@ -6,10 +6,12 @@ import com.ws.core.interceptors.Common;
 import com.ws.core.models.Category;
 import com.ws.core.response.StandardResponse;
 import com.ws.core.util.Error;
+import com.ws.core.util.ParseJSON;
 import com.ws.core.util.XcoreLogger;
 import jakarta.annotation.PostConstruct;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
+import jakarta.json.JsonObject;
 import jakarta.transaction.Transactional;
 import java.util.List;
 
@@ -38,7 +40,7 @@ public class CategoryService
      * @see StandardResponse
      */
 	@Common
-    public CategoryService persist( Category category )
+    public CategoryService persist( JsonObject data  )
 	{
         final String TAG = "CategoryServce.persist";
 
@@ -47,6 +49,8 @@ public class CategoryService
             XcoreLogger.info( TAG,
                               XcoreLogger.START );
 
+            ParseJSON obj = new ParseJSON( data );
+            Category category = obj.GetObj( Category.class );
             dao.persist( category );
             service.setResponse( new StandardResponse< CategoryDTO >( new CategoryDTO().mapper( category ) ) );
 
@@ -77,7 +81,7 @@ public class CategoryService
      * @see StandardResponse
      */
 
-    public CategoryService update( Category __new )
+    public CategoryService update( JsonObject data )
     {
 
         final String TAG = "CategoryService.update";
@@ -85,6 +89,9 @@ public class CategoryService
         {
             XcoreLogger.info( TAG,
                               XcoreLogger.START );
+
+            ParseJSON obj = new ParseJSON( data );
+            Category __new = obj.GetObj( Category.class );
 
             Category category = dao.fetch( __new.getId() );
 

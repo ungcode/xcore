@@ -1,8 +1,8 @@
 package com.ws.core.api;
 
-import com.ws.core.models.Size;
 import com.ws.core.services.SizeService;
 import jakarta.inject.Inject;
+import jakarta.json.JsonObject;
 import jakarta.ws.rs.DELETE;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.POST;
@@ -24,7 +24,7 @@ public class SizeResource {
 
     @POST
     @Produces( MediaType.APPLICATION_JSON )
-    public Response persist( Size size )
+    public Response persist( JsonObject size )
     {
 
         return Response.ok( sizeService.persist( size ) ).build();
@@ -33,7 +33,7 @@ public class SizeResource {
 
     @PUT
     @Produces( MediaType.APPLICATION_JSON )
-    public Response update( Size size )
+    public Response update( JsonObject size )
     {
 
         return Response.ok( sizeService.update( size ) ).build();

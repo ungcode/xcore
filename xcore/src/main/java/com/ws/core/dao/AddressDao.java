@@ -34,14 +34,14 @@ public class AddressDao< T >
 	}
 
     @Override
-	public Address fetch(Long id)
-	{
+    public Address fetch( Long id )
+    {
         Query query = entityManager().createQuery( "SELECT a FROM Address a WHERE a.id =:id",
                                                       Address.class );
         query.setParameter( "id",
                             id );
         return ( Address )query.getSingleResult();
-	}
+    }
 
 
     @Override

@@ -1,15 +1,19 @@
 package com.ws.core.services;
 
 import com.ws.core.dao.AddressDao;
+import com.ws.core.dao.CountryDao;
 import com.ws.core.dto.AddressDTO;
 import com.ws.core.interceptors.Common;
 import com.ws.core.models.Address;
+import com.ws.core.models.Country;
 import com.ws.core.response.StandardResponse;
 import com.ws.core.util.Error;
+import com.ws.core.util.ParseJSON;
 import com.ws.core.util.XcoreLogger;
 import jakarta.annotation.PostConstruct;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
+import jakarta.json.JsonObject;
 import jakarta.transaction.Transactional;
 
 @ApplicationScoped
@@ -20,6 +24,8 @@ public class AddressService
 
     @Inject
     protected AddressDao< Address > dao;
+    @Inject
+    protected CountryDao< Country > countryDao;
     protected AddressService        service = null;
 
     @PostConstruct
@@ -37,7 +43,7 @@ public class AddressService
      * @see StandardResponse
      */
 	@Common
-	public AddressService persist(Address address) 
+    public AddressService persist( JsonObject data )
 	{
         final String TAG = "AddressService.persist";
 
@@ -45,6 +51,17 @@ public class AddressService
         {
             XcoreLogger.info( TAG,
                               XcoreLogger.START );
+            ParseJSON obj = new ParseJSON( data );
+
+            Address address = obj.GetObj( Address.class );
+
+            // if exists country id fetch country to update country of address
+            if( address.getCountry().getId() != null )
+            {
+                Long id = address.getCountry().getId();
+                Country c = countryDao.fetch( id );
+                address.setCountry( c );
+            }
 
 			dao.persist(address);
             service.setResponse( new StandardResponse< AddressDTO >( new AddressDTO().mapper( address ) ) );
@@ -53,7 +70,7 @@ public class AddressService
                               XcoreLogger.END );
 
 		} catch (Exception e) {
-
+            e.printStackTrace();
             setError( Error.ADDRESS_SERVICE_PERSIST_CODE,
                       Error.ADDRESS_SERVICE_PERSIST_LEVEL,
                       Error.ADDRESS_SERVICE_PERSIST_TEXT,
@@ -76,7 +93,7 @@ public class AddressService
      * @see StandardResponse
      */
 
-    public AddressService update( Address __new )
+    public AddressService update( JsonObject data )
     {
 
         final String TAG = "AddressService.update";
@@ -85,6 +102,8 @@ public class AddressService
             XcoreLogger.info( TAG,
                               XcoreLogger.START );
 
+            ParseJSON obj = new ParseJSON( data );
+            Address __new = obj.GetObj( Address.class );
             Address address = dao.fetch( __new.getId() );
 
             address.merge( __new,

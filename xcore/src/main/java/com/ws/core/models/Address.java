@@ -27,7 +27,7 @@ public class Address implements Serializable {
 	private String unitNumber;
 
 	@Column(name = "street_number")
-	private String StreetNumber;
+	private String streetNumber;
 
 	@Column(name = "address_line1")
 	private String addressLine1;
@@ -74,11 +74,11 @@ public class Address implements Serializable {
 	}
 
 	public String getStreetNumber() {
-		return StreetNumber;
+        return streetNumber;
 	}
 
 	public void setStreetNumber(String streetNumber) {
-		StreetNumber = streetNumber;
+        this.streetNumber = streetNumber;
 	}
 
 	public String getAddressLine1() {

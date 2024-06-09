@@ -20,7 +20,7 @@ public class Country implements Serializable
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 	
-	@Column(name = "country_name")
+    @Column( name = "country_name", unique = true )
 	private String countryName;
 	
     @OneToMany( mappedBy = "country" )

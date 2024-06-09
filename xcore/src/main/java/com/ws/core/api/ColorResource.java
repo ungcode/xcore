@@ -1,8 +1,8 @@
 package com.ws.core.api;
 
-import com.ws.core.models.Color;
 import com.ws.core.services.ColorService;
 import jakarta.inject.Inject;
+import jakarta.json.JsonObject;
 import jakarta.ws.rs.DELETE;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.POST;
@@ -24,7 +24,7 @@ public class ColorResource {
 
     @POST
     @Produces( MediaType.APPLICATION_JSON )
-    public Response persist( Color color )
+    public Response persist( JsonObject color )
     {
 
 
@@ -34,7 +34,7 @@ public class ColorResource {
 
     @PUT
     @Produces( MediaType.APPLICATION_JSON )
-    public Response update( Color color )
+    public Response update( JsonObject color )
     {
 
         return Response.ok( colorService.update( color ) ).build();

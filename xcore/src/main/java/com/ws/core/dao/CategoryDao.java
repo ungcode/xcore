@@ -14,9 +14,7 @@ public class CategoryDao< T >
 	@Override
     public Category persist( Category category )
 	{
-        persistAndFlush( category );
-        return category;
-
+        return mergeAndFlush( category );
 	}
 
 	@Override
